@@ -22,7 +22,7 @@ namespace TMS_Gate
 		private void btnTruckPass_Click(object sender, EventArgs e)
 		{
             panelMain.Controls.Clear();
-            var ctl =new CtlTruck() { Dock = DockStyle.Fill };
+            var ctl =new CtlTruckIn() { Dock = DockStyle.Fill };
 			
 			panelMain.Controls.Add(ctl);
 		}
@@ -54,5 +54,27 @@ namespace TMS_Gate
 
             panelMain.Controls.Add(ctl);
         }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            panelMain.Controls.Clear();
+            var ctl = new CtlTruckStatus() { Dock = DockStyle.Fill };
+            panelMain.Controls.Add(ctl);
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            panelMain.Controls.Clear();
+            var ctl = new CtlDailyIn() { Dock = DockStyle.Fill };
+            panelMain.Controls.Add(ctl);
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            panelMain.Controls.Clear();
+            var ctl = new CtlDailyOut() { Dock = DockStyle.Fill };
+            panelMain.Controls.Add(ctl);
+        }
+
     }
 }

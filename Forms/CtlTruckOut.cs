@@ -22,10 +22,7 @@ namespace TMS_Gate.Forms
         private uint iLastErr = 0;
         private Int32 m_lUserID = -1;
         private bool m_bInitSDK = false;
-        private bool m_bRecord = false;
-        private bool m_bTalk = false;
         private Int32 m_lRealHandle = -1;
-        private int lVoiceComHandle = -1;
         private string str;
         private IFormFile fileUpload;
         CHCNetSDK.REALDATACALLBACK RealData = null;
@@ -62,10 +59,10 @@ namespace TMS_Gate.Forms
                 MessageBoxAdv.Show(this, str, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            else
-            {
-                MessageBoxAdv.Show(this, "Login Success!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
+            //else
+            //{
+            //    MessageBoxAdv.Show(this, "Login Success!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //}
         }
 
         private void btnClose_Click(object sender, EventArgs e)
@@ -327,6 +324,7 @@ namespace TMS_Gate.Forms
             }
         }
 
+     
     }
 }
 

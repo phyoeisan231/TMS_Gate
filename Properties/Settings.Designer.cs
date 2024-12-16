@@ -76,14 +76,5 @@ namespace TMS_Gate.Properties {
                 return ((string)(this["Gate"]));
             }
         }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("YTGGATE1")]
-        public string OutGate {
-            get {
-                return ((string)(this["OutGate"]));
-            }
-        }
     }
 }

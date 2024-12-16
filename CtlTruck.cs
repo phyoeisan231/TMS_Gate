@@ -27,16 +27,13 @@ namespace TMS_Gate
 		private uint iLastErr = 0;
 		private Int32 m_lUserID = -1;
 		private bool m_bInitSDK = false;
-		private bool m_bRecord = false;
-		private bool m_bTalk = false;
 		private Int32 m_lRealHandle = -1;
-		private int lVoiceComHandle = -1;
         private string str;
 		private IFormFile fileUpload;
         CHCNetSDK.REALDATACALLBACK RealData = null;
 		public CHCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
 
-		public CtlTruck()
+        public CtlTruck()
 		{
 			InitializeComponent();
 			LoadData();
@@ -67,10 +64,10 @@ namespace TMS_Gate
                 MessageBoxAdv.Show(this, str, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
 			}
-			else
-			{
-                MessageBoxAdv.Show(this, "Login Success!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			}
+			//else
+			//{
+   //             MessageBoxAdv.Show(this, "Login Success!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+			//}
 		}
 
 		private void btnClose_Click(object sender, EventArgs e)
@@ -298,9 +295,9 @@ namespace TMS_Gate
 				{
 					p.Controls.Remove(this);
 				}
-                // Initialize controls
-                CtlDetailPanel ctl = new CtlDetailPanel() { Dock = DockStyle.Fill };
-                CtlTruckInDetail ctl1 = new CtlTruckInDetail() { Dock = DockStyle.Fill };
+				// Initialize controls
+				CtlDetailPanel ctl = new CtlDetailPanel() { Dock = DockStyle.Fill };
+				CtlTruckInDetail ctl1 = new CtlTruckInDetail() { Dock = DockStyle.Fill };
                 CtlTruckInWBQ ctl2 = new CtlTruckInWBQ() { Dock = DockStyle.Fill };
 
                 if (inboundCheck != null)
@@ -319,7 +316,7 @@ namespace TMS_Gate
                 }
                 else
                 {
-                    MessageBox.Show("InboundCheck data is missing.");
+                    MessageBoxAdv.Show(this, "InboundCheck data is missing.", "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 // Add main panel and show the form
@@ -327,9 +324,98 @@ namespace TMS_Gate
             }
             else
             {
-                MessageBox.Show("Please choose card No.");
+                MessageBoxAdv.Show(this, "Please choose card No.", "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
+        private void CtlTruck_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblyard_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblgate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTruckNo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTrailerNo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDriver_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCategory_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtCargoInfo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtArea_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

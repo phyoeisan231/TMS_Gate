@@ -20,8 +20,5 @@
     <Setting Name="Gate" Type="System.String" Scope="Application">
       <Value Profile="(Default)">YTGGATE</Value>
     </Setting>
-    <Setting Name="OutGate" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">YTGGATE1</Value>
-    </Setting>
   </Settings>
 </SettingsFile>

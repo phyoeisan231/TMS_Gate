@@ -335,9 +335,9 @@ namespace TMS_Gate.Forms
             this.lblgate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblgate.Location = new System.Drawing.Point(883, 109);
             this.lblgate.Name = "lblgate";
-            this.lblgate.Size = new System.Drawing.Size(95, 20);
+            this.lblgate.Size = new System.Drawing.Size(104, 20);
             this.lblgate.TabIndex = 27;
-            this.lblgate.Text = global::TMS_Gate.Properties.Settings.Default.OutGate;
+            this.lblgate.Text = global::TMS_Gate.Properties.Settings.Default.Gate;
             // 
             // cmbcard
             // 
@@ -389,12 +389,12 @@ namespace TMS_Gate.Forms
 
         }
 
-        private async void LoadData()
+        public async void LoadData()
         {
             outboundList = new List<ICD_OutBoundCheck>();
             List<ICD_OutBoundCheck> outCheckList = new List<ICD_OutBoundCheck>();
             string yard = Properties.Settings.Default.Yard;
-            string gate = Properties.Settings.Default.OutGate;
+            string gate = Properties.Settings.Default.Gate;
             this.cmbcard.DataSource = null;
             outCheckList = await _apiService.GetOutBoundCheckCardList(yard, gate);
             if (outCheckList.Count > 0)
@@ -451,15 +451,18 @@ namespace TMS_Gate.Forms
             fileUpload = null;
             outboundCheck = null;
         }
-        private void FillInCheckData(string cardNo)
+        public void FillInCheckData(string cardNo)
         {
             outboundCheck = outboundList.Find(x => x.CardNo == cardNo);
-            txtTruckNo.Text = outboundCheck.TruckVehicleRegNo;
-            txtCategory.Text = outboundCheck.OutPCCode;
-            txtCargoInfo.Text = outboundCheck.OutCargoInfo;
-            txtDriver.Text = outboundCheck.DriverName;
-            txtTrailerNo.Text = outboundCheck.TrailerVehicleRegNo;
-            txtArea.Text = outboundCheck.AreaID;
+            if (outboundCheck != null)
+            {
+                txtTruckNo.Text = outboundCheck.TruckVehicleRegNo;
+                txtCategory.Text = outboundCheck.OutPCCode;
+                txtCargoInfo.Text = outboundCheck.OutCargoInfo;
+                txtDriver.Text = outboundCheck.DriverName;
+                txtTrailerNo.Text = outboundCheck.TrailerVehicleRegNo;
+                txtArea.Text = outboundCheck.AreaID;
+            }          
         }
 
         private async Task<ResponseMessage> SaveGateOutData()
