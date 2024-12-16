@@ -84,7 +84,7 @@ namespace TMS_Gate.Forms
             this.truckToolStripMenuItem,
             this.visitorToolStripMenuItem,
             this.laborToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 52);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(1318, 36);
@@ -159,7 +159,7 @@ namespace TMS_Gate.Forms
             // 
             // inCheckToolStripMenuItem
             // 
-            this.inCheckToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document;
+            this.inCheckToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document_ok;
             this.inCheckToolStripMenuItem.Name = "inCheckToolStripMenuItem";
             this.inCheckToolStripMenuItem.Size = new System.Drawing.Size(201, 32);
             this.inCheckToolStripMenuItem.Text = "In Check";
@@ -167,7 +167,7 @@ namespace TMS_Gate.Forms
             // 
             // outCheckToolStripMenuItem
             // 
-            this.outCheckToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document;
+            this.outCheckToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document_ok;
             this.outCheckToolStripMenuItem.Name = "outCheckToolStripMenuItem";
             this.outCheckToolStripMenuItem.Size = new System.Drawing.Size(201, 32);
             this.outCheckToolStripMenuItem.Text = "Out Check";
@@ -175,7 +175,7 @@ namespace TMS_Gate.Forms
             // 
             // truckStatusToolStripMenuItem
             // 
-            this.truckStatusToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document;
+            this.truckStatusToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document_exchange;
             this.truckStatusToolStripMenuItem.Name = "truckStatusToolStripMenuItem";
             this.truckStatusToolStripMenuItem.Size = new System.Drawing.Size(201, 32);
             this.truckStatusToolStripMenuItem.Text = "Truck Status";
@@ -183,7 +183,7 @@ namespace TMS_Gate.Forms
             // 
             // dailyInToolStripMenuItem
             // 
-            this.dailyInToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document;
+            this.dailyInToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document_into;
             this.dailyInToolStripMenuItem.Name = "dailyInToolStripMenuItem";
             this.dailyInToolStripMenuItem.Size = new System.Drawing.Size(201, 32);
             this.dailyInToolStripMenuItem.Text = "Daily In";
@@ -191,7 +191,7 @@ namespace TMS_Gate.Forms
             // 
             // dailyOutToolStripMenuItem
             // 
-            this.dailyOutToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document;
+            this.dailyOutToolStripMenuItem.Image = global::TMS_Gate.Properties.Resources.document_out;
             this.dailyOutToolStripMenuItem.Name = "dailyOutToolStripMenuItem";
             this.dailyOutToolStripMenuItem.Size = new System.Drawing.Size(201, 32);
             this.dailyOutToolStripMenuItem.Text = "Daily Out";
@@ -215,7 +215,7 @@ namespace TMS_Gate.Forms
             // 
             this.panelTool.Controls.Add(this.toolStrip1);
             this.panelTool.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTool.Location = new System.Drawing.Point(0, 36);
+            this.panelTool.Location = new System.Drawing.Point(0, 88);
             this.panelTool.Margin = new System.Windows.Forms.Padding(4);
             this.panelTool.Name = "panelTool";
             this.panelTool.Size = new System.Drawing.Size(1318, 51);
@@ -295,9 +295,9 @@ namespace TMS_Gate.Forms
             this.toolStripSeparator3,
             this.toolBtnDailyIn,
             this.toolDailyOut});
-            this.toolStrip3.Location = new System.Drawing.Point(0, 118);
+            this.toolStrip3.Location = new System.Drawing.Point(0, 0);
             this.toolStrip3.Name = "toolStrip3";
-            this.toolStrip3.Size = new System.Drawing.Size(1790, 65);
+            this.toolStrip3.Size = new System.Drawing.Size(1318, 52);
             this.toolStrip3.TabIndex = 2;
             this.toolStrip3.Text = "toolStrip3";
             this.toolStrip3.Visible = false;
@@ -308,7 +308,7 @@ namespace TMS_Gate.Forms
             this.toolBtnTruckIn.Image = global::TMS_Gate.Properties.Resources.nav_up_blue;
             this.toolBtnTruckIn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnTruckIn.Name = "toolBtnTruckIn";
-            this.toolBtnTruckIn.Size = new System.Drawing.Size(85, 62);
+            this.toolBtnTruckIn.Size = new System.Drawing.Size(85, 49);
             this.toolBtnTruckIn.Text = "Truck In";
             this.toolBtnTruckIn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolBtnTruckIn.Click += new System.EventHandler(this.toolBtnTruckIn_Click);
@@ -319,7 +319,7 @@ namespace TMS_Gate.Forms
             this.toolBtnTruckOut.Image = global::TMS_Gate.Properties.Resources.nav_down_blue;
             this.toolBtnTruckOut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnTruckOut.Name = "toolBtnTruckOut";
-            this.toolBtnTruckOut.Size = new System.Drawing.Size(100, 62);
+            this.toolBtnTruckOut.Size = new System.Drawing.Size(100, 49);
             this.toolBtnTruckOut.Text = "Truck Out";
             this.toolBtnTruckOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolBtnTruckOut.Click += new System.EventHandler(this.toolBtnTruckOut_Click);
@@ -327,15 +327,15 @@ namespace TMS_Gate.Forms
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 65);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 52);
             // 
             // toolBtnInCheck
             // 
             this.toolBtnInCheck.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolBtnInCheck.Image = global::TMS_Gate.Properties.Resources.document;
+            this.toolBtnInCheck.Image = global::TMS_Gate.Properties.Resources.document_ok;
             this.toolBtnInCheck.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnInCheck.Name = "toolBtnInCheck";
-            this.toolBtnInCheck.Size = new System.Drawing.Size(89, 62);
+            this.toolBtnInCheck.Size = new System.Drawing.Size(89, 49);
             this.toolBtnInCheck.Text = "In Check";
             this.toolBtnInCheck.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolBtnInCheck.Click += new System.EventHandler(this.toolBtnInCheck_Click);
@@ -343,10 +343,10 @@ namespace TMS_Gate.Forms
             // toolBtnOutCheck
             // 
             this.toolBtnOutCheck.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolBtnOutCheck.Image = global::TMS_Gate.Properties.Resources.document;
+            this.toolBtnOutCheck.Image = global::TMS_Gate.Properties.Resources.document_ok;
             this.toolBtnOutCheck.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnOutCheck.Name = "toolBtnOutCheck";
-            this.toolBtnOutCheck.Size = new System.Drawing.Size(104, 62);
+            this.toolBtnOutCheck.Size = new System.Drawing.Size(104, 49);
             this.toolBtnOutCheck.Text = "Out Check";
             this.toolBtnOutCheck.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolBtnOutCheck.Click += new System.EventHandler(this.toolBtnOutCheck_Click);
@@ -354,15 +354,15 @@ namespace TMS_Gate.Forms
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 65);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 52);
             // 
             // toolBtnTruckStatus
             // 
             this.toolBtnTruckStatus.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolBtnTruckStatus.Image = global::TMS_Gate.Properties.Resources.document;
+            this.toolBtnTruckStatus.Image = global::TMS_Gate.Properties.Resources.document_exchange;
             this.toolBtnTruckStatus.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnTruckStatus.Name = "toolBtnTruckStatus";
-            this.toolBtnTruckStatus.Size = new System.Drawing.Size(121, 62);
+            this.toolBtnTruckStatus.Size = new System.Drawing.Size(121, 49);
             this.toolBtnTruckStatus.Text = "Truck Status";
             this.toolBtnTruckStatus.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolBtnTruckStatus.Click += new System.EventHandler(this.toolBtnTruckStatus_Click);
@@ -370,15 +370,15 @@ namespace TMS_Gate.Forms
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 65);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 52);
             // 
             // toolBtnDailyIn
             // 
             this.toolBtnDailyIn.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolBtnDailyIn.Image = global::TMS_Gate.Properties.Resources.document;
+            this.toolBtnDailyIn.Image = global::TMS_Gate.Properties.Resources.document_into;
             this.toolBtnDailyIn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolBtnDailyIn.Name = "toolBtnDailyIn";
-            this.toolBtnDailyIn.Size = new System.Drawing.Size(81, 62);
+            this.toolBtnDailyIn.Size = new System.Drawing.Size(81, 49);
             this.toolBtnDailyIn.Text = "Daily In";
             this.toolBtnDailyIn.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolBtnDailyIn.Click += new System.EventHandler(this.toolBtnDailyIn_Click);
@@ -386,10 +386,10 @@ namespace TMS_Gate.Forms
             // toolDailyOut
             // 
             this.toolDailyOut.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolDailyOut.Image = global::TMS_Gate.Properties.Resources.document;
+            this.toolDailyOut.Image = global::TMS_Gate.Properties.Resources.document_out;
             this.toolDailyOut.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolDailyOut.Name = "toolDailyOut";
-            this.toolDailyOut.Size = new System.Drawing.Size(96, 62);
+            this.toolDailyOut.Size = new System.Drawing.Size(96, 49);
             this.toolDailyOut.Text = "Daily Out";
             this.toolDailyOut.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.toolDailyOut.Click += new System.EventHandler(this.toolDailyOut_Click);

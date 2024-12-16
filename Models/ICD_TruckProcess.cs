@@ -25,8 +25,6 @@ namespace TMS_Gate.Models
         public string CardNo { get; set; }
         public string Status { get; set; }
         public string Customer { get; set; }
-        public Boolean? InboundWeight { get; set; }
-        public Boolean? OutboundWeight { get; set; }
         public string InWeightBridgeID { get; set; }
         public string OutWeightBridgeID { get; set; }
         public int? OutRegNo { get; set; } 
