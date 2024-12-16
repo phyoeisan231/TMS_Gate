@@ -87,12 +87,12 @@ namespace TMS_Gate.Forms
             // 
             // btnPreview
             // 
-            this.btnPreview.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.btnPreview.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnPreview.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPreview.Location = new System.Drawing.Point(128, 601);
             this.btnPreview.Name = "btnPreview";
             this.btnPreview.Size = new System.Drawing.Size(124, 40);
-            this.btnPreview.Style.BackColor = System.Drawing.SystemColors.InactiveCaption;
+            this.btnPreview.Style.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnPreview.TabIndex = 40;
             this.btnPreview.Text = "&Live View";
             this.btnPreview.UseVisualStyleBackColor = false;

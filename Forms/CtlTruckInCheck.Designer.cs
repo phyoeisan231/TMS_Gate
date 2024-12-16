@@ -56,9 +56,8 @@ namespace TMS_Gate.Forms
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(988, 25);
+            this.label1.Size = new System.Drawing.Size(1317, 31);
             this.label1.TabIndex = 1;
             this.label1.Text = "In Bound Check List";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -67,10 +66,10 @@ namespace TMS_Gate.Forms
             // 
             this.sfDateIncF.DateTimeIcon = null;
             this.sfDateIncF.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sfDateIncF.Location = new System.Drawing.Point(80, 50);
-            this.sfDateIncF.Margin = new System.Windows.Forms.Padding(2);
+            this.sfDateIncF.Location = new System.Drawing.Point(107, 62);
+            this.sfDateIncF.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sfDateIncF.Name = "sfDateIncF";
-            this.sfDateIncF.Size = new System.Drawing.Size(148, 23);
+            this.sfDateIncF.Size = new System.Drawing.Size(197, 28);
             this.sfDateIncF.TabIndex = 2;
             this.sfDateIncF.ToolTipText = "";
             // 
@@ -78,10 +77,10 @@ namespace TMS_Gate.Forms
             // 
             this.sfDateIncTo.DateTimeIcon = null;
             this.sfDateIncTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sfDateIncTo.Location = new System.Drawing.Point(304, 50);
-            this.sfDateIncTo.Margin = new System.Windows.Forms.Padding(2);
+            this.sfDateIncTo.Location = new System.Drawing.Point(405, 62);
+            this.sfDateIncTo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sfDateIncTo.Name = "sfDateIncTo";
-            this.sfDateIncTo.Size = new System.Drawing.Size(143, 23);
+            this.sfDateIncTo.Size = new System.Drawing.Size(191, 28);
             this.sfDateIncTo.TabIndex = 3;
             this.sfDateIncTo.ToolTipText = "";
             // 
@@ -90,9 +89,10 @@ namespace TMS_Gate.Forms
             this.sfBtnIncView.BackColor = System.Drawing.Color.CornflowerBlue;
             this.sfBtnIncView.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfBtnIncView.ForeColor = System.Drawing.Color.White;
-            this.sfBtnIncView.Location = new System.Drawing.Point(480, 46);
+            this.sfBtnIncView.Location = new System.Drawing.Point(640, 57);
+            this.sfBtnIncView.Margin = new System.Windows.Forms.Padding(4);
             this.sfBtnIncView.Name = "sfBtnIncView";
-            this.sfBtnIncView.Size = new System.Drawing.Size(80, 28);
+            this.sfBtnIncView.Size = new System.Drawing.Size(107, 34);
             this.sfBtnIncView.Style.BackColor = System.Drawing.Color.CornflowerBlue;
             this.sfBtnIncView.Style.ForeColor = System.Drawing.Color.White;
             this.sfBtnIncView.Style.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
@@ -105,10 +105,9 @@ namespace TMS_Gate.Forms
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(261, 50);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(348, 62);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 20);
+            this.label2.Size = new System.Drawing.Size(47, 25);
             this.label2.TabIndex = 5;
             this.label2.Text = "To :";
             // 
@@ -116,10 +115,9 @@ namespace TMS_Gate.Forms
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(23, 50);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(31, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(54, 20);
+            this.label3.Size = new System.Drawing.Size(68, 25);
             this.label3.TabIndex = 6;
             this.label3.Text = "From :";
             // 
@@ -128,12 +126,13 @@ namespace TMS_Gate.Forms
             this.sfBtnInc.BackColor = System.Drawing.Color.CornflowerBlue;
             this.sfBtnInc.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfBtnInc.ForeColor = System.Drawing.Color.White;
-            this.sfBtnInc.Location = new System.Drawing.Point(578, 46);
+            this.sfBtnInc.Location = new System.Drawing.Point(771, 57);
+            this.sfBtnInc.Margin = new System.Windows.Forms.Padding(4);
             this.sfBtnInc.Name = "sfBtnInc";
-            this.sfBtnInc.Size = new System.Drawing.Size(80, 28);
+            this.sfBtnInc.Size = new System.Drawing.Size(107, 34);
             this.sfBtnInc.Style.BackColor = System.Drawing.Color.CornflowerBlue;
             this.sfBtnInc.Style.ForeColor = System.Drawing.Color.White;
-            this.sfBtnInc.Style.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
+            this.sfBtnInc.Style.Image = global::TMS_Gate.Properties.Resources.nav_up_blue;
             this.sfBtnInc.TabIndex = 7;
             this.sfBtnInc.Text = "Gate In";
             this.sfBtnInc.UseVisualStyleBackColor = false;
@@ -148,12 +147,12 @@ namespace TMS_Gate.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.sfDataGrid1.EditMode = Syncfusion.WinForms.DataGrid.Enums.EditMode.SingleClick;
             this.sfDataGrid1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sfDataGrid1.Location = new System.Drawing.Point(2, 2);
-            this.sfDataGrid1.Margin = new System.Windows.Forms.Padding(2);
+            this.sfDataGrid1.Location = new System.Drawing.Point(3, 2);
+            this.sfDataGrid1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.sfDataGrid1.Name = "sfDataGrid1";
             this.sfDataGrid1.PreviewRowHeight = 35;
             this.sfDataGrid1.SerializationController = null;
-            this.sfDataGrid1.Size = new System.Drawing.Size(975, 126);
+            this.sfDataGrid1.Size = new System.Drawing.Size(1299, 155);
             this.sfDataGrid1.TabIndex = 0;
             this.sfDataGrid1.Text = "sfDataGrid1";
             // 
@@ -163,21 +162,22 @@ namespace TMS_Gate.Forms
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.sfDataGrid1);
-            this.panel1.Location = new System.Drawing.Point(2, 86);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2);
+            this.panel1.Location = new System.Drawing.Point(3, 106);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(988, 529);
+            this.panel1.Size = new System.Drawing.Size(1317, 651);
             this.panel1.TabIndex = 8;
             // 
             // sfbtnExport
             // 
-            this.sfbtnExport.BackColor = System.Drawing.Color.LightGreen;
+            this.sfbtnExport.BackColor = System.Drawing.Color.LightSteelBlue;
             this.sfbtnExport.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfbtnExport.ForeColor = System.Drawing.Color.ForestGreen;
-            this.sfbtnExport.Location = new System.Drawing.Point(678, 46);
+            this.sfbtnExport.Location = new System.Drawing.Point(904, 57);
+            this.sfbtnExport.Margin = new System.Windows.Forms.Padding(4);
             this.sfbtnExport.Name = "sfbtnExport";
-            this.sfbtnExport.Size = new System.Drawing.Size(80, 28);
-            this.sfbtnExport.Style.BackColor = System.Drawing.Color.LightGreen;
+            this.sfbtnExport.Size = new System.Drawing.Size(107, 34);
+            this.sfbtnExport.Style.BackColor = System.Drawing.Color.LightSteelBlue;
             this.sfbtnExport.Style.ForeColor = System.Drawing.Color.ForestGreen;
             this.sfbtnExport.Style.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
             this.sfbtnExport.TabIndex = 10;
@@ -187,8 +187,9 @@ namespace TMS_Gate.Forms
             // 
             // CtlTruckInCheck
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.sfbtnExport);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.sfBtnInc);
@@ -198,9 +199,9 @@ namespace TMS_Gate.Forms
             this.Controls.Add(this.sfDateIncTo);
             this.Controls.Add(this.sfDateIncF);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "CtlTruckInCheck";
-            this.Size = new System.Drawing.Size(988, 618);
+            this.Size = new System.Drawing.Size(1317, 761);
             ((System.ComponentModel.ISupportInitialize)(this.sfDataGrid1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
