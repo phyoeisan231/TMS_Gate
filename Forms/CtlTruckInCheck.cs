@@ -1,7 +1,12 @@
-﻿using Syncfusion.Windows.Forms;
+﻿using Syncfusion.Data;
+using Syncfusion.Windows.Forms;
 using Syncfusion.WinForms.DataGrid;
+using Syncfusion.WinForms.DataGrid.Enums;
+using Syncfusion.WinForms.DataGridConverter;
+using Syncfusion.XlsIO;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using TMS_Gate.Model;
 
@@ -101,6 +106,9 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Size = 11;
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Bold = true;
             this.sfDataGrid1.AllowResizingColumns = true;
+
+            
+
         }
 
         private void sfBtnIncView_Click(object sender, EventArgs e)
@@ -158,6 +166,57 @@ namespace TMS_Gate.Forms
         {
             this.sfBtnIncView.Enabled = false;
             this.sfBtnInc.Enabled = false;
+        }
+
+        private void sfbtnExport_Click(object sender, EventArgs e)
+        {
+            if (sfDataGrid1.View != null)
+            {
+                var options = new ExcelExportingOptions
+                {
+                    ExcelVersion = ExcelVersion.Excel2013
+                };
+                var excelEngine = this.sfDataGrid1.ExportToExcel(sfDataGrid1.View, options);
+                var workBook = excelEngine.Excel.Workbooks[0];
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel 97 to 2003 Files(*.xls)|*.xls|Excel 2007 to 2010 Files(*.xlsx)|*.xlsx|Excel 2013 File(*.xlsx)|*.xlsx",
+                    FilterIndex = 2
+                })
+                {
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        using (Stream stream = saveFileDialog.OpenFile())
+                        {
+                            switch (saveFileDialog.FilterIndex)
+                            {
+                                case 1:
+                                    workBook.Version = ExcelVersion.Excel97to2003;
+                                    break;
+                                case 2:
+                                    workBook.Version = ExcelVersion.Excel2010;
+                                    break;
+                                case 3:
+                                    workBook.Version = ExcelVersion.Excel2013;
+                                    break;
+                            }
+                            workBook.SaveAs(stream);
+                        }
+
+                        if (MessageBox.Show("Do you want to view the workbook?", "Export Successful",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No Data");
+                btnEnabled();
+            }
         }
     }
 }
