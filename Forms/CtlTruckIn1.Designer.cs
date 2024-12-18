@@ -71,9 +71,9 @@
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label8.Location = new System.Drawing.Point(301, 9);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(389, 32);
+            this.label8.Size = new System.Drawing.Size(356, 32);
             this.label8.TabIndex = 23;
-            this.label8.Text = "In Bound Gate Pass Record";
+            this.label8.Text = "Bound Gate Pass Record";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel1
