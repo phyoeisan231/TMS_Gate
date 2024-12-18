@@ -320,5 +320,6 @@ namespace TMS_Gate.Forms
                 FillInCheckData(cardNo);
             }
         }
+
     }
 }

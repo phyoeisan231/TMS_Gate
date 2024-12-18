@@ -62,13 +62,13 @@ namespace TMS_Gate.Forms
             this.lblyard = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.btnClose = new Syncfusion.WinForms.Controls.SfButton();
-            this.btnClear = new Syncfusion.WinForms.Controls.SfButton();
+            this.RealPlayWnd = new System.Windows.Forms.PictureBox();
             this.btnSave = new Syncfusion.WinForms.Controls.SfButton();
             this.btnDetail = new Syncfusion.WinForms.Controls.SfButton();
-            this.RealPlayWnd = new System.Windows.Forms.PictureBox();
-            this.btnCapture = new Syncfusion.WinForms.Controls.SfButton();
+            this.btnClear = new Syncfusion.WinForms.Controls.SfButton();
             this.btnPreview = new Syncfusion.WinForms.Controls.SfButton();
+            this.btnClose = new Syncfusion.WinForms.Controls.SfButton();
+            this.btnCapture = new Syncfusion.WinForms.Controls.SfButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sfComboBoxCard)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RealPlayWnd)).BeginInit();
@@ -110,7 +110,7 @@ namespace TMS_Gate.Forms
             this.panel1.Controls.Add(this.lblyard);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label10);
-            this.panel1.Location = new System.Drawing.Point(548, 54);
+            this.panel1.Location = new System.Drawing.Point(546, 54);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(735, 540);
             this.panel1.TabIndex = 30;
@@ -298,39 +298,15 @@ namespace TMS_Gate.Forms
             this.label10.TabIndex = 25;
             this.label10.Text = "Yard :";
             // 
-            // btnClose
+            // RealPlayWnd
             // 
-            this.btnClose.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.White;
-            this.btnClose.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnClose.Location = new System.Drawing.Point(1014, 600);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(134, 40);
-            this.btnClose.Style.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.btnClose.Style.ForeColor = System.Drawing.Color.White;
-            this.btnClose.Style.Image = global::TMS_Gate.Properties.Resources.delete1;
-            this.btnClose.TabIndex = 35;
-            this.btnClose.Text = "&Close";
-            this.btnClose.UseVisualStyleBackColor = false;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
-            // btnClear
-            // 
-            this.btnClear.BackColor = System.Drawing.Color.Red;
-            this.btnClear.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.ForeColor = System.Drawing.Color.White;
-            this.btnClear.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnClear.Location = new System.Drawing.Point(882, 601);
-            this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(119, 40);
-            this.btnClear.Style.BackColor = System.Drawing.Color.Red;
-            this.btnClear.Style.ForeColor = System.Drawing.Color.White;
-            this.btnClear.Style.Image = global::TMS_Gate.Properties.Resources.refresh;
-            this.btnClear.TabIndex = 34;
-            this.btnClear.Text = "&Clear";
-            this.btnClear.UseVisualStyleBackColor = false;
-            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            this.RealPlayWnd.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.RealPlayWnd.Location = new System.Drawing.Point(3, 53);
+            this.RealPlayWnd.Name = "RealPlayWnd";
+            this.RealPlayWnd.Size = new System.Drawing.Size(534, 541);
+            this.RealPlayWnd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RealPlayWnd.TabIndex = 23;
+            this.RealPlayWnd.TabStop = false;
             // 
             // btnSave
             // 
@@ -338,7 +314,7 @@ namespace TMS_Gate.Forms
             this.btnSave.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnSave.Location = new System.Drawing.Point(742, 600);
+            this.btnSave.Location = new System.Drawing.Point(750, 602);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(129, 40);
             this.btnSave.Style.BackColor = System.Drawing.SystemColors.MenuHighlight;
@@ -355,7 +331,7 @@ namespace TMS_Gate.Forms
             this.btnDetail.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetail.ForeColor = System.Drawing.Color.White;
             this.btnDetail.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnDetail.Location = new System.Drawing.Point(601, 600);
+            this.btnDetail.Location = new System.Drawing.Point(605, 602);
             this.btnDetail.Name = "btnDetail";
             this.btnDetail.Size = new System.Drawing.Size(129, 40);
             this.btnDetail.Style.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -366,22 +342,59 @@ namespace TMS_Gate.Forms
             this.btnDetail.UseVisualStyleBackColor = false;
             this.btnDetail.Click += new System.EventHandler(this.btnDetail_Click);
             // 
-            // RealPlayWnd
+            // btnClear
             // 
-            this.RealPlayWnd.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.RealPlayWnd.Location = new System.Drawing.Point(7, 53);
-            this.RealPlayWnd.Name = "RealPlayWnd";
-            this.RealPlayWnd.Size = new System.Drawing.Size(534, 541);
-            this.RealPlayWnd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.RealPlayWnd.TabIndex = 23;
-            this.RealPlayWnd.TabStop = false;
+            this.btnClear.BackColor = System.Drawing.Color.Red;
+            this.btnClear.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClear.ForeColor = System.Drawing.Color.White;
+            this.btnClear.ImageSize = new System.Drawing.Size(24, 24);
+            this.btnClear.Location = new System.Drawing.Point(895, 600);
+            this.btnClear.Name = "btnClear";
+            this.btnClear.Size = new System.Drawing.Size(119, 40);
+            this.btnClear.Style.BackColor = System.Drawing.Color.Red;
+            this.btnClear.Style.ForeColor = System.Drawing.Color.White;
+            this.btnClear.Style.Image = global::TMS_Gate.Properties.Resources.refresh;
+            this.btnClear.TabIndex = 34;
+            this.btnClear.Text = "&Clear";
+            this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
+            // 
+            // btnPreview
+            // 
+            this.btnPreview.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnPreview.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPreview.Location = new System.Drawing.Point(118, 602);
+            this.btnPreview.Name = "btnPreview";
+            this.btnPreview.Size = new System.Drawing.Size(124, 40);
+            this.btnPreview.Style.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.btnPreview.TabIndex = 37;
+            this.btnPreview.Text = "&Live View";
+            this.btnPreview.UseVisualStyleBackColor = false;
+            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.White;
+            this.btnClose.ImageSize = new System.Drawing.Size(24, 24);
+            this.btnClose.Location = new System.Drawing.Point(1029, 602);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(134, 40);
+            this.btnClose.Style.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.btnClose.Style.ForeColor = System.Drawing.Color.White;
+            this.btnClose.Style.Image = global::TMS_Gate.Properties.Resources.delete1;
+            this.btnClose.TabIndex = 35;
+            this.btnClose.Text = "&Close";
+            this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnCapture
             // 
             this.btnCapture.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnCapture.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCapture.ForeColor = System.Drawing.Color.White;
-            this.btnCapture.Location = new System.Drawing.Point(272, 601);
+            this.btnCapture.Location = new System.Drawing.Point(263, 602);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Size = new System.Drawing.Size(96, 40);
             this.btnCapture.Style.BackColor = System.Drawing.Color.DodgerBlue;
@@ -391,30 +404,17 @@ namespace TMS_Gate.Forms
             this.btnCapture.UseVisualStyleBackColor = false;
             this.btnCapture.Click += new System.EventHandler(this.btnCapture_Click);
             // 
-            // btnPreview
-            // 
-            this.btnPreview.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.btnPreview.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreview.Location = new System.Drawing.Point(125, 601);
-            this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(124, 40);
-            this.btnPreview.Style.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.btnPreview.TabIndex = 37;
-            this.btnPreview.Text = "&Live View";
-            this.btnPreview.UseVisualStyleBackColor = false;
-            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
-            // 
             // CtlTruckIn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnPreview);
-            this.Controls.Add(this.btnCapture);
             this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnCapture);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnDetail);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.btnPreview);
             this.Controls.Add(this.RealPlayWnd);
             this.Controls.Add(this.label8);
             this.Name = "CtlTruckIn";
@@ -533,12 +533,12 @@ namespace TMS_Gate.Forms
         private System.Windows.Forms.TextBox txtTruckNo;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private Syncfusion.WinForms.Controls.SfButton btnDetail;
+        private Syncfusion.WinForms.ListView.SfComboBox sfComboBoxCard;
         private Syncfusion.WinForms.Controls.SfButton btnSave;
+        private Syncfusion.WinForms.Controls.SfButton btnDetail;
         private Syncfusion.WinForms.Controls.SfButton btnClear;
+        private Syncfusion.WinForms.Controls.SfButton btnPreview;
         private Syncfusion.WinForms.Controls.SfButton btnClose;
         private Syncfusion.WinForms.Controls.SfButton btnCapture;
-        private Syncfusion.WinForms.Controls.SfButton btnPreview;
-        private Syncfusion.WinForms.ListView.SfComboBox sfComboBoxCard;
     }
 }

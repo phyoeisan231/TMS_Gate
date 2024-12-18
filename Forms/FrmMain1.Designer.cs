@@ -84,7 +84,7 @@ namespace TMS_Gate.Forms
             this.truckToolStripMenuItem,
             this.visitorToolStripMenuItem,
             this.laborToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 52);
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(11, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(1318, 36);
@@ -215,7 +215,7 @@ namespace TMS_Gate.Forms
             // 
             this.panelTool.Controls.Add(this.toolStrip1);
             this.panelTool.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTool.Location = new System.Drawing.Point(0, 88);
+            this.panelTool.Location = new System.Drawing.Point(0, 36);
             this.panelTool.Margin = new System.Windows.Forms.Padding(4);
             this.panelTool.Name = "panelTool";
             this.panelTool.Size = new System.Drawing.Size(1318, 51);
