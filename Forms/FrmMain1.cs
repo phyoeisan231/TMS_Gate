@@ -39,7 +39,7 @@ namespace TMS_Gate.Forms
         private void toolBtnTruckIn_Click(object sender, EventArgs e)
         {
             panelMain.Controls.Clear();
-            var ctl = new CtlTruckIn() { Dock = DockStyle.Fill };
+            var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
         }
@@ -52,7 +52,7 @@ namespace TMS_Gate.Forms
         private void truckInToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panelMain.Controls.Clear();
-            var ctl = new CtlTruckIn() { Dock = DockStyle.Fill };
+            var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
         }

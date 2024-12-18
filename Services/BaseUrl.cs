@@ -8,7 +8,7 @@ namespace TMS_Gate
 {
     public class BaseUrl
     {
-        public static string ApiUrl = "https://192.168.0.102:45456";
+        public static string ApiUrl = "https://192.168.0.102:45458";
         public static int count = 0;
     }
 }

@@ -248,6 +248,12 @@
     <Compile Include="Forms\CtlTruckIn.Designer.cs">
       <DependentUpon>CtlTruckIn.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CtlTruckIn1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\CtlTruckIn1.Designer.cs">
+      <DependentUpon>CtlTruckIn1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CtlTruckInDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -352,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CtlTruckIn.resx">
       <DependentUpon>CtlTruckIn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CtlTruckIn1.resx">
+      <DependentUpon>CtlTruckIn1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CtlTruckInDetail.resx">
       <DependentUpon>CtlTruckInDetail.cs</DependentUpon>
