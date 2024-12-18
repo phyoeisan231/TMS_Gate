@@ -1,6 +1,6 @@
 ﻿namespace TMS_Gate.Forms
 {
-    partial class CtlTruckIn1
+    partial class CtlTruckOut2
     {
         /// <summary> 
         /// Required designer variable.
@@ -30,8 +30,8 @@
         {
             this.label8 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnClose = new Syncfusion.WinForms.Controls.SfButton();
             this.btnCapture = new Syncfusion.WinForms.Controls.SfButton();
+            this.btnClose = new Syncfusion.WinForms.Controls.SfButton();
             this.btnClear = new Syncfusion.WinForms.Controls.SfButton();
             this.btnSave = new Syncfusion.WinForms.Controls.SfButton();
             this.btnDetail = new Syncfusion.WinForms.Controls.SfButton();
@@ -64,34 +64,46 @@
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(301, 9);
+            this.label8.Location = new System.Drawing.Point(0, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(389, 32);
-            this.label8.TabIndex = 23;
-            this.label8.Text = "In Bound Gate Pass Record";
+            this.label8.Size = new System.Drawing.Size(1300, 32);
+            this.label8.TabIndex = 24;
+            this.label8.Text = "Out Bound Gate Pass Record";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.btnClose);
-            this.panel1.Controls.Add(this.label8);
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnCapture);
+            this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.btnClear);
             this.panel1.Controls.Add(this.btnSave);
             this.panel1.Controls.Add(this.btnDetail);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.btnPreview);
             this.panel1.Controls.Add(this.RealPlayWnd);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Location = new System.Drawing.Point(16, 47);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1300, 707);
-            this.panel1.TabIndex = 24;
+            this.panel1.Size = new System.Drawing.Size(1271, 630);
+            this.panel1.TabIndex = 25;
+            // 
+            // btnCapture
+            // 
+            this.btnCapture.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnCapture.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCapture.ForeColor = System.Drawing.Color.White;
+            this.btnCapture.Location = new System.Drawing.Point(267, 555);
+            this.btnCapture.Name = "btnCapture";
+            this.btnCapture.Size = new System.Drawing.Size(84, 40);
+            this.btnCapture.Style.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnCapture.Style.ForeColor = System.Drawing.Color.White;
+            this.btnCapture.TabIndex = 54;
+            this.btnCapture.Text = "C&apture";
+            this.btnCapture.UseVisualStyleBackColor = false;
             // 
             // btnClose
             // 
@@ -99,29 +111,15 @@
             this.btnClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnClose.Location = new System.Drawing.Point(1011, 604);
+            this.btnClose.Location = new System.Drawing.Point(1011, 554);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(123, 40);
+            this.btnClose.Size = new System.Drawing.Size(122, 40);
             this.btnClose.Style.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.btnClose.Style.ForeColor = System.Drawing.Color.White;
             this.btnClose.Style.Image = global::TMS_Gate.Properties.Resources.delete1;
-            this.btnClose.TabIndex = 43;
+            this.btnClose.TabIndex = 53;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = false;
-            // 
-            // btnCapture
-            // 
-            this.btnCapture.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnCapture.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCapture.ForeColor = System.Drawing.Color.White;
-            this.btnCapture.Location = new System.Drawing.Point(245, 606);
-            this.btnCapture.Name = "btnCapture";
-            this.btnCapture.Size = new System.Drawing.Size(96, 40);
-            this.btnCapture.Style.BackColor = System.Drawing.Color.DodgerBlue;
-            this.btnCapture.Style.ForeColor = System.Drawing.Color.White;
-            this.btnCapture.TabIndex = 44;
-            this.btnCapture.Text = "C&apture";
-            this.btnCapture.UseVisualStyleBackColor = false;
             // 
             // btnClear
             // 
@@ -129,13 +127,13 @@
             this.btnClear.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.White;
             this.btnClear.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnClear.Location = new System.Drawing.Point(877, 604);
+            this.btnClear.Location = new System.Drawing.Point(879, 553);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(119, 40);
+            this.btnClear.Size = new System.Drawing.Size(107, 40);
             this.btnClear.Style.BackColor = System.Drawing.Color.Red;
             this.btnClear.Style.ForeColor = System.Drawing.Color.White;
             this.btnClear.Style.Image = global::TMS_Gate.Properties.Resources.refresh;
-            this.btnClear.TabIndex = 42;
+            this.btnClear.TabIndex = 52;
             this.btnClear.Text = "&Clear";
             this.btnClear.UseVisualStyleBackColor = false;
             // 
@@ -145,14 +143,14 @@
             this.btnSave.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnSave.Location = new System.Drawing.Point(732, 606);
+            this.btnSave.Location = new System.Drawing.Point(739, 554);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(129, 40);
+            this.btnSave.Size = new System.Drawing.Size(117, 40);
             this.btnSave.Style.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.btnSave.Style.ForeColor = System.Drawing.Color.White;
             this.btnSave.Style.Image = global::TMS_Gate.Properties.Resources.document_check;
-            this.btnSave.TabIndex = 41;
-            this.btnSave.Text = "&Gate In";
+            this.btnSave.TabIndex = 51;
+            this.btnSave.Text = "&Gate Out";
             this.btnSave.UseVisualStyleBackColor = false;
             // 
             // btnDetail
@@ -161,13 +159,13 @@
             this.btnDetail.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetail.ForeColor = System.Drawing.Color.White;
             this.btnDetail.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnDetail.Location = new System.Drawing.Point(587, 606);
+            this.btnDetail.Location = new System.Drawing.Point(598, 554);
             this.btnDetail.Name = "btnDetail";
-            this.btnDetail.Size = new System.Drawing.Size(129, 40);
+            this.btnDetail.Size = new System.Drawing.Size(117, 40);
             this.btnDetail.Style.BackColor = System.Drawing.Color.CornflowerBlue;
             this.btnDetail.Style.ForeColor = System.Drawing.Color.White;
             this.btnDetail.Style.Image = global::TMS_Gate.Properties.Resources.document_text;
-            this.btnDetail.TabIndex = 40;
+            this.btnDetail.TabIndex = 50;
             this.btnDetail.Text = "&Detail";
             this.btnDetail.UseVisualStyleBackColor = false;
             // 
@@ -194,25 +192,24 @@
             this.panel2.Controls.Add(this.lblyard);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label10);
-            this.panel2.Location = new System.Drawing.Point(535, 58);
+            this.panel2.Location = new System.Drawing.Point(545, 8);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(754, 540);
-            this.panel2.TabIndex = 39;
+            this.panel2.Size = new System.Drawing.Size(723, 540);
+            this.panel2.TabIndex = 49;
             // 
             // sfComboBoxCard
             // 
-            this.sfComboBoxCard.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.sfComboBoxCard.AutoCompleteSuggestMode = Syncfusion.WinForms.ListView.Enums.AutoCompleteSuggestMode.Contains;
             this.sfComboBoxCard.DropDownPosition = Syncfusion.WinForms.Core.Enums.PopupRelativeAlignment.Center;
             this.sfComboBoxCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sfComboBoxCard.Location = new System.Drawing.Point(204, 60);
+            this.sfComboBoxCard.Location = new System.Drawing.Point(204, 53);
             this.sfComboBoxCard.Name = "sfComboBoxCard";
-            this.sfComboBoxCard.Size = new System.Drawing.Size(368, 31);
+            this.sfComboBoxCard.Size = new System.Drawing.Size(368, 30);
+            this.sfComboBoxCard.Style.DropDownStyle.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.sfComboBoxCard.Style.EditorStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfComboBoxCard.Style.ReadOnlyEditorStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfComboBoxCard.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.sfComboBoxCard.Style.TokenStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sfComboBoxCard.TabIndex = 1;
+            this.sfComboBoxCard.TabIndex = 43;
             this.sfComboBoxCard.TabStop = false;
             // 
             // txtArea
@@ -222,7 +219,7 @@
             this.txtArea.Location = new System.Drawing.Point(204, 450);
             this.txtArea.Name = "txtArea";
             this.txtArea.Size = new System.Drawing.Size(368, 30);
-            this.txtArea.TabIndex = 6;
+            this.txtArea.TabIndex = 7;
             // 
             // label7
             // 
@@ -242,7 +239,7 @@
             this.txtCargoInfo.Multiline = true;
             this.txtCargoInfo.Name = "txtCargoInfo";
             this.txtCargoInfo.Size = new System.Drawing.Size(368, 114);
-            this.txtCargoInfo.TabIndex = 5;
+            this.txtCargoInfo.TabIndex = 6;
             // 
             // label6
             // 
@@ -261,7 +258,7 @@
             this.txtCategory.Location = new System.Drawing.Point(204, 274);
             this.txtCategory.Name = "txtCategory";
             this.txtCategory.Size = new System.Drawing.Size(368, 30);
-            this.txtCategory.TabIndex = 4;
+            this.txtCategory.TabIndex = 5;
             // 
             // label5
             // 
@@ -344,7 +341,7 @@
             // 
             this.lblgate.AutoSize = true;
             this.lblgate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblgate.Location = new System.Drawing.Point(460, 15);
+            this.lblgate.Location = new System.Drawing.Point(460, 16);
             this.lblgate.Name = "lblgate";
             this.lblgate.Size = new System.Drawing.Size(115, 25);
             this.lblgate.TabIndex = 30;
@@ -354,7 +351,7 @@
             // 
             this.lblyard.AutoSize = true;
             this.lblyard.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblyard.Location = new System.Drawing.Point(218, 16);
+            this.lblyard.Location = new System.Drawing.Point(218, 18);
             this.lblyard.Name = "lblyard";
             this.lblyard.Size = new System.Drawing.Size(56, 25);
             this.lblyard.TabIndex = 29;
@@ -385,33 +382,33 @@
             // 
             this.btnPreview.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnPreview.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreview.Location = new System.Drawing.Point(100, 606);
+            this.btnPreview.Location = new System.Drawing.Point(121, 555);
             this.btnPreview.Name = "btnPreview";
-            this.btnPreview.Size = new System.Drawing.Size(124, 40);
+            this.btnPreview.Size = new System.Drawing.Size(112, 40);
             this.btnPreview.Style.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.btnPreview.TabIndex = 45;
+            this.btnPreview.TabIndex = 48;
             this.btnPreview.Text = "&Live View";
             this.btnPreview.UseVisualStyleBackColor = false;
             // 
             // RealPlayWnd
             // 
             this.RealPlayWnd.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.RealPlayWnd.Location = new System.Drawing.Point(6, 57);
+            this.RealPlayWnd.Location = new System.Drawing.Point(3, 7);
             this.RealPlayWnd.Name = "RealPlayWnd";
-            this.RealPlayWnd.Size = new System.Drawing.Size(521, 541);
+            this.RealPlayWnd.Size = new System.Drawing.Size(522, 541);
             this.RealPlayWnd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.RealPlayWnd.TabIndex = 38;
+            this.RealPlayWnd.TabIndex = 47;
             this.RealPlayWnd.TabStop = false;
             // 
-            // CtlTruckIn1
+            // CtlTruckOut2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
-            this.Name = "CtlTruckIn1";
+            this.Controls.Add(this.label8);
+            this.Name = "CtlTruckOut2";
             this.Size = new System.Drawing.Size(1300, 707);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sfComboBoxCard)).EndInit();
@@ -424,8 +421,8 @@
 
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;
-        private Syncfusion.WinForms.Controls.SfButton btnClose;
         private Syncfusion.WinForms.Controls.SfButton btnCapture;
+        private Syncfusion.WinForms.Controls.SfButton btnClose;
         private Syncfusion.WinForms.Controls.SfButton btnClear;
         private Syncfusion.WinForms.Controls.SfButton btnSave;
         private Syncfusion.WinForms.Controls.SfButton btnDetail;

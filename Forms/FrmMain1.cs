@@ -60,7 +60,7 @@ namespace TMS_Gate.Forms
         private void toolBtnTruckOut_Click(object sender, EventArgs e)
         {
             panelMain.Controls.Clear();
-            var ctl = new CtlTruckOut1() { Dock = DockStyle.Fill };
+            var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
         }
@@ -108,7 +108,7 @@ namespace TMS_Gate.Forms
         private void truckOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panelMain.Controls.Clear();
-            var ctl = new CtlTruckOut1() { Dock = DockStyle.Fill };
+            var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
         }

@@ -280,6 +280,12 @@
     <Compile Include="Forms\CtlTruckOut1.Designer.cs">
       <DependentUpon>CtlTruckOut1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CtlTruckOut2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\CtlTruckOut2.Designer.cs">
+      <DependentUpon>CtlTruckOut2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\CtlTruckOutCheck.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -374,6 +380,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CtlTruckOut1.resx">
       <DependentUpon>CtlTruckOut1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CtlTruckOut2.resx">
+      <DependentUpon>CtlTruckOut2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\CtlTruckOutCheck.resx">
       <DependentUpon>CtlTruckOutCheck.cs</DependentUpon>
