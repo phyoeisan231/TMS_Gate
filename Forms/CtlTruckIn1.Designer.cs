@@ -64,16 +64,13 @@
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.label8.Location = new System.Drawing.Point(301, 9);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(356, 32);
+            this.label8.Size = new System.Drawing.Size(389, 32);
             this.label8.TabIndex = 23;
-            this.label8.Text = "Bound Gate Pass Record";
+            this.label8.Text = "In Bound Gate Pass Record";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel1
@@ -99,7 +96,7 @@
             this.btnClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnClose.Location = new System.Drawing.Point(1011, 472);
+            this.btnClose.Location = new System.Drawing.Point(1008, 472);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(123, 40);
             this.btnClose.Style.BackColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -129,7 +126,7 @@
             this.btnClear.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.White;
             this.btnClear.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnClear.Location = new System.Drawing.Point(877, 472);
+            this.btnClear.Location = new System.Drawing.Point(874, 472);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(119, 40);
             this.btnClear.Style.BackColor = System.Drawing.Color.Red;
@@ -145,7 +142,7 @@
             this.btnSave.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnSave.Location = new System.Drawing.Point(732, 474);
+            this.btnSave.Location = new System.Drawing.Point(729, 474);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(129, 40);
             this.btnSave.Style.BackColor = System.Drawing.SystemColors.MenuHighlight;
@@ -161,7 +158,7 @@
             this.btnDetail.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetail.ForeColor = System.Drawing.Color.White;
             this.btnDetail.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnDetail.Location = new System.Drawing.Point(587, 474);
+            this.btnDetail.Location = new System.Drawing.Point(584, 474);
             this.btnDetail.Name = "btnDetail";
             this.btnDetail.Size = new System.Drawing.Size(129, 40);
             this.btnDetail.Style.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -192,7 +189,7 @@
             this.panel2.Controls.Add(this.lblyard);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label10);
-            this.panel2.Location = new System.Drawing.Point(535, 58);
+            this.panel2.Location = new System.Drawing.Point(533, 58);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(652, 408);
             this.panel2.TabIndex = 39;
@@ -409,7 +406,6 @@
             this.Name = "CtlTruckIn1";
             this.Size = new System.Drawing.Size(1300, 707);
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sfComboBoxCard)).EndInit();

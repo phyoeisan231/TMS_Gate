@@ -64,21 +64,19 @@
             // 
             // label8
             // 
-            this.label8.Dock = System.Windows.Forms.DockStyle.Top;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Location = new System.Drawing.Point(101, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(1300, 32);
+            this.label8.Size = new System.Drawing.Size(772, 32);
             this.label8.TabIndex = 24;
             this.label8.Text = "Out Bound Gate Pass Record";
             this.label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.btnCapture);
+            this.panel1.Controls.Add(this.label8);
             this.panel1.Controls.Add(this.btnClose);
             this.panel1.Controls.Add(this.btnClear);
             this.panel1.Controls.Add(this.btnSave);
@@ -86,9 +84,10 @@
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.btnPreview);
             this.panel1.Controls.Add(this.RealPlayWnd);
-            this.panel1.Location = new System.Drawing.Point(16, 47);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1271, 630);
+            this.panel1.Size = new System.Drawing.Size(1300, 707);
             this.panel1.TabIndex = 25;
             // 
             // btnCapture
@@ -96,7 +95,7 @@
             this.btnCapture.BackColor = System.Drawing.Color.DodgerBlue;
             this.btnCapture.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCapture.ForeColor = System.Drawing.Color.White;
-            this.btnCapture.Location = new System.Drawing.Point(267, 555);
+            this.btnCapture.Location = new System.Drawing.Point(271, 465);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Size = new System.Drawing.Size(84, 40);
             this.btnCapture.Style.BackColor = System.Drawing.Color.DodgerBlue;
@@ -111,7 +110,7 @@
             this.btnClose.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.White;
             this.btnClose.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnClose.Location = new System.Drawing.Point(1011, 554);
+            this.btnClose.Location = new System.Drawing.Point(952, 465);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(122, 40);
             this.btnClose.Style.BackColor = System.Drawing.SystemColors.ControlDarkDark;
@@ -127,7 +126,7 @@
             this.btnClear.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClear.ForeColor = System.Drawing.Color.White;
             this.btnClear.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnClear.Location = new System.Drawing.Point(879, 553);
+            this.btnClear.Location = new System.Drawing.Point(830, 465);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(107, 40);
             this.btnClear.Style.BackColor = System.Drawing.Color.Red;
@@ -143,7 +142,7 @@
             this.btnSave.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.Color.White;
             this.btnSave.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnSave.Location = new System.Drawing.Point(739, 554);
+            this.btnSave.Location = new System.Drawing.Point(699, 466);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(117, 40);
             this.btnSave.Style.BackColor = System.Drawing.SystemColors.MenuHighlight;
@@ -159,7 +158,7 @@
             this.btnDetail.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDetail.ForeColor = System.Drawing.Color.White;
             this.btnDetail.ImageSize = new System.Drawing.Size(24, 24);
-            this.btnDetail.Location = new System.Drawing.Point(598, 554);
+            this.btnDetail.Location = new System.Drawing.Point(565, 466);
             this.btnDetail.Name = "btnDetail";
             this.btnDetail.Size = new System.Drawing.Size(117, 40);
             this.btnDetail.Style.BackColor = System.Drawing.Color.CornflowerBlue;
@@ -171,8 +170,6 @@
             // 
             // panel2
             // 
-            this.panel2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel2.Controls.Add(this.sfComboBoxCard);
             this.panel2.Controls.Add(this.txtArea);
@@ -192,9 +189,9 @@
             this.panel2.Controls.Add(this.lblyard);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label10);
-            this.panel2.Location = new System.Drawing.Point(545, 8);
+            this.panel2.Location = new System.Drawing.Point(537, 46);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(723, 540);
+            this.panel2.Size = new System.Drawing.Size(681, 408);
             this.panel2.TabIndex = 49;
             // 
             // sfComboBoxCard
@@ -238,7 +235,7 @@
             this.txtCargoInfo.Location = new System.Drawing.Point(204, 319);
             this.txtCargoInfo.Multiline = true;
             this.txtCargoInfo.Name = "txtCargoInfo";
-            this.txtCargoInfo.Size = new System.Drawing.Size(368, 114);
+            this.txtCargoInfo.Size = new System.Drawing.Size(368, 65);
             this.txtCargoInfo.TabIndex = 6;
             // 
             // label6
@@ -302,7 +299,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(81, 160);
+            this.label3.Location = new System.Drawing.Point(78, 162);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(103, 25);
             this.label3.TabIndex = 34;
@@ -382,7 +379,7 @@
             // 
             this.btnPreview.BackColor = System.Drawing.Color.LightSteelBlue;
             this.btnPreview.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreview.Location = new System.Drawing.Point(121, 555);
+            this.btnPreview.Location = new System.Drawing.Point(125, 465);
             this.btnPreview.Name = "btnPreview";
             this.btnPreview.Size = new System.Drawing.Size(112, 40);
             this.btnPreview.Style.BackColor = System.Drawing.Color.LightSteelBlue;
@@ -393,9 +390,9 @@
             // RealPlayWnd
             // 
             this.RealPlayWnd.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.RealPlayWnd.Location = new System.Drawing.Point(3, 7);
+            this.RealPlayWnd.Location = new System.Drawing.Point(7, 45);
             this.RealPlayWnd.Name = "RealPlayWnd";
-            this.RealPlayWnd.Size = new System.Drawing.Size(522, 541);
+            this.RealPlayWnd.Size = new System.Drawing.Size(521, 409);
             this.RealPlayWnd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.RealPlayWnd.TabIndex = 47;
             this.RealPlayWnd.TabStop = false;
@@ -405,7 +402,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.label8);
             this.Name = "CtlTruckOut2";
             this.Size = new System.Drawing.Size(1300, 707);
             this.panel1.ResumeLayout(false);
