@@ -1,4 +1,11 @@
-﻿namespace TMS_Gate.Forms
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using TMS_Gate.Model;
+using TMS_Gate.Models;
+using TMS_Gate.Services;
+
+namespace TMS_Gate.Forms
 {
     partial class CtlTruckIn1
     {
@@ -6,7 +13,11 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
+        public List<ICD_InBoundCheck> inboundList;
+        List<string> pCardList;
+        ICD_InBoundCheck inboundCheck = new ICD_InBoundCheck();
+        private GateApiService _apiService = new GateApiService();
+        public static int count = CommonData.count;
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
@@ -64,7 +75,7 @@
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -108,6 +119,7 @@
             this.btnClose.TabIndex = 43;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnCapture
             // 
@@ -122,6 +134,7 @@
             this.btnCapture.TabIndex = 44;
             this.btnCapture.Text = "C&apture";
             this.btnCapture.UseVisualStyleBackColor = false;
+            this.btnCapture.Click += new System.EventHandler(this.btnCapture_Click);
             // 
             // btnClear
             // 
@@ -138,6 +151,7 @@
             this.btnClear.TabIndex = 42;
             this.btnClear.Text = "&Clear";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnSave
             // 
@@ -154,6 +168,7 @@
             this.btnSave.TabIndex = 41;
             this.btnSave.Text = "&Gate In";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDetail
             // 
@@ -170,6 +185,7 @@
             this.btnDetail.TabIndex = 40;
             this.btnDetail.Text = "&Detail";
             this.btnDetail.UseVisualStyleBackColor = false;
+            this.btnDetail.Click += new System.EventHandler(this.btnDetail_Click);
             // 
             // panel2
             // 
@@ -212,6 +228,7 @@
             this.sfComboBoxCard.Style.TokenStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfComboBoxCard.TabIndex = 1;
             this.sfComboBoxCard.TabStop = false;
+            this.sfComboBoxCard.SelectedIndexChanged += new System.EventHandler(this.sfComboBoxCard_SelectedIndexChanged);
             // 
             // txtArea
             // 
@@ -390,6 +407,7 @@
             this.btnPreview.TabIndex = 45;
             this.btnPreview.Text = "&Live View";
             this.btnPreview.UseVisualStyleBackColor = false;
+            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
             // 
             // RealPlayWnd
             // 
@@ -409,6 +427,7 @@
             this.Name = "CtlTruckIn1";
             this.Size = new System.Drawing.Size(1300, 707);
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sfComboBoxCard)).EndInit();
@@ -416,7 +435,88 @@
             this.ResumeLayout(false);
 
         }
+        public async void LoadData()
+        {
+            inboundList = new List<ICD_InBoundCheck>();
+            List<ICD_InBoundCheck> inCheckList = new List<ICD_InBoundCheck>();
+            string yard = Properties.Settings.Default.Yard;
+            string gate = Properties.Settings.Default.Gate;
+            this.sfComboBoxCard.DataSource = null;
+            inCheckList = await _apiService.GetInBoundCheckCardList(yard, gate);
+            if (inCheckList.Count > 0)
+            {
+                inboundList = inCheckList;
+                pCardList = new List<string>();
+                pCardList = inCheckList.Select(x => x.CardNo).ToList();
+                this.sfComboBoxCard.DataSource = pCardList;
+            }
+        }
 
+
+
+        private void ClearData()
+        {
+            txtTruckNo.Text = "";
+            txtCategory.Text = "";
+            txtCargoInfo.Text = "";
+            txtDriver.Text = "";
+            txtTrailerNo.Text = "";
+            txtArea.Text = "";
+            sfComboBoxCard.SelectedItem = null;
+            if (m_lRealHandle >= 0)
+            {
+                CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
+                m_lRealHandle = -1;
+            }
+
+            RealPlayWnd.Image = null;
+            fileUpload = null;
+            inboundCheck = null;
+        }
+        public void FillInCheckData(string cardNo)
+        {
+            inboundCheck = inboundList.Find(x => x.CardNo == cardNo);
+            if (inboundCheck != null)
+            {
+                txtTruckNo.Text = inboundCheck.TruckVehicleRegNo;
+                txtCategory.Text = inboundCheck.InPCCode;
+                txtCargoInfo.Text = inboundCheck.InCargoInfo;
+                txtDriver.Text = inboundCheck.DriverName;
+                txtTrailerNo.Text = inboundCheck.TrailerVehicleRegNo;
+                txtArea.Text = inboundCheck.AreaID;
+            }
+
+        }
+
+        private async Task<ResponseMessage> SaveGateInData()
+        {
+            ResponseMessage msg = new ResponseMessage();
+            ICD_InBoundCheck inCheck = new ICD_InBoundCheck();
+            if (sfComboBoxCard.SelectedItem != null)
+            {
+                inCheck.CardNo = sfComboBoxCard.SelectedItem.ToString();
+                inCheck = inboundList.Find(x => x.CardNo == inCheck.CardNo);
+                inCheck.UploadPhoto = fileUpload;
+                if (Networking.IsInternetConnected())
+                {
+                    msg = await _apiService.SaveGateIn(inCheck);
+                }
+                else
+                {
+                    msg = DataAccess.AddGateInData(inCheck.CardNo);
+                    //MessageBoxAdv.Show(this, "Please check the internet!", "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //return msg;
+                }
+                if (msg.Status == true)
+                {
+                    LoadData();
+                    ClearData();
+                }
+
+                return msg;
+            }
+            return msg;
+        }
         #endregion
 
         private System.Windows.Forms.Label label8;

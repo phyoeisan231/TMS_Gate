@@ -1,4 +1,12 @@
-﻿namespace TMS_Gate.Forms
+﻿using Syncfusion.Windows.Forms;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using TMS_Gate.Models;
+using TMS_Gate.Services;
+
+namespace TMS_Gate.Forms
 {
     partial class CtlTruckOut2
     {
@@ -6,6 +14,11 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+        public List<ICD_OutBoundCheck> outboundList;
+        List<string> pCardList;
+        ICD_OutBoundCheck outboundCheck = new ICD_OutBoundCheck();
+        public static int count = CommonData.count;
+        private GateApiService _apiService = new GateApiService();
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -103,6 +116,7 @@
             this.btnCapture.TabIndex = 54;
             this.btnCapture.Text = "C&apture";
             this.btnCapture.UseVisualStyleBackColor = false;
+            this.btnCapture.Click += new System.EventHandler(this.btnCapture_Click);
             // 
             // btnClose
             // 
@@ -119,6 +133,7 @@
             this.btnClose.TabIndex = 53;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = false;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
             // btnClear
             // 
@@ -135,6 +150,7 @@
             this.btnClear.TabIndex = 52;
             this.btnClear.Text = "&Clear";
             this.btnClear.UseVisualStyleBackColor = false;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnSave
             // 
@@ -151,6 +167,7 @@
             this.btnSave.TabIndex = 51;
             this.btnSave.Text = "&Gate Out";
             this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnDetail
             // 
@@ -167,6 +184,7 @@
             this.btnDetail.TabIndex = 50;
             this.btnDetail.Text = "&Detail";
             this.btnDetail.UseVisualStyleBackColor = false;
+            this.btnDetail.Click += new System.EventHandler(this.btnDetail_Click);
             // 
             // panel2
             // 
@@ -189,9 +207,9 @@
             this.panel2.Controls.Add(this.lblyard);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label10);
-            this.panel2.Location = new System.Drawing.Point(537, 46);
+            this.panel2.Location = new System.Drawing.Point(533, 46);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(681, 408);
+            this.panel2.Size = new System.Drawing.Size(675, 408);
             this.panel2.TabIndex = 49;
             // 
             // sfComboBoxCard
@@ -208,6 +226,7 @@
             this.sfComboBoxCard.Style.TokenStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfComboBoxCard.TabIndex = 43;
             this.sfComboBoxCard.TabStop = false;
+            this.sfComboBoxCard.SelectedIndexChanged += new System.EventHandler(this.sfComboBoxCard_SelectedIndexChanged);
             // 
             // txtArea
             // 
@@ -386,6 +405,7 @@
             this.btnPreview.TabIndex = 48;
             this.btnPreview.Text = "&Live View";
             this.btnPreview.UseVisualStyleBackColor = false;
+            this.btnPreview.Click += new System.EventHandler(this.btnPreview_Click);
             // 
             // RealPlayWnd
             // 
@@ -412,8 +432,86 @@
             this.ResumeLayout(false);
 
         }
+        public async void LoadData()
+        {
+            outboundList = new List<ICD_OutBoundCheck>();
+            List<ICD_OutBoundCheck> outCheckList = new List<ICD_OutBoundCheck>();
+            string yard = Properties.Settings.Default.Yard;
+            string gate = Properties.Settings.Default.Gate;
+            this.sfComboBoxCard.DataSource = null;
+            outCheckList = await _apiService.GetOutBoundCheckCardList(yard, gate);
+            if (outCheckList.Count > 0)
+            {
+                outboundList = outCheckList;
+                pCardList = new List<string>();
+                pCardList = outCheckList.Select(x => x.CardNo).ToList();
+                this.sfComboBoxCard.DataSource = pCardList;
+            }
+        }
 
         #endregion
+
+        private void ClearData()
+        {
+            txtTruckNo.Text = "";
+            txtCategory.Text = "";
+            txtCargoInfo.Text = "";
+            txtDriver.Text = "";
+            txtTrailerNo.Text = "";
+            txtArea.Text = "";
+            sfComboBoxCard.SelectedItem = null;
+            if (m_lRealHandle >= 0)
+            {
+                CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
+                m_lRealHandle = -1;
+            }
+
+            RealPlayWnd.Image = null;
+            fileUpload = null;
+            outboundCheck = null;
+        }
+
+        public void FillInCheckData(string cardNo)
+        {
+            outboundCheck = outboundList.Find(x => x.CardNo == cardNo);
+            if (outboundCheck != null)
+            {
+                txtTruckNo.Text = outboundCheck.TruckVehicleRegNo;
+                txtCategory.Text = outboundCheck.OutPCCode;
+                txtCargoInfo.Text = outboundCheck.OutCargoInfo;
+                txtDriver.Text = outboundCheck.DriverName;
+                txtTrailerNo.Text = outboundCheck.TrailerVehicleRegNo;
+                txtArea.Text = outboundCheck.AreaID;
+            }
+        }
+
+        private async Task<ResponseMessage> SaveGateOutData()
+        {
+            ResponseMessage msg = new ResponseMessage();
+            ICD_OutBoundCheck outCheck = new ICD_OutBoundCheck();
+            if (sfComboBoxCard.SelectedItem != null)
+            {
+                outCheck.CardNo = sfComboBoxCard.SelectedItem.ToString();
+                outCheck = outboundList.Find(x => x.CardNo == outCheck.CardNo);
+                outCheck.UploadPhoto = fileUpload;
+                if (Networking.IsInternetConnected())
+                {
+                    msg = await _apiService.SaveGateOut(outCheck);
+                }
+                else
+                {
+                    MessageBoxAdv.Show(this, "Please check the internet!", "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return msg;
+                }
+                if (msg.Status == true)
+                {
+                    LoadData();
+                    ClearData();
+                }
+                return msg;
+            }
+            return msg;
+        }
 
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel1;

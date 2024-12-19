@@ -35,9 +35,11 @@ namespace TMS_Gate.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtlDailyOut));
             this.label1 = new System.Windows.Forms.Label();
             this.sfDataGrid1 = new Syncfusion.WinForms.DataGrid.SfDataGrid();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.sfbtnExport = new Syncfusion.WinForms.Controls.SfButton();
             ((System.ComponentModel.ISupportInitialize)(this.sfDataGrid1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -71,15 +73,33 @@ namespace TMS_Gate.Forms
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.sfDataGrid1);
-            this.panel1.Location = new System.Drawing.Point(0, 61);
+            this.panel1.Location = new System.Drawing.Point(0, 76);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1318, 699);
+            this.panel1.Size = new System.Drawing.Size(1318, 684);
             this.panel1.TabIndex = 2;
+            // 
+            // sfbtnExport
+            // 
+            this.sfbtnExport.BackColor = System.Drawing.Color.ForestGreen;
+            this.sfbtnExport.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sfbtnExport.ForeColor = System.Drawing.Color.White;
+            this.sfbtnExport.Location = new System.Drawing.Point(16, 35);
+            this.sfbtnExport.Margin = new System.Windows.Forms.Padding(4);
+            this.sfbtnExport.Name = "sfbtnExport";
+            this.sfbtnExport.Size = new System.Drawing.Size(107, 34);
+            this.sfbtnExport.Style.BackColor = System.Drawing.Color.ForestGreen;
+            this.sfbtnExport.Style.ForeColor = System.Drawing.Color.White;
+            this.sfbtnExport.Style.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image")));
+            this.sfbtnExport.TabIndex = 11;
+            this.sfbtnExport.Text = "Export";
+            this.sfbtnExport.UseVisualStyleBackColor = false;
+            this.sfbtnExport.Click += new System.EventHandler(this.sfbtnExport_Click);
             // 
             // CtlDailyOut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.sfbtnExport);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Name = "CtlDailyOut";
@@ -109,5 +129,6 @@ namespace TMS_Gate.Forms
         private System.Windows.Forms.Label label1;
         private Syncfusion.WinForms.DataGrid.SfDataGrid sfDataGrid1;
         private System.Windows.Forms.Panel panel1;
+        private Syncfusion.WinForms.Controls.SfButton sfbtnExport;
     }
 }

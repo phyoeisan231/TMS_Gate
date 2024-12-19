@@ -99,7 +99,7 @@ namespace TMS_Gate.Forms
             //this.sfDataGrid1.Columns["InCheckDateTime"].HeaderStyle.TextColor = Color.White;
             //this.sfDataGrid1.Style.AddNewRowStyle.BackColor = Color.DarkCyan;
             //this.sfDataGrid1.Style.AddNewRowStyle.TextColor = Color.White;
-            this.sfDataGrid1.Style.HeaderStyle.BackColor = Color.DodgerBlue;
+            this.sfDataGrid1.Style.HeaderStyle.BackColor = Color.SteelBlue;
             this.sfDataGrid1.Style.HeaderStyle.TextColor = Color.White;
             this.sfDataGrid1.Style.HeaderStyle.Font.Size = 12;
             this.sfDataGrid1.Style.HeaderStyle.Font.Bold = true;
@@ -141,7 +141,7 @@ namespace TMS_Gate.Forms
                     p.Controls.Remove(this);
                 }
                 // Initialize controls
-                var ctl = new CtlTruckIn() { Dock = DockStyle.Fill };
+                var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
                 // Add main panel and show the form
                 p.Controls.Add(ctl);
                 ICD_InBoundCheck inData = (ICD_InBoundCheck)sfDataGrid1.SelectedItem;
@@ -151,7 +151,7 @@ namespace TMS_Gate.Forms
             }
             else
             {
-                MessageBox.Show("Please select row.");
+                MessageBoxAdv.Show(this, "Please select row!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 btnEnabled();
             }
         }
@@ -160,16 +160,20 @@ namespace TMS_Gate.Forms
         {
             this.sfBtnIncView.Enabled = true;
             this.sfBtnInc.Enabled = true;
+            this.sfbtnExport.Enabled = true;
         }
 
         private void btnDisabled()
         {
             this.sfBtnIncView.Enabled = false;
             this.sfBtnInc.Enabled = false;
+            this.sfbtnExport.Enabled = false;
         }
 
         private void sfbtnExport_Click(object sender, EventArgs e)
         {
+            this.btnDisabled();
+
             if (sfDataGrid1.View != null)
             {
                 var options = new ExcelExportingOptions
@@ -214,9 +218,10 @@ namespace TMS_Gate.Forms
             }
             else
             {
-                MessageBox.Show("No Data");
+                MessageBoxAdv.Show(this, "No Data!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 btnEnabled();
             }
+            btnEnabled();
         }
     }
 }

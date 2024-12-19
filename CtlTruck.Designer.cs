@@ -17,7 +17,7 @@ namespace TMS_Gate
         List<string> pCardList;
         ICD_InBoundCheck inboundCheck = new ICD_InBoundCheck();
         private GateApiService _apiService = new GateApiService();
-        public static int count = BaseUrl.count;
+        public static int count = CommonData.count;
         //private readonly IConnectivity _connectivity;
         /// <summary> 
         /// Required designer variable.

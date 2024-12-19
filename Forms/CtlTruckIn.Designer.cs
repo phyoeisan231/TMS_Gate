@@ -20,7 +20,7 @@ namespace TMS_Gate.Forms
         List<string> pCardList;
         ICD_InBoundCheck inboundCheck = new ICD_InBoundCheck();
         private GateApiService _apiService = new GateApiService();
-        public static int count = BaseUrl.count;
+        public static int count = CommonData.count;
         /// <summary> 
         /// Clean up any resources being used.
         /// </summary>

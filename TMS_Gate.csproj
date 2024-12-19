@@ -344,7 +344,7 @@
     <Compile Include="Models\WeightBridgeQueue.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\BaseUrl.cs" />
+    <Compile Include="Services\CommonData.cs" />
     <Compile Include="Services\DataAccess.cs" />
     <Compile Include="Services\GateApiService.cs" />
     <EmbeddedResource Include="CtlTruck.resx">

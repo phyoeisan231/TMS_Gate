@@ -1,14 +1,19 @@
 ﻿using Syncfusion.Windows.Forms;
 using Syncfusion.WinForms.DataGrid;
+using Syncfusion.WinForms.DataGridConverter;
+using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Data.Entity.Infrastructure.Design.Executor;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TMS_Gate.Forms
 {
@@ -110,29 +115,113 @@ namespace TMS_Gate.Forms
             //this.sfDataGrid1.Columns["InCheckDateTime"].HeaderStyle.TextColor = Color.White;
             //this.sfDataGrid1.Style.AddNewRowStyle.BackColor = Color.DarkCyan;
             //this.sfDataGrid1.Style.AddNewRowStyle.TextColor = Color.White;
-            this.sfDataGrid1.Style.HeaderStyle.BackColor = Color.DodgerBlue;
+            this.sfDataGrid1.Style.HeaderStyle.BackColor = Color.SteelBlue;
             this.sfDataGrid1.Style.HeaderStyle.TextColor = Color.White;
             this.sfDataGrid1.Style.HeaderStyle.Font.Size = 12;
             this.sfDataGrid1.Style.HeaderStyle.Font.Bold = true;
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Size = 11;
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Bold = true;
             this.sfDataGrid1.AllowResizingColumns = true;
+            this.sfComboBoxStatus.DataSource = CommonData.truckStatuslist;
         }
 
         private void sfBtnTruckView_Click(object sender, EventArgs e)
         {
-            this.sfBtnTruckView.Enabled = false;
-            if (sfDateTruckF.Value != null && sfDateTruckTo.Value != null)
+            this.btnDisabled();
+
+            if (sfDateTruckF.Value != null && sfDateTruckTo.Value != null && sfComboBoxStatus.SelectedItems != null)
             {
                 DateTime fromDate = (DateTime)sfDateTruckF.Value;
                 DateTime toDate = (DateTime)sfDateTruckTo.Value;
-                LoadData(fromDate, toDate);
+
+                // Retrieve the selected items as a list of strings
+                List<string> selectedStatuses = sfComboBoxStatus.SelectedItems
+                    .Cast<string>()
+                    .ToList();
+
+                // Format the selected statuses for use
+                string formattedStatuses = FormatParams(selectedStatuses);
+                LoadData(fromDate, toDate, formattedStatuses);
             }
             else
             {
-                MessageBoxAdv.Show(this, "Date values is null!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.sfBtnTruckView.Enabled = true;
+                MessageBoxAdv.Show(this, "Date values are null or status is not selected!",
+                                   "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            this.btnEnabled();
         }
+
+        public static string FormatParams(List<string> paramArray)
+        {
+            return string.Join(",", paramArray.Select(item => $"'{item}'"));
+        }
+
+        private void btnEnabled()
+        {
+            this.sfBtnTruckView.Enabled = true;
+            this.sfbtnExport.Enabled = true;
+        }
+
+        private void btnDisabled()
+        {
+            this.sfBtnTruckView.Enabled = false;
+            this.sfbtnExport.Enabled = false;
+        }
+
+        private void sfbtnExport_Click(object sender, EventArgs e)
+        {
+            this.btnDisabled();
+
+            if (sfDataGrid1.View != null)
+            {
+                var options = new ExcelExportingOptions
+                {
+                    ExcelVersion = ExcelVersion.Excel2013
+                };
+                var excelEngine = this.sfDataGrid1.ExportToExcel(sfDataGrid1.View, options);
+                var workBook = excelEngine.Excel.Workbooks[0];
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel 97 to 2003 Files(*.xls)|*.xls|Excel 2007 to 2010 Files(*.xlsx)|*.xlsx|Excel 2013 File(*.xlsx)|*.xlsx",
+                    FilterIndex = 2
+                })
+                {
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        using (Stream stream = saveFileDialog.OpenFile())
+                        {
+                            switch (saveFileDialog.FilterIndex)
+                            {
+                                case 1:
+                                    workBook.Version = ExcelVersion.Excel97to2003;
+                                    break;
+                                case 2:
+                                    workBook.Version = ExcelVersion.Excel2010;
+                                    break;
+                                case 3:
+                                    workBook.Version = ExcelVersion.Excel2013;
+                                    break;
+                            }
+                            workBook.SaveAs(stream);
+                        }
+
+                        if (MessageBox.Show("Do you want to view the workbook?", "Export Successful",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBoxAdv.Show(this, "No Data!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                btnEnabled();
+            }
+            btnEnabled();
+        }
+
     }
 }

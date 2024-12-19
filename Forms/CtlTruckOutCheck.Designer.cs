@@ -44,6 +44,7 @@ namespace TMS_Gate.Forms
             this.sfBtnOutView = new Syncfusion.WinForms.Controls.SfButton();
             this.sfBtnOutc = new Syncfusion.WinForms.Controls.SfButton();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.sfbtnExport = new Syncfusion.WinForms.Controls.SfButton();
             ((System.ComponentModel.ISupportInitialize)(this.sfDataGrid1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -155,10 +156,28 @@ namespace TMS_Gate.Forms
             this.panel1.Size = new System.Drawing.Size(1318, 651);
             this.panel1.TabIndex = 10;
             // 
+            // sfbtnExport
+            // 
+            this.sfbtnExport.BackColor = System.Drawing.Color.ForestGreen;
+            this.sfbtnExport.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sfbtnExport.ForeColor = System.Drawing.Color.White;
+            this.sfbtnExport.Location = new System.Drawing.Point(888, 60);
+            this.sfbtnExport.Margin = new System.Windows.Forms.Padding(4);
+            this.sfbtnExport.Name = "sfbtnExport";
+            this.sfbtnExport.Size = new System.Drawing.Size(107, 34);
+            this.sfbtnExport.Style.BackColor = System.Drawing.Color.ForestGreen;
+            this.sfbtnExport.Style.ForeColor = System.Drawing.Color.White;
+            this.sfbtnExport.Style.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
+            this.sfbtnExport.TabIndex = 11;
+            this.sfbtnExport.Text = "Export";
+            this.sfbtnExport.UseVisualStyleBackColor = false;
+            this.sfbtnExport.Click += new System.EventHandler(this.sfbtnExport_Click);
+            // 
             // CtlTruckOutCheck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.sfbtnExport);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.sfBtnOutc);
             this.Controls.Add(this.sfBtnOutView);
@@ -202,5 +221,6 @@ namespace TMS_Gate.Forms
         private Syncfusion.WinForms.Controls.SfButton sfBtnOutView;
         private Syncfusion.WinForms.Controls.SfButton sfBtnOutc;
         private System.Windows.Forms.Panel panel1;
+        private Syncfusion.WinForms.Controls.SfButton sfbtnExport;
     }
 }

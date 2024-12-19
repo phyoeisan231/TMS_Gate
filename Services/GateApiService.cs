@@ -10,7 +10,7 @@ namespace TMS_Gate.Services
 {
     public class GateApiService
     {
-        public static readonly string _baseAddress = BaseUrl.ApiUrl;
+        public static readonly string _baseAddress = CommonData.ApiUrl;
 
         #region Gate In Dec_9_2024
         public async Task<List<ICD_InBoundCheck>> GetInBoundCheckCardList(string yard, string gate)
@@ -163,11 +163,11 @@ namespace TMS_Gate.Services
         #endregion
 
         #region Truck Status Report Dec_12_2024
-        public async Task<List<ICD_TruckProcess>> GetTruckStatusReport(string yard, string gate, string fDate, string tDate)
+        public async Task<List<ICD_TruckProcess>> GetTruckStatusReport(string yard, string gate, string fDate, string tDate,string status)
         {
             List<ICD_TruckProcess> processList = new List<ICD_TruckProcess>();
             HttpClient client = new HttpClient();
-            var response = await client.GetAsync($"{_baseAddress}/api/GateSupport/GetTruckStatusReport/?yard={yard}&gate={gate}&fDate={fDate}&tDate={tDate}");
+            var response = await client.GetAsync($"{_baseAddress}/api/GateSupport/GetTruckStatusReport/?yard={yard}&gate={gate}&fDate={fDate}&tDate={tDate}&status={status}");
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();

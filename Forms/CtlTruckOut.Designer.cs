@@ -14,7 +14,7 @@ namespace TMS_Gate.Forms
         public List<ICD_OutBoundCheck> outboundList;
         List<string> pCardList;
         ICD_OutBoundCheck outboundCheck = new ICD_OutBoundCheck();
-        public static int count = BaseUrl.count;
+        public static int count = CommonData.count;
         private GateApiService _apiService = new GateApiService();
         //private readonly IConnectivity _connectivity;
         /// <summary> 

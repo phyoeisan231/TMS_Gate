@@ -170,15 +170,15 @@ namespace TMS_Gate.Forms
             // 
             // sfbtnExport
             // 
-            this.sfbtnExport.BackColor = System.Drawing.Color.LightSteelBlue;
+            this.sfbtnExport.BackColor = System.Drawing.Color.ForestGreen;
             this.sfbtnExport.Font = new System.Drawing.Font("Arial Rounded MT Bold", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sfbtnExport.ForeColor = System.Drawing.Color.ForestGreen;
-            this.sfbtnExport.Location = new System.Drawing.Point(904, 57);
+            this.sfbtnExport.ForeColor = System.Drawing.Color.White;
+            this.sfbtnExport.Location = new System.Drawing.Point(901, 57);
             this.sfbtnExport.Margin = new System.Windows.Forms.Padding(4);
             this.sfbtnExport.Name = "sfbtnExport";
             this.sfbtnExport.Size = new System.Drawing.Size(107, 34);
-            this.sfbtnExport.Style.BackColor = System.Drawing.Color.LightSteelBlue;
-            this.sfbtnExport.Style.ForeColor = System.Drawing.Color.ForestGreen;
+            this.sfbtnExport.Style.BackColor = System.Drawing.Color.ForestGreen;
+            this.sfbtnExport.Style.ForeColor = System.Drawing.Color.White;
             this.sfbtnExport.Style.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
             this.sfbtnExport.TabIndex = 10;
             this.sfbtnExport.Text = "Export";

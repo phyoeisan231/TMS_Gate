@@ -1,10 +1,13 @@
 ﻿using Syncfusion.Windows.Forms;
 using Syncfusion.WinForms.DataGrid;
+using Syncfusion.WinForms.DataGridConverter;
+using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -84,8 +87,8 @@ namespace TMS_Gate.Forms
                 MappingName = "OutRegNo",
                 HeaderText = "Out Check No",
             });
-           
-            this.sfDataGrid1.Style.HeaderStyle.BackColor = Color.DodgerBlue;
+
+            this.sfDataGrid1.Style.HeaderStyle.BackColor = Color.SteelBlue;
             this.sfDataGrid1.Style.HeaderStyle.TextColor = Color.White;
             this.sfDataGrid1.Style.HeaderStyle.Font.Size = 12;
             this.sfDataGrid1.Style.HeaderStyle.Font.Bold = true;
@@ -123,7 +126,7 @@ namespace TMS_Gate.Forms
                     p.Controls.Remove(this);
                 }
                 // Initialize controls
-                var ctl = new CtlTruckOut1() { Dock = DockStyle.Fill };
+                var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
                 // Add main panel and show the form
                 p.Controls.Add(ctl);
                 ICD_OutBoundCheck outData = (ICD_OutBoundCheck)sfDataGrid1.SelectedItem;
@@ -142,14 +145,69 @@ namespace TMS_Gate.Forms
         {
             this.sfBtnOutView.Enabled = true;
             this.sfBtnOutc.Enabled = true;
+            this.sfbtnExport.Enabled = true;
         }
 
         private void btnDisabled()
         {
             this.sfBtnOutView.Enabled = false;
             this.sfBtnOutc.Enabled = false;
+            this.sfbtnExport.Enabled = false;
         }
 
+        private void sfbtnExport_Click(object sender, EventArgs e)
+        {
+            this.btnDisabled();
+
+            if (sfDataGrid1.View != null)
+            {
+                var options = new ExcelExportingOptions
+                {
+                    ExcelVersion = ExcelVersion.Excel2013
+                };
+                var excelEngine = this.sfDataGrid1.ExportToExcel(sfDataGrid1.View, options);
+                var workBook = excelEngine.Excel.Workbooks[0];
+
+                using (SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Excel 97 to 2003 Files(*.xls)|*.xls|Excel 2007 to 2010 Files(*.xlsx)|*.xlsx|Excel 2013 File(*.xlsx)|*.xlsx",
+                    FilterIndex = 2
+                })
+                {
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        using (Stream stream = saveFileDialog.OpenFile())
+                        {
+                            switch (saveFileDialog.FilterIndex)
+                            {
+                                case 1:
+                                    workBook.Version = ExcelVersion.Excel97to2003;
+                                    break;
+                                case 2:
+                                    workBook.Version = ExcelVersion.Excel2010;
+                                    break;
+                                case 3:
+                                    workBook.Version = ExcelVersion.Excel2013;
+                                    break;
+                            }
+                            workBook.SaveAs(stream);
+                        }
+
+                        if (MessageBox.Show("Do you want to view the workbook?", "Export Successful",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                        {
+                            System.Diagnostics.Process.Start(saveFileDialog.FileName);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBoxAdv.Show(this, "No Data!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                btnEnabled();
+            }
+            btnEnabled();
+        }
     }
 }
 

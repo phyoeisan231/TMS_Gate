@@ -32,6 +32,7 @@ namespace TMS_Gate.Models
         public string OutType { get; set; }
         public string OutCargoType { get; set; }
         public string OutCargoInfo { get; set; }
+        public string GroupName { get; set; }
         public DateTime? OutCheckDateTime { get; set; }
     }
 }
