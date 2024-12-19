@@ -19,6 +19,7 @@ namespace TMS_Gate.Forms
 {
     public partial class CtlTruckStatus : UserControl
     {
+        public string status=String.Empty;
         public CtlTruckStatus()
         {
             MessageBoxAdv.MessageBoxStyle = MessageBoxAdv.Style.Metro;
@@ -129,13 +130,13 @@ namespace TMS_Gate.Forms
         {
             this.btnDisabled();
 
-            if (sfDateTruckF.Value != null && sfDateTruckTo.Value != null && sfComboBoxStatus.SelectedItems != null)
+            if (sfDateTruckF.Value != null && sfDateTruckTo.Value != null && sfComboBoxStatus.CheckedItems != null)
             {
                 DateTime fromDate = (DateTime)sfDateTruckF.Value;
                 DateTime toDate = (DateTime)sfDateTruckTo.Value;
 
                 // Retrieve the selected items as a list of strings
-                List<string> selectedStatuses = sfComboBoxStatus.SelectedItems
+                List<string> selectedStatuses = sfComboBoxStatus.CheckedItems
                     .Cast<string>()
                     .ToList();
 
@@ -223,5 +224,6 @@ namespace TMS_Gate.Forms
             btnEnabled();
         }
 
+        
     }
 }
