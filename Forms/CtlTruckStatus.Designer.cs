@@ -36,8 +36,6 @@ namespace TMS_Gate.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtlTruckStatus));
-            Syncfusion.WinForms.DataGrid.GroupColumnDescription groupColumnDescription1 = new Syncfusion.WinForms.DataGrid.GroupColumnDescription();
-            Syncfusion.WinForms.DataGrid.GridSummaryRow gridSummaryRow1 = new Syncfusion.WinForms.DataGrid.GridSummaryRow();
             this.label1 = new System.Windows.Forms.Label();
             this.sfDateTruckF = new Syncfusion.WinForms.Input.SfDateTimeEdit();
             this.sfDateTruckTo = new Syncfusion.WinForms.Input.SfDateTimeEdit();
@@ -112,11 +110,6 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.AllowStandardTab = true;
             this.sfDataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            groupColumnDescription1.ColumnName = "GroupName";
-            groupColumnDescription1.SortGroupRecords = true;
-            this.sfDataGrid1.GroupColumnDescriptions.Add(groupColumnDescription1);
-            gridSummaryRow1.Name = "GroupName";
-            this.sfDataGrid1.GroupSummaryRows.Add(gridSummaryRow1);
             this.sfDataGrid1.Location = new System.Drawing.Point(13, 12);
             this.sfDataGrid1.Name = "sfDataGrid1";
             this.sfDataGrid1.Padding = new System.Windows.Forms.Padding(1);
@@ -185,12 +178,18 @@ namespace TMS_Gate.Forms
             // sfComboBoxStatus
             // 
             this.sfComboBoxStatus.AllowSelectAll = true;
+            this.sfComboBoxStatus.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.sfComboBoxStatus.ComboBoxMode = Syncfusion.WinForms.ListView.Enums.ComboBoxMode.MultiSelection;
             this.sfComboBoxStatus.DropDownPosition = Syncfusion.WinForms.Core.Enums.PopupRelativeAlignment.Center;
+            this.sfComboBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfComboBoxStatus.Location = new System.Drawing.Point(662, 55);
             this.sfComboBoxStatus.Name = "sfComboBoxStatus";
             this.sfComboBoxStatus.ShowToolTip = true;
             this.sfComboBoxStatus.Size = new System.Drawing.Size(144, 31);
+            this.sfComboBoxStatus.Style.EditorStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.sfComboBoxStatus.Style.ReadOnlyEditorStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfComboBoxStatus.Style.TokenStyle.CloseButtonBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.sfComboBoxStatus.Style.TokenStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfComboBoxStatus.TabIndex = 3;
             this.sfComboBoxStatus.TabStop = false;
             // 
