@@ -158,6 +158,7 @@ namespace TMS_Gate.Forms
                     msg = await SaveGateInData();
                     if (msg.Status)
                     {
+                        sfComboBoxCard.SelectedItem = null;
                         MessageBoxAdv.Show(this, "Successfuly Saved!", "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         BtnEnable();
                     }

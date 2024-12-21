@@ -216,6 +216,7 @@ namespace TMS_Gate.Forms
                     ResponseMessage msg = await SaveGateOutData();
                     if (msg.Status)
                     {
+                        sfComboBoxCard.SelectedItem = null;
                         MessageBoxAdv.Show(this, "Successfuly Saved!", "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         BtnEnable();
                     }

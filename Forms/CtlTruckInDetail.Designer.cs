@@ -72,8 +72,6 @@ namespace TMS_Gate.Forms
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.lblDateTime);
             this.panel1.Controls.Add(this.label11);
             this.panel1.Controls.Add(this.lblCargoType);
@@ -98,7 +96,7 @@ namespace TMS_Gate.Forms
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(3, 49);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(504, 741);
+            this.panel1.Size = new System.Drawing.Size(613, 741);
             this.panel1.TabIndex = 23;
             // 
             // lblDateTime
@@ -330,7 +328,7 @@ namespace TMS_Gate.Forms
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.Name = "CtlTruckInDetail";
-            this.Size = new System.Drawing.Size(507, 1332);
+            this.Size = new System.Drawing.Size(616, 1332);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

@@ -1,5 +1,6 @@
 ﻿using Syncfusion.Windows.Forms;
 using Syncfusion.WinForms.DataGrid;
+using Syncfusion.WinForms.DataGrid.Enums;
 using Syncfusion.WinForms.DataGridConverter;
 using Syncfusion.XlsIO;
 using System;

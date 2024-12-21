@@ -98,7 +98,7 @@ namespace TMS_Gate.Forms
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(0, 57);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(492, 744);
+            this.panel1.Size = new System.Drawing.Size(657, 744);
             this.panel1.TabIndex = 5;
             // 
             // CtlTruckInWBQ
@@ -108,7 +108,7 @@ namespace TMS_Gate.Forms
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label1);
             this.Name = "CtlTruckInWBQ";
-            this.Size = new System.Drawing.Size(496, 1332);
+            this.Size = new System.Drawing.Size(660, 1332);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

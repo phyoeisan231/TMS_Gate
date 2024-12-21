@@ -36,14 +36,14 @@
             // 
             this.dinpanel1.Location = new System.Drawing.Point(17, 3);
             this.dinpanel1.Name = "dinpanel1";
-            this.dinpanel1.Size = new System.Drawing.Size(507, 1332);
+            this.dinpanel1.Size = new System.Drawing.Size(616, 1332);
             this.dinpanel1.TabIndex = 0;
             // 
             // dinpanel2
             // 
-            this.dinpanel2.Location = new System.Drawing.Point(559, 3);
+            this.dinpanel2.Location = new System.Drawing.Point(655, 3);
             this.dinpanel2.Name = "dinpanel2";
-            this.dinpanel2.Size = new System.Drawing.Size(569, 1332);
+            this.dinpanel2.Size = new System.Drawing.Size(660, 1332);
             this.dinpanel2.TabIndex = 1;
             this.dinpanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.dinpanel2_Paint);
             // 
@@ -54,7 +54,7 @@
             this.Controls.Add(this.dinpanel2);
             this.Controls.Add(this.dinpanel1);
             this.Name = "CtlDetailPanel";
-            this.Size = new System.Drawing.Size(1151, 1332);
+            this.Size = new System.Drawing.Size(1318, 957);
             this.ResumeLayout(false);
 
         }

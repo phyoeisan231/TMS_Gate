@@ -52,7 +52,7 @@ namespace TMS_Gate.Forms
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripButton4 = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripButton5 = new System.Windows.Forms.ToolStripButton();
+            this.toolBtnCamera = new System.Windows.Forms.ToolStripButton();
             this.toolStrip3 = new System.Windows.Forms.ToolStrip();
             this.toolBtnTruckIn = new System.Windows.Forms.ToolStripButton();
             this.toolBtnTruckOut = new System.Windows.Forms.ToolStripButton();
@@ -124,6 +124,7 @@ namespace TMS_Gate.Forms
             this.checkIpCameraToolStripMenuItem.Name = "checkIpCameraToolStripMenuItem";
             this.checkIpCameraToolStripMenuItem.Size = new System.Drawing.Size(250, 32);
             this.checkIpCameraToolStripMenuItem.Text = "Check Ip Camera";
+            this.checkIpCameraToolStripMenuItem.Click += new System.EventHandler(this.checkIpCameraToolStripMenuItem_Click);
             // 
             // truckToolStripMenuItem
             // 
@@ -231,7 +232,7 @@ namespace TMS_Gate.Forms
             this.toolStripSeparator4,
             this.toolStripButton4,
             this.toolStripSeparator5,
-            this.toolStripButton5});
+            this.toolBtnCamera});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Margin = new System.Windows.Forms.Padding(0, 4, 0, 0);
             this.toolStrip1.Name = "toolStrip1";
@@ -270,15 +271,16 @@ namespace TMS_Gate.Forms
             this.toolStripSeparator5.Name = "toolStripSeparator5";
             this.toolStripSeparator5.Size = new System.Drawing.Size(6, 52);
             // 
-            // toolStripButton5
+            // toolBtnCamera
             // 
-            this.toolStripButton5.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.toolStripButton5.Image = global::TMS_Gate.Properties.Resources.check;
-            this.toolStripButton5.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton5.Name = "toolStripButton5";
-            this.toolStripButton5.Size = new System.Drawing.Size(158, 49);
-            this.toolStripButton5.Text = "Check Ip Camera";
-            this.toolStripButton5.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolBtnCamera.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.toolBtnCamera.Image = global::TMS_Gate.Properties.Resources.check;
+            this.toolBtnCamera.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolBtnCamera.Name = "toolBtnCamera";
+            this.toolBtnCamera.Size = new System.Drawing.Size(158, 49);
+            this.toolBtnCamera.Text = "Check Ip Camera";
+            this.toolBtnCamera.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.toolBtnCamera.Click += new System.EventHandler(this.toolBtnCamera_Click);
             // 
             // toolStrip3
             // 
@@ -469,7 +471,7 @@ namespace TMS_Gate.Forms
         private System.Windows.Forms.ToolStrip toolStrip3;
         private System.Windows.Forms.ToolStripButton toolBtnTruckIn;
         private System.Windows.Forms.ToolStripButton toolStripButton4;
-        private System.Windows.Forms.ToolStripButton toolStripButton5;
+        private System.Windows.Forms.ToolStripButton toolBtnCamera;
         private System.Windows.Forms.ToolStripButton toolBtnTruckOut;
         private System.Windows.Forms.ToolStripButton toolBtnInCheck;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;

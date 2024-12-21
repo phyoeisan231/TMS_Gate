@@ -10,6 +10,6 @@ namespace TMS_Gate
     {
         public static string ApiUrl = "https://localhost:7100";
         public static int count = 0;
-        public static List<string> truckStatuslist = new List<string> { "In(Check)", "In", "Out(Check)", "Out" };
+        public static List<string> truckStatuslist = new List<string> { "In(Check)","In", "In(Weight)", "Operation", "Out(Weight)", "Out(Check)", "Out"};
     }
 }

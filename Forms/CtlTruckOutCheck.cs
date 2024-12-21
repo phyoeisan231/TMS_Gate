@@ -115,28 +115,84 @@ namespace TMS_Gate.Forms
             }
         }
 
-        private void sfBtnOutc_Click(object sender, EventArgs e)
+        //private void sfBtnOutc_Click(object sender, EventArgs e)
+        //{
+        //    btnDisabled();
+        //    if (sfDataGrid1.SelectedItem != null)
+        //    {
+        //        var p = this.Parent as Panel;
+        //        if (p != null)
+        //        {
+        //            p.Controls.Remove(this);
+        //        }
+        //        // Initialize controls
+        //        var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
+        //        // Add main panel and show the form
+        //        p.Controls.Add(ctl);
+        //        ICD_OutBoundCheck outData = (ICD_OutBoundCheck)sfDataGrid1.SelectedItem;
+        //        btnEnabled();
+        //        ctl.LoadData();
+        //        ctl.FillInCheckData(outData.CardNo);
+        //    }
+        //    else
+        //    {
+        //        MessageBoxAdv.Show(this, "Date values is null!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        btnEnabled();
+        //    }
+        //}
+
+        private async void sfBtnOutc_Click(object sender, EventArgs e)
         {
             btnDisabled();
+
             if (sfDataGrid1.SelectedItem != null)
             {
-                var p = this.Parent as Panel;
-                if (p != null)
+                try
                 {
-                    p.Controls.Remove(this);
+                    var p = this.Parent as Panel;
+                    // Initialize controls
+                    var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
+
+                    // Get selected data
+                    ICD_OutBoundCheck outData = (ICD_OutBoundCheck)sfDataGrid1.SelectedItem;
+
+                    // Debug: Check selected item
+                    Console.WriteLine($"Selected CardNo: {outData.CardNo}");
+
+                    // Load data and verify
+                    await ctl.LoadData();
+                    if (ctl.outboundList != null && ctl.outboundList.Count > 0)
+                    {
+                        // Debug: Check loaded data
+                        Console.WriteLine($"Loaded Data Count: {ctl.outboundList.Count}");
+
+                        // Fill in data after loading is complete
+                        ctl.FillInCheckData(outData.CardNo);
+
+                        if (p != null)
+                        {
+                            p.Controls.Remove(this);
+                        }
+                        // Add the control to the parent panel
+                        p.Controls.Add(ctl);
+                        Console.WriteLine("Control added successfully.");
+                        btnEnabled();
+                    }
+                    else
+                    {
+                        MessageBoxAdv.Show(this, "No data available to process!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btnEnabled();
+                    }
                 }
-                // Initialize controls
-                var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
-                // Add main panel and show the form
-                p.Controls.Add(ctl);
-                ICD_OutBoundCheck outData = (ICD_OutBoundCheck)sfDataGrid1.SelectedItem;
-                btnEnabled();
-                ctl.LoadData();
-                ctl.FillInCheckData(outData.CardNo);
+                catch (Exception ex)
+                {
+                    MessageBoxAdv.Show(this, $"An error occurred: {ex.Message}", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    btnEnabled();
+                }
             }
             else
             {
-                MessageBoxAdv.Show(this, "Date values is null!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv.Show(this, "Please select a row!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 btnEnabled();
             }
         }

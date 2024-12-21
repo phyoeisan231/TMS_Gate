@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Syncfusion.Windows.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +14,14 @@ namespace TMS_Gate.Forms
 {
     public partial class FrmMain1 : Form
     {
+        private uint iLastErr = 0;
+        private Int32 m_lUserID = -1;
+        private bool m_bInitSDK = false;
+        private Int32 m_lRealHandle = -1;
+        private string str;
+        private IFormFile fileUpload;
+        CHCNetSDK.REALDATACALLBACK RealData = null;
+        public CHCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
         public FrmMain1()
         {
             InitializeComponent();
@@ -151,6 +161,76 @@ namespace TMS_Gate.Forms
             var ctl = new CtlDailyOut() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
+        }
+
+        private void toolBtnCamera_Click(object sender, EventArgs e)
+        {
+            MessageBoxAdv.MessageBoxStyle = MessageBoxAdv.Style.Metro;
+            m_bInitSDK = CHCNetSDK.NET_DVR_Init();
+            if (m_bInitSDK == false)
+            {
+                MessageBoxAdv.Show(this, "NET_DVR_Init error!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+            else
+            {
+
+                CHCNetSDK.NET_DVR_SetLogToFile(3, "D:\\SdkLog\\", true);
+            }
+
+            CHCNetSDK.NET_DVR_DEVICEINFO_V30 DeviceInfo = new CHCNetSDK.NET_DVR_DEVICEINFO_V30();
+
+            //string ip=ConfigurationManager.AppSettings.Get("device_ip");
+
+            m_lUserID = CHCNetSDK.NET_DVR_Login_V30(Properties.Settings.Default.device_ip, Properties.Settings.Default.device_port, Properties.Settings.Default.device_admin, Properties.Settings.Default.device_pwd, ref DeviceInfo);
+            if (m_lUserID < 0)
+            {
+                iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+                str = "NET_DVR_Login_V30 failed, error code= " + iLastErr; //µÇÂ¼Ê§°Ü£¬Êä³ö´íÎóºÅ
+                MessageBoxAdv.Show(this, str, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                MessageBoxAdv.Show(this,"Login success", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+        }
+
+        private void checkIpCameraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBoxAdv.MessageBoxStyle = MessageBoxAdv.Style.Metro;
+            m_bInitSDK = CHCNetSDK.NET_DVR_Init();
+            if (m_bInitSDK == false)
+            {
+                MessageBoxAdv.Show(this, "NET_DVR_Init error!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                return;
+            }
+            else
+            {
+
+                CHCNetSDK.NET_DVR_SetLogToFile(3, "D:\\SdkLog\\", true);
+            }
+
+            CHCNetSDK.NET_DVR_DEVICEINFO_V30 DeviceInfo = new CHCNetSDK.NET_DVR_DEVICEINFO_V30();
+
+            //string ip=ConfigurationManager.AppSettings.Get("device_ip");
+
+            m_lUserID = CHCNetSDK.NET_DVR_Login_V30(Properties.Settings.Default.device_ip, Properties.Settings.Default.device_port, Properties.Settings.Default.device_admin, Properties.Settings.Default.device_pwd, ref DeviceInfo);
+            if (m_lUserID < 0)
+            {
+                iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+                str = "NET_DVR_Login_V30 failed, error code= " + iLastErr; //µÇÂ¼Ê§°Ü£¬Êä³ö´íÎóºÅ
+                MessageBoxAdv.Show(this, str, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            else
+            {
+                MessageBoxAdv.Show(this, "Login success", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
         }
     }
 }

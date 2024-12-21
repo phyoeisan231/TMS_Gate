@@ -432,7 +432,7 @@ namespace TMS_Gate.Forms
             this.ResumeLayout(false);
 
         }
-        public async void LoadData()
+        public async Task LoadData()
         {
             outboundList = new List<ICD_OutBoundCheck>();
             List<ICD_OutBoundCheck> outCheckList = new List<ICD_OutBoundCheck>();
@@ -476,6 +476,7 @@ namespace TMS_Gate.Forms
             outboundCheck = outboundList.Find(x => x.CardNo == cardNo);
             if (outboundCheck != null)
             {
+                sfComboBoxCard.SelectedItem = outboundCheck.CardNo;
                 txtTruckNo.Text = outboundCheck.TruckVehicleRegNo;
                 txtCategory.Text = outboundCheck.OutPCCode;
                 txtCargoInfo.Text = outboundCheck.OutCargoInfo;

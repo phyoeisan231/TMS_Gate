@@ -435,7 +435,7 @@ namespace TMS_Gate.Forms
             this.ResumeLayout(false);
 
         }
-        public async void LoadData()
+        public async Task LoadData()
         {
             inboundList = new List<ICD_InBoundCheck>();
             List<ICD_InBoundCheck> inCheckList = new List<ICD_InBoundCheck>();
@@ -478,6 +478,7 @@ namespace TMS_Gate.Forms
             inboundCheck = inboundList.Find(x => x.CardNo == cardNo);
             if (inboundCheck != null)
             {
+                sfComboBoxCard.SelectedItem = inboundCheck.CardNo;
                 txtTruckNo.Text = inboundCheck.TruckVehicleRegNo;
                 txtCategory.Text = inboundCheck.InPCCode;
                 txtCargoInfo.Text = inboundCheck.InCargoInfo;

@@ -106,9 +106,6 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Size = 11;
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Bold = true;
             this.sfDataGrid1.AllowResizingColumns = true;
-
-            
-
         }
 
         private void sfBtnIncView_Click(object sender, EventArgs e)
@@ -130,31 +127,92 @@ namespace TMS_Gate.Forms
         }
 
 
-        private void sfBtnIn_Click(object sender, EventArgs e)
+        //private async void sfBtnIn_Click(object sender, EventArgs e)
+        //{
+        //    btnDisabled();
+        //    if (sfDataGrid1.SelectedItem != null)
+        //    {
+        //        var p = this.Parent as Panel;
+        //        if (p != null)
+        //        {
+        //            p.Controls.Remove(this);
+        //        }
+        //        // Initialize controls
+        //        var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
+        //        // Add main panel and show the form
+        //        ICD_InBoundCheck inData = (ICD_InBoundCheck)sfDataGrid1.SelectedItem;
+        //        await ctl.LoadData();
+        //        if (ctl.inboundList!=null && ctl.inboundList.Count > 0)
+        //        {
+        //            ctl.FillInCheckData(inData.CardNo);
+        //            p.Controls.Add(ctl);
+        //            btnEnabled();
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        MessageBoxAdv.Show(this, "Please select row!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        btnEnabled();
+        //    }
+        //}
+
+        private async void sfBtnIn_Click(object sender, EventArgs e)
         {
             btnDisabled();
+
             if (sfDataGrid1.SelectedItem != null)
             {
-                var p = this.Parent as Panel;
-                if (p != null)
+                try
                 {
-                    p.Controls.Remove(this);
+                    var p = this.Parent as Panel;                   
+                    // Initialize controls
+                    var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
+
+                    // Get selected data
+                    ICD_InBoundCheck inData = (ICD_InBoundCheck)sfDataGrid1.SelectedItem;
+
+                    // Debug: Check selected item
+                    Console.WriteLine($"Selected CardNo: {inData.CardNo}");
+
+                    // Load data and verify
+                    await ctl.LoadData();
+                    if (ctl.inboundList != null && ctl.inboundList.Count > 0)
+                    {
+                        // Debug: Check loaded data
+                        Console.WriteLine($"Loaded Data Count: {ctl.inboundList.Count}");
+
+                        // Fill in data after loading is complete
+                        ctl.FillInCheckData(inData.CardNo);
+
+                        if (p != null)
+                        {
+                            p.Controls.Remove(this);
+                        }
+                        // Add the control to the parent panel
+                        p.Controls.Add(ctl);
+                        Console.WriteLine("Control added successfully.");
+                        btnEnabled();
+                    }
+                    else
+                    {
+                        MessageBoxAdv.Show(this, "No data available to process!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        btnEnabled();
+                    }
                 }
-                // Initialize controls
-                var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
-                // Add main panel and show the form
-                p.Controls.Add(ctl);
-                ICD_InBoundCheck inData = (ICD_InBoundCheck)sfDataGrid1.SelectedItem;
-                ctl.LoadData();
-                btnEnabled();
-                ctl.FillInCheckData(inData.CardNo);
+                catch (Exception ex)
+                {
+                    MessageBoxAdv.Show(this, $"An error occurred: {ex.Message}", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    btnEnabled();
+                }
             }
             else
             {
-                MessageBoxAdv.Show(this, "Please select row!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBoxAdv.Show(this, "Please select a row!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 btnEnabled();
             }
         }
+
 
         private void btnEnabled()
         {
