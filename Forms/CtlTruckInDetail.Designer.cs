@@ -348,7 +348,7 @@ namespace TMS_Gate.Forms
             lblContactNo.Text = inData.DriverContactNo;
             lblCargoInfo.Text = inData.InCargoInfo;
             lblCargoType.Text = inData.InCargoType;
-            lblDateTime.Text = inData.InCheckDateTime?.ToString("dd/MM/yyyy hh:mm:ss tt");
+            lblDateTime.Text = inData.InCheckDateTime;
         }
 
         #endregion

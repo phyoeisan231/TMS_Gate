@@ -12,7 +12,7 @@ namespace TMS_Gate.Model
         public string InType { get; set; }//FCL,LCL
         public string InCargoType { get; set; }//Laden,MT
         public string InCargoInfo { get; set; }
-        public DateTime? InCheckDateTime { get; set; }
+        public string InCheckDateTime { get; set; }
         public string AreaID { get; set; }
         public string TruckType { get; set; }
         public string TruckVehicleRegNo { get; set; }

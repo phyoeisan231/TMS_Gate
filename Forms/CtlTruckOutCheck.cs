@@ -1,5 +1,6 @@
 ﻿using Syncfusion.Windows.Forms;
 using Syncfusion.WinForms.DataGrid;
+using Syncfusion.WinForms.DataGrid.Styles;
 using Syncfusion.WinForms.DataGridConverter;
 using Syncfusion.XlsIO;
 using System;
@@ -58,11 +59,10 @@ namespace TMS_Gate.Forms
                 MappingName = "Customer",
                 HeaderText = "Customer",
             });
-            this.sfDataGrid1.Columns.Add(new GridDateTimeColumn()
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
             {
                 MappingName = "OutCheckDateTime",
                 HeaderText = "Out Check Date Time",
-                Format = "dd/MM/yyyy hh:mm:ss",
                 Width = 150
             });
             this.sfDataGrid1.Columns.Add(new GridTextColumn()
@@ -95,6 +95,9 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Size = 11;
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Bold = true;
             this.sfDataGrid1.AllowResizingColumns = true;
+            this.sfDataGrid1.Style.TableSummaryRowStyle.BackColor = Color.LightSteelBlue;
+            this.sfDataGrid1.Style.TableSummaryRowStyle.Font = new GridFontInfo(new Font("Arial", 13f, FontStyle.Bold));
+
         }
 
         private void sfBtnOutView_Click(object sender, EventArgs e)

@@ -3,6 +3,9 @@ using System;
 using TMS_Gate.Model;
 using TMS_Gate.Services;
 using TMS_Gate.Models;
+using Syncfusion.WinForms.DataGrid.Enums;
+using Syncfusion.WinForms.DataGrid;
+using Syncfusion.Data;
 
 namespace TMS_Gate.Forms
 {
@@ -61,10 +64,11 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.AccessibleName = "Table";
             this.sfDataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.sfDataGrid1.AutoGenerateColumns = false;
             this.sfDataGrid1.Location = new System.Drawing.Point(8, 7);
             this.sfDataGrid1.Name = "sfDataGrid1";
             this.sfDataGrid1.PreviewRowHeight = 35;
-            this.sfDataGrid1.Size = new System.Drawing.Size(1300, 132);
+            this.sfDataGrid1.Size = new System.Drawing.Size(1300, 458);
             this.sfDataGrid1.TabIndex = 1;
             this.sfDataGrid1.Text = "sfDataGrid1";
             // 
@@ -107,6 +111,21 @@ namespace TMS_Gate.Forms
             ((System.ComponentModel.ISupportInitialize)(this.sfDataGrid1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+            Syncfusion.WinForms.DataGrid.GridTableSummaryRow gridTableSummaryRow1 = new Syncfusion.WinForms.DataGrid.GridTableSummaryRow();
+            gridTableSummaryRow1.Name = "TotalCases";
+            gridTableSummaryRow1.ShowSummaryInRow = true;
+            gridTableSummaryRow1.Title = " Total Truck Count: {TotalTruck}";
+            gridTableSummaryRow1.Position = VerticalPosition.Top;
+
+            GridSummaryColumn summaryColumn1 = new GridSummaryColumn();
+            summaryColumn1.Name = "TotalTruck";
+            summaryColumn1.SummaryType = SummaryType.DoubleAggregate;
+            summaryColumn1.Format = "{Count}";
+            summaryColumn1.MappingName = "OutRegNo";
+
+            gridTableSummaryRow1.SummaryColumns.Add(summaryColumn1);
+
+            this.sfDataGrid1.TableSummaryRows.Add(gridTableSummaryRow1);
 
         }
 

@@ -1,20 +1,16 @@
 ﻿using Syncfusion.Windows.Forms;
 using Syncfusion.WinForms.DataGrid;
-using Syncfusion.WinForms.DataGrid.Enums;
+using Syncfusion.WinForms.DataGrid.Styles;
 using Syncfusion.WinForms.DataGridConverter;
+using Syncfusion.WinForms.DataPager;
 using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Data.Entity.Infrastructure.Design.Executor;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TMS_Gate.Forms
 {
@@ -60,18 +56,28 @@ namespace TMS_Gate.Forms
                 MappingName = "Customer",
                 HeaderText = "Customer",
             });
-            this.sfDataGrid1.Columns.Add(new GridDateTimeColumn()
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
             {
                 MappingName = "InCheckDateTime",
                 HeaderText = "In Check Date Time",
-                Format = "dd/MM/yyyy hh:mm:ss",
                 Width = 150
             });
-            this.sfDataGrid1.Columns.Add(new GridDateTimeColumn()
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
             {
                 MappingName = "OutCheckDateTime",
                 HeaderText = "Out Check Date Time",
-                Format = "dd/MM/yyyy hh:mm:ss",
+                Width = 150
+            });
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
+            {
+                MappingName = "InGatePassTime",
+                HeaderText = "In GatePass Time",
+                Width = 150
+            });
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
+            {
+                MappingName = "OutGatePassTime",
+                HeaderText = "Out GatePass Time",
                 Width = 150
             });
             this.sfDataGrid1.Columns.Add(new GridTextColumn()
@@ -93,6 +99,36 @@ namespace TMS_Gate.Forms
             {
                 MappingName = "OutWeightBridgeID",
                 HeaderText = "Out WeightBridge ID",
+            });
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
+            {
+                MappingName = "InWeightDateTime",
+                HeaderText = "In Weight Date Time",
+            });
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
+            {
+                MappingName = "OptStartDate",
+                HeaderText = "Operation Start Date",
+            });
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
+            {
+                MappingName = "OptEndDate",
+                HeaderText = "Operation End Date",
+            });
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
+            {
+                MappingName = "OutWeightDateTime",
+                HeaderText = "Out Weight Date Time",
+            });
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
+            {
+                MappingName = "GRNNo",
+                HeaderText = "GRN No",
+            });
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
+            {
+                MappingName = "GDNNo",
+                HeaderText = "GDN No",
             });
             this.sfDataGrid1.Columns.Add(new GridTextColumn()
             {
@@ -124,6 +160,8 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Size = 11;
             this.sfDataGrid1.Style.AddNewRowStyle.Font.Bold = true;
             this.sfDataGrid1.AllowResizingColumns = true;
+            this.sfDataGrid1.Style.TableSummaryRowStyle.BackColor = Color.LightSteelBlue;
+            this.sfDataGrid1.Style.TableSummaryRowStyle.Font = new GridFontInfo(new Font("Arial", 13f, FontStyle.Bold));
             this.sfComboBoxStatus.DataSource = CommonData.truckStatuslist;
         }
 
@@ -174,8 +212,7 @@ namespace TMS_Gate.Forms
         private void sfbtnExport_Click(object sender, EventArgs e)
         {
             this.btnDisabled();
-
-            if (sfDataGrid1.View != null)
+            if ((sfDataGrid1.View != null && truckList != null))
             {
                 var options = new ExcelExportingOptions
                 {
@@ -183,7 +220,6 @@ namespace TMS_Gate.Forms
                 };
                 var excelEngine = this.sfDataGrid1.ExportToExcel(sfDataGrid1.View, options);
                 var workBook = excelEngine.Excel.Workbooks[0];
-
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog
                 {
                     Filter = "Excel 97 to 2003 Files(*.xls)|*.xls|Excel 2007 to 2010 Files(*.xlsx)|*.xlsx|Excel 2013 File(*.xlsx)|*.xlsx",

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Syncfusion.WinForms.DataGrid.Enums;
+using Syncfusion.WinForms.DataGrid;
+using System;
 using System.Collections.Generic;
 using TMS_Gate.Model;
 using TMS_Gate.Models;
 using TMS_Gate.Services;
+using Syncfusion.Data;
 
 namespace TMS_Gate.Forms
 {
@@ -66,11 +69,12 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.AccessibleName = "Table";
             this.sfDataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.sfDataGrid1.AutoGenerateColumns = false;
             this.sfDataGrid1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sfDataGrid1.Location = new System.Drawing.Point(9, 3);
             this.sfDataGrid1.Name = "sfDataGrid1";
             this.sfDataGrid1.PreviewRowHeight = 35;
-            this.sfDataGrid1.Size = new System.Drawing.Size(1295, 112);
+            this.sfDataGrid1.Size = new System.Drawing.Size(1291, 499);
             this.sfDataGrid1.TabIndex = 2;
             this.sfDataGrid1.Text = "sfDataGrid1";
             // 
@@ -192,6 +196,23 @@ namespace TMS_Gate.Forms
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+            Syncfusion.WinForms.DataGrid.GridTableSummaryRow gridTableSummaryRow1 = new Syncfusion.WinForms.DataGrid.GridTableSummaryRow();
+            gridTableSummaryRow1.Name = "TotalCases";
+            gridTableSummaryRow1.ShowSummaryInRow = true;
+            gridTableSummaryRow1.Title = " Total Truck Count: {TotalTruck}";
+            gridTableSummaryRow1.Position = VerticalPosition.Top;
+
+            GridSummaryColumn summaryColumn1 = new GridSummaryColumn();
+            summaryColumn1.Name = "TotalTruck";
+            summaryColumn1.SummaryType = SummaryType.DoubleAggregate;
+            summaryColumn1.Format = "{Count}";
+            summaryColumn1.MappingName = "OutRegNo";
+
+            gridTableSummaryRow1.SummaryColumns.Add(summaryColumn1);
+
+            this.sfDataGrid1.TableSummaryRows.Add(gridTableSummaryRow1);
+
+
 
         }
 

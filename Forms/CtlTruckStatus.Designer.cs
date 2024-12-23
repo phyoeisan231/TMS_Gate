@@ -3,6 +3,10 @@ using System;
 using TMS_Gate.Model;
 using TMS_Gate.Services;
 using TMS_Gate.Models;
+using System.Windows.Forms;
+using Syncfusion.WinForms.DataGrid;
+using Syncfusion.WinForms.DataGrid.Enums;
+using Syncfusion.Data;
 
 namespace TMS_Gate.Forms
 {
@@ -13,6 +17,7 @@ namespace TMS_Gate.Forms
         /// </summary>
         private System.ComponentModel.IContainer components = null;
         private GateApiService _apiService;
+        private List<ICD_TruckProcess> truckList = new List<ICD_TruckProcess>();
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -35,7 +40,9 @@ namespace TMS_Gate.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtlTruckStatus));
+            Syncfusion.WinForms.DataGrid.GridTableSummaryRow gridTableSummaryRow1 = new Syncfusion.WinForms.DataGrid.GridTableSummaryRow();
             this.label1 = new System.Windows.Forms.Label();
             this.sfDateTruckF = new Syncfusion.WinForms.Input.SfDateTimeEdit();
             this.sfDateTruckTo = new Syncfusion.WinForms.Input.SfDateTimeEdit();
@@ -47,9 +54,11 @@ namespace TMS_Gate.Forms
             this.sfbtnExport = new Syncfusion.WinForms.Controls.SfButton();
             this.label4 = new System.Windows.Forms.Label();
             this.sfComboBoxStatus = new Syncfusion.WinForms.ListView.SfComboBox();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.sfDataGrid1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sfComboBoxStatus)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -110,12 +119,28 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.AllowStandardTab = true;
             this.sfDataGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.sfDataGrid1.Location = new System.Drawing.Point(13, 12);
+            this.sfDataGrid1.AutoGenerateColumns = false;
+            this.sfDataGrid1.Location = new System.Drawing.Point(10, 3);
             this.sfDataGrid1.Name = "sfDataGrid1";
             this.sfDataGrid1.Padding = new System.Windows.Forms.Padding(1);
             this.sfDataGrid1.PreviewRowHeight = 35;
-            this.sfDataGrid1.Size = new System.Drawing.Size(1291, 160);
+            this.sfDataGrid1.Size = new System.Drawing.Size(1291, 499);
+            this.sfDataGrid1.SummaryCalculationMode = Syncfusion.Data.CalculationMode.OnDemandGroupSummary;
             this.sfDataGrid1.TabIndex = 6;
+            gridTableSummaryRow1.Name = "TotalCases";
+            gridTableSummaryRow1.ShowSummaryInRow = true;
+            gridTableSummaryRow1.Title = " Total Truck Count: {TotalTruck}";
+            gridTableSummaryRow1.Position = VerticalPosition.Top;
+
+            GridSummaryColumn summaryColumn1 = new GridSummaryColumn();
+            summaryColumn1.Name = "TotalTruck";
+            summaryColumn1.SummaryType = SummaryType.DoubleAggregate;
+            summaryColumn1.Format = "{Count}";
+            summaryColumn1.MappingName = "InRegNo";
+
+            gridTableSummaryRow1.SummaryColumns.Add(summaryColumn1);
+
+            this.sfDataGrid1.TableSummaryRows.Add(gridTableSummaryRow1);
             this.sfDataGrid1.Text = "sfDataGrid1";
             // 
             // label2
@@ -212,6 +237,7 @@ namespace TMS_Gate.Forms
             ((System.ComponentModel.ISupportInitialize)(this.sfDataGrid1)).EndInit();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.sfComboBoxStatus)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -220,7 +246,6 @@ namespace TMS_Gate.Forms
         private async void LoadData(DateTime fDate, DateTime tDate,string status)
         {
             _apiService = new GateApiService();
-            List<ICD_TruckProcess> truckList = new List<ICD_TruckProcess>();
             string yard = Properties.Settings.Default.Yard;
             string gate = Properties.Settings.Default.Gate;
             this.sfDataGrid1.DataSource = null;
@@ -230,7 +255,31 @@ namespace TMS_Gate.Forms
                 this.sfDataGrid1.DataSource = truckList;
             }
             this.sfBtnTruckView.Enabled = true;
+            this.sfDataGrid1.Refresh();
         }
+
+        //private  void InitailizeGridData()
+        //{
+        //    //InitializeComponent();
+        //    if (truckList.Count > 0)
+        //    {
+        //        this.sfDataPager1.PageSize = 10;
+        //        this.sfDataPager1.DataSource = truckList;
+        //        if (this.sfDataPager1.PagedSource != null)
+        //        {
+        //            try
+        //            {
+        //                sfDataGrid1.DataSource = sfDataPager1.PagedSource;
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                MessageBox.Show($"Error: {ex.Message}");
+        //            }
+
+        //        }
+        //    }
+        //    this.sfDataGrid1.Refresh();
+        //}
 
         #endregion
 
@@ -245,5 +294,6 @@ namespace TMS_Gate.Forms
         private Syncfusion.WinForms.Controls.SfButton sfbtnExport;
         private System.Windows.Forms.Label label4;
         private Syncfusion.WinForms.ListView.SfComboBox sfComboBoxStatus;
+        private System.Windows.Forms.BindingSource bindingSource1;
     }
 }

@@ -16,7 +16,7 @@ namespace TMS_Gate.Models
         public string OutType { get; set; }//FCL,LCL
         public string OutCargoType { get; set; }//Laden,MT
         public string OutCargoInfo { get; set; }
-        public DateTime? OutCheckDateTime { get; set; }
+        public string OutCheckDateTime { get; set; }
         public string AreaID { get; set; }
         public string TruckType { get; set; }
         public string TruckVehicleRegNo { get; set; }
