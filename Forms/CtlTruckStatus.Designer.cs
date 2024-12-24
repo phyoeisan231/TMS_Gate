@@ -43,6 +43,7 @@ namespace TMS_Gate.Forms
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtlTruckStatus));
             Syncfusion.WinForms.DataGrid.GridTableSummaryRow gridTableSummaryRow1 = new Syncfusion.WinForms.DataGrid.GridTableSummaryRow();
+            Syncfusion.WinForms.DataGrid.GridSummaryColumn gridSummaryColumn1 = new Syncfusion.WinForms.DataGrid.GridSummaryColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.sfDateTruckF = new Syncfusion.WinForms.Input.SfDateTimeEdit();
             this.sfDateTruckTo = new Syncfusion.WinForms.Input.SfDateTimeEdit();
@@ -124,22 +125,17 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.Name = "sfDataGrid1";
             this.sfDataGrid1.Padding = new System.Windows.Forms.Padding(1);
             this.sfDataGrid1.PreviewRowHeight = 35;
-            this.sfDataGrid1.Size = new System.Drawing.Size(1291, 499);
+            this.sfDataGrid1.Size = new System.Drawing.Size(1292, 455);
             this.sfDataGrid1.SummaryCalculationMode = Syncfusion.Data.CalculationMode.OnDemandGroupSummary;
             this.sfDataGrid1.TabIndex = 6;
             gridTableSummaryRow1.Name = "TotalCases";
-            gridTableSummaryRow1.ShowSummaryInRow = true;
+            gridTableSummaryRow1.Position = Syncfusion.WinForms.DataGrid.Enums.VerticalPosition.Top;
+            gridSummaryColumn1.Format = "{Count}";
+            gridSummaryColumn1.MappingName = "InRegNo";
+            gridSummaryColumn1.Name = "TotalTruck";
+            gridSummaryColumn1.SummaryType = Syncfusion.Data.SummaryType.DoubleAggregate;
+            gridTableSummaryRow1.SummaryColumns.Add(gridSummaryColumn1);
             gridTableSummaryRow1.Title = " Total Truck Count: {TotalTruck}";
-            gridTableSummaryRow1.Position = VerticalPosition.Top;
-
-            GridSummaryColumn summaryColumn1 = new GridSummaryColumn();
-            summaryColumn1.Name = "TotalTruck";
-            summaryColumn1.SummaryType = SummaryType.DoubleAggregate;
-            summaryColumn1.Format = "{Count}";
-            summaryColumn1.MappingName = "InRegNo";
-
-            gridTableSummaryRow1.SummaryColumns.Add(summaryColumn1);
-
             this.sfDataGrid1.TableSummaryRows.Add(gridTableSummaryRow1);
             this.sfDataGrid1.Text = "sfDataGrid1";
             // 
@@ -165,7 +161,8 @@ namespace TMS_Gate.Forms
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.sfDataGrid1);
             this.panel1.Location = new System.Drawing.Point(2, 94);
