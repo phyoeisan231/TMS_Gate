@@ -37,6 +37,8 @@ namespace TMS_Gate.Forms
         /// </summary>
         private void InitializeComponent()
         {
+            Syncfusion.WinForms.DataGrid.GridTableSummaryRow gridTableSummaryRow1 = new Syncfusion.WinForms.DataGrid.GridTableSummaryRow();
+            Syncfusion.WinForms.DataGrid.GridSummaryColumn gridSummaryColumn1 = new Syncfusion.WinForms.DataGrid.GridSummaryColumn();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtlTruckOutCheck));
             this.label1 = new System.Windows.Forms.Label();
             this.sfDataGrid1 = new Syncfusion.WinForms.DataGrid.SfDataGrid();
@@ -76,6 +78,15 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.PreviewRowHeight = 35;
             this.sfDataGrid1.Size = new System.Drawing.Size(1291, 499);
             this.sfDataGrid1.TabIndex = 2;
+            gridTableSummaryRow1.Name = "TotalCases";
+            gridTableSummaryRow1.Position = Syncfusion.WinForms.DataGrid.Enums.VerticalPosition.Top;
+            gridSummaryColumn1.Format = "{Count}";
+            gridSummaryColumn1.MappingName = "OutRegNo";
+            gridSummaryColumn1.Name = "TotalTruck";
+            gridSummaryColumn1.SummaryType = Syncfusion.Data.SummaryType.DoubleAggregate;
+            gridTableSummaryRow1.SummaryColumns.Add(gridSummaryColumn1);
+            gridTableSummaryRow1.Title = " Total Truck Count: {TotalTruck}";
+            this.sfDataGrid1.TableSummaryRows.Add(gridTableSummaryRow1);
             this.sfDataGrid1.Text = "sfDataGrid1";
             // 
             // sfDateOutcF
@@ -146,7 +157,7 @@ namespace TMS_Gate.Forms
             this.sfBtnOutc.Style.ForeColor = System.Drawing.Color.White;
             this.sfBtnOutc.Style.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
             this.sfBtnOutc.TabIndex = 9;
-            this.sfBtnOutc.Text = "&Gate Out";
+            this.sfBtnOutc.Text = "&Truck Out";
             this.sfBtnOutc.UseVisualStyleBackColor = false;
             this.sfBtnOutc.Click += new System.EventHandler(this.sfBtnOutc_Click);
             // 
@@ -173,7 +184,7 @@ namespace TMS_Gate.Forms
             this.sfbtnExport.Style.ForeColor = System.Drawing.Color.White;
             this.sfbtnExport.Style.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image2")));
             this.sfbtnExport.TabIndex = 11;
-            this.sfbtnExport.Text = "Export";
+            this.sfbtnExport.Text = "&Export";
             this.sfbtnExport.UseVisualStyleBackColor = false;
             this.sfbtnExport.Click += new System.EventHandler(this.sfbtnExport_Click);
             // 
@@ -196,23 +207,6 @@ namespace TMS_Gate.Forms
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-            Syncfusion.WinForms.DataGrid.GridTableSummaryRow gridTableSummaryRow1 = new Syncfusion.WinForms.DataGrid.GridTableSummaryRow();
-            gridTableSummaryRow1.Name = "TotalCases";
-            gridTableSummaryRow1.ShowSummaryInRow = true;
-            gridTableSummaryRow1.Title = " Total Truck Count: {TotalTruck}";
-            gridTableSummaryRow1.Position = VerticalPosition.Top;
-
-            GridSummaryColumn summaryColumn1 = new GridSummaryColumn();
-            summaryColumn1.Name = "TotalTruck";
-            summaryColumn1.SummaryType = SummaryType.DoubleAggregate;
-            summaryColumn1.Format = "{Count}";
-            summaryColumn1.MappingName = "OutRegNo";
-
-            gridTableSummaryRow1.SummaryColumns.Add(summaryColumn1);
-
-            this.sfDataGrid1.TableSummaryRows.Add(gridTableSummaryRow1);
-
-
 
         }
 

@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Internal;
-using Microsoft.AspNetCore.Http;
-using Syncfusion.Windows.Forms;
+﻿using Syncfusion.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +9,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 using TMS_Gate.Models;
 
@@ -18,16 +17,14 @@ namespace TMS_Gate.Forms
 {
     public partial class CtlTruckOut : UserControl
     {
-
         private uint iLastErr = 0;
         private Int32 m_lUserID = -1;
         private bool m_bInitSDK = false;
         private Int32 m_lRealHandle = -1;
         private string str;
-        private IFormFile fileUpload;
+        private HttpPostedFileBase fileUpload;
         CHCNetSDK.REALDATACALLBACK RealData = null;
         public CHCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
-
         public CtlTruckOut()
         {
             InitializeComponent();
@@ -59,37 +56,7 @@ namespace TMS_Gate.Forms
                 MessageBoxAdv.Show(this, str, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            //else
-            //{
-            //    MessageBoxAdv.Show(this, "Login Success!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //}
         }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            if (m_lRealHandle >= 0)
-            {
-                CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
-                m_lRealHandle = -1;
-            }
-
-
-            if (m_lUserID >= 0)
-            {
-                CHCNetSDK.NET_DVR_Logout(m_lUserID);
-                m_lUserID = -1;
-            }
-
-            CHCNetSDK.NET_DVR_Cleanup();
-
-
-            var p = this.Parent as Panel;
-            if (p != null)
-            {
-                p.Controls.Remove(this);
-            }
-        }
-
         private void btnPreview_Click(object sender, EventArgs e)
         {
             if (m_lUserID < 0)
@@ -148,7 +115,6 @@ namespace TMS_Gate.Forms
             return;
         }
 
-
         public void RealDataCallBack(Int32 lRealHandle, UInt32 dwDataType, IntPtr pBuffer, UInt32 dwBufSize, IntPtr pUser)
         {
             if (dwBufSize > 0)
@@ -164,73 +130,12 @@ namespace TMS_Gate.Forms
             }
         }
 
-        private void btnCapture_Click(object sender, EventArgs e)
-        {
-            BtnDisable();
-            string sJpegPicFileName;
-            //Í¼Æ¬±£´æÂ·¾¶ºÍÎÄ¼þÃû the path and file name to save
-            sJpegPicFileName = "JPEG_Out" + count +".jpg";
-
-            int lChannel = 1; //Í¨µÀºÅ Channel number
-
-            CHCNetSDK.NET_DVR_JPEGPARA lpJpegPara = new CHCNetSDK.NET_DVR_JPEGPARA();
-            lpJpegPara.wPicQuality = 2; //Í¼ÏñÖÊÁ¿ Image quality
-            lpJpegPara.wPicSize = 2; //×¥Í¼·Ö±æÂÊ Picture size: 2- 4CIF£¬0xff- Auto(Ê¹ÓÃµ±Ç°ÂëÁ÷·Ö±æÂÊ)£¬×¥Í¼·Ö±æÂÊÐèÒªÉè±¸Ö§³Ö£¬¸ü¶àÈ¡ÖµÇë²Î¿¼SDKÎÄµµ
-
-            ////JPEG×¥Í¼ Capture a JPEG picture
-            if (!CHCNetSDK.NET_DVR_CaptureJPEGPicture(m_lUserID, lChannel, ref lpJpegPara, sJpegPicFileName))
-            {
-                iLastErr = CHCNetSDK.NET_DVR_GetLastError();
-                str = "NET_DVR_CaptureJPEGPicture failed, error code= " + iLastErr;
-                MessageBoxAdv.Show(this, str, "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                BtnEnable();
-                return;
-            }
-            else
-            {
-                count++;
-                //str = "Successful to capture the JPEG file and the saved file is " + sJpegPicFileName;
-                MessageBoxAdv.Show(this, "Successful to capture the JPEG file!", "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
-
-            if (!CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
-            {
-                iLastErr = CHCNetSDK.NET_DVR_GetLastError();
-                str = "NET_DVR_StopRealPlay failed, error code= " + iLastErr;
-                MessageBoxAdv.Show(this, str, "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                BtnEnable();
-                return;
-            }
-            m_lRealHandle = -1;
-            btnPreview.Text = "Live View";
-            RealPlayWnd.Image = Image.FromFile(sJpegPicFileName);
-            RealPlayWnd.SizeMode = PictureBoxSizeMode.StretchImage;
-            // Convert the JPEG file to IFormFile
-            fileUpload = ConvertFileToFormFile(sJpegPicFileName, "image/jpeg");
-            BtnEnable();
-            return;
-        }
-
-        private IFormFile ConvertFileToFormFile(string filePath, string contentType)
+        private HttpPostedFileBase ConvertFileToPostedFileBase(string filePath, string contentType)
         {
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            return new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(filePath))
-            {
-                Headers = new HeaderDictionary(),
-                ContentType = contentType
-            };
+            return new CustomPostedFile(fileStream, Path.GetFileName(filePath), contentType);
         }
 
-
-        private void cmbcard_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbcard.SelectedIndex != -1)
-            {
-                string cardNo = cmbcard.SelectedItem.ToString();
-                FillInCheckData(cardNo);
-            }
-        }
 
         private void BtnDisable()
         {
@@ -251,41 +156,9 @@ namespace TMS_Gate.Forms
             btnPreview.Enabled = true;
             btnCapture.Enabled = true;
         }
-        private async void btnSave_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBoxAdv.Show(this,
-                   "Save changes?",
-                   "Gate Out",
-                   MessageBoxButtons.YesNo,
-                   MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                BtnDisable();
-                ResponseMessage msg = await SaveGateOutData();
-                if (msg.Status)
-                {
-                    MessageBoxAdv.Show(this, "Successfuly Saved!", "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    BtnEnable();
-                }
-                else
-                {
-                    MessageBoxAdv.Show(this, msg.MessageContent, "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    BtnEnable();
-                }
-            }
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            BtnDisable();
-            ClearData();
-            btnPreview.Text = "Live View";
-            BtnEnable();
-        }
-      
         private void btnDetail_Click(object sender, EventArgs e)
         {
-            if (cmbcard.SelectedItem != null)
+            if (sfComboBoxCard.SelectedItem != null)
             {
                 var p = this.Parent as Panel;
                 if (p != null)
@@ -324,7 +197,129 @@ namespace TMS_Gate.Forms
             }
         }
 
-     
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            if (sfComboBoxCard.SelectedItem != null)
+            {
+                DialogResult result = MessageBoxAdv.Show(this,
+                 "Save changes?",
+                 "Gate Out",
+                 MessageBoxButtons.YesNo,
+                 MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    BtnDisable();
+                    ResponseMessage msg = await SaveGateOutData();
+                    if (msg.Status)
+                    {
+                        sfComboBoxCard.SelectedItem = null;
+                        MessageBoxAdv.Show(this, "Successfuly Saved!", "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        BtnEnable();
+                    }
+                    else
+                    {
+                        MessageBoxAdv.Show(this, msg.MessageContent, "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        BtnEnable();
+                    }
+                }
+            }
+            else
+            {
+                MessageBoxAdv.Show(this, "Please select card no!", "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            BtnDisable();
+            ClearData();
+            btnPreview.Text = "Live View";
+            BtnEnable();
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            if (m_lRealHandle >= 0)
+            {
+                CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
+                m_lRealHandle = -1;
+            }
+
+
+            if (m_lUserID >= 0)
+            {
+                CHCNetSDK.NET_DVR_Logout(m_lUserID);
+                m_lUserID = -1;
+            }
+
+            CHCNetSDK.NET_DVR_Cleanup();
+
+            var p = this.Parent as Panel;
+            if (p != null)
+            {
+                FrmMain main = new FrmMain();
+                p.Controls.Remove(this);
+                p.Controls.Add(main.pictureHome);
+
+            }
+        }
+
+        private void btnCapture_Click(object sender, EventArgs e)
+        {
+            BtnDisable();
+            string sJpegPicFileName;
+            //Í¼Æ¬±£´æÂ·¾¶ºÍÎÄ¼þÃû the path and file name to save
+            sJpegPicFileName = "JPEG_Out" + count + ".jpg";
+
+            int lChannel = 1; //Í¨µÀºÅ Channel number
+
+            CHCNetSDK.NET_DVR_JPEGPARA lpJpegPara = new CHCNetSDK.NET_DVR_JPEGPARA();
+            lpJpegPara.wPicQuality = 2; //Í¼ÏñÖÊÁ¿ Image quality
+            lpJpegPara.wPicSize = 2; //×¥Í¼·Ö±æÂÊ Picture size: 2- 4CIF£¬0xff- Auto(Ê¹ÓÃµ±Ç°ÂëÁ÷·Ö±æÂÊ)£¬×¥Í¼·Ö±æÂÊÐèÒªÉè±¸Ö§³Ö£¬¸ü¶àÈ¡ÖµÇë²Î¿¼SDKÎÄµµ
+
+            ////JPEG×¥Í¼ Capture a JPEG picture
+            if (!CHCNetSDK.NET_DVR_CaptureJPEGPicture(m_lUserID, lChannel, ref lpJpegPara, sJpegPicFileName))
+            {
+                iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+                str = "NET_DVR_CaptureJPEGPicture failed, error code= " + iLastErr;
+                MessageBoxAdv.Show(this, str, "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                BtnEnable();
+                return;
+            }
+            else
+            {
+                count++;
+                //str = "Successful to capture the JPEG file and the saved file is " + sJpegPicFileName;
+                MessageBoxAdv.Show(this, "Successful to capture the JPEG file!", "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                BtnEnable();
+            }
+
+
+            if (!CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
+            {
+                iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+                str = "NET_DVR_StopRealPlay failed, error code= " + iLastErr;
+                MessageBoxAdv.Show(this, str, "Gate Out", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                BtnEnable();
+                return;
+            }
+            m_lRealHandle = -1;
+            btnPreview.Text = "Live View";
+            RealPlayWnd.Image = Image.FromFile(sJpegPicFileName);
+            RealPlayWnd.SizeMode = PictureBoxSizeMode.StretchImage;
+            // Convert the JPEG file to IFormFile
+            fileUpload = ConvertFileToPostedFileBase(sJpegPicFileName, "image/jpeg");
+            BtnEnable();
+            return;
+        }
+
+        private void sfComboBoxCard_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (sfComboBoxCard.SelectedIndex != -1)
+            {
+                string cardNo = sfComboBoxCard.SelectedItem.ToString();
+                FillInCheckData(cardNo);
+            }
+        }
     }
 }
-

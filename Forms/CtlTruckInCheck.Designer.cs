@@ -39,6 +39,8 @@ namespace TMS_Gate.Forms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CtlTruckInCheck));
+            Syncfusion.WinForms.DataGrid.GridTableSummaryRow gridTableSummaryRow1 = new Syncfusion.WinForms.DataGrid.GridTableSummaryRow();
+            Syncfusion.WinForms.DataGrid.GridSummaryColumn gridSummaryColumn1 = new Syncfusion.WinForms.DataGrid.GridSummaryColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.sfDateIncF = new Syncfusion.WinForms.Input.SfDateTimeEdit();
             this.sfDateIncTo = new Syncfusion.WinForms.Input.SfDateTimeEdit();
@@ -137,7 +139,7 @@ namespace TMS_Gate.Forms
             this.sfBtnInc.Style.ForeColor = System.Drawing.Color.White;
             this.sfBtnInc.Style.Image = global::TMS_Gate.Properties.Resources.nav_up_blue;
             this.sfBtnInc.TabIndex = 7;
-            this.sfBtnInc.Text = "Gate In";
+            this.sfBtnInc.Text = "&Truck In";
             this.sfBtnInc.UseVisualStyleBackColor = false;
             this.sfBtnInc.Click += new System.EventHandler(this.sfBtnIn_Click);
             // 
@@ -158,6 +160,15 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.SerializationController = null;
             this.sfDataGrid1.Size = new System.Drawing.Size(1299, 478);
             this.sfDataGrid1.TabIndex = 0;
+            gridTableSummaryRow1.Name = "TotalCases";
+            gridTableSummaryRow1.Position = Syncfusion.WinForms.DataGrid.Enums.VerticalPosition.Top;
+            gridSummaryColumn1.Format = "{Count}";
+            gridSummaryColumn1.MappingName = "InRegNo";
+            gridSummaryColumn1.Name = "TotalTruck";
+            gridSummaryColumn1.SummaryType = Syncfusion.Data.SummaryType.DoubleAggregate;
+            gridTableSummaryRow1.SummaryColumns.Add(gridSummaryColumn1);
+            gridTableSummaryRow1.Title = " Total Truck Count: {TotalTruck}";
+            this.sfDataGrid1.TableSummaryRows.Add(gridTableSummaryRow1);
             this.sfDataGrid1.Text = "sfDataGrid1";
             // 
             // panel1
@@ -185,7 +196,7 @@ namespace TMS_Gate.Forms
             this.sfbtnExport.Style.ForeColor = System.Drawing.Color.White;
             this.sfbtnExport.Style.Image = ((System.Drawing.Image)(resources.GetObject("resource.Image1")));
             this.sfbtnExport.TabIndex = 10;
-            this.sfbtnExport.Text = "Export";
+            this.sfbtnExport.Text = "&Export";
             this.sfbtnExport.UseVisualStyleBackColor = false;
             this.sfbtnExport.Click += new System.EventHandler(this.sfbtnExport_Click);
             // 
@@ -210,23 +221,6 @@ namespace TMS_Gate.Forms
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
-            Syncfusion.WinForms.DataGrid.GridTableSummaryRow gridTableSummaryRow1 = new Syncfusion.WinForms.DataGrid.GridTableSummaryRow();
-            gridTableSummaryRow1.Name = "TotalCases";
-            gridTableSummaryRow1.ShowSummaryInRow = true;
-            gridTableSummaryRow1.Title = " Total Truck Count: {TotalTruck}";
-            gridTableSummaryRow1.Position = VerticalPosition.Top;
-
-            GridSummaryColumn summaryColumn1 = new GridSummaryColumn();
-            summaryColumn1.Name = "TotalTruck";
-            summaryColumn1.SummaryType = SummaryType.DoubleAggregate;
-            summaryColumn1.Format = "{Count}";
-            summaryColumn1.MappingName = "InRegNo";
-
-            gridTableSummaryRow1.SummaryColumns.Add(summaryColumn1);
-
-            this.sfDataGrid1.TableSummaryRows.Add(gridTableSummaryRow1);
-
-
 
         }
 

@@ -118,32 +118,6 @@ namespace TMS_Gate.Forms
             }
         }
 
-        //private void sfBtnOutc_Click(object sender, EventArgs e)
-        //{
-        //    btnDisabled();
-        //    if (sfDataGrid1.SelectedItem != null)
-        //    {
-        //        var p = this.Parent as Panel;
-        //        if (p != null)
-        //        {
-        //            p.Controls.Remove(this);
-        //        }
-        //        // Initialize controls
-        //        var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
-        //        // Add main panel and show the form
-        //        p.Controls.Add(ctl);
-        //        ICD_OutBoundCheck outData = (ICD_OutBoundCheck)sfDataGrid1.SelectedItem;
-        //        btnEnabled();
-        //        ctl.LoadData();
-        //        ctl.FillInCheckData(outData.CardNo);
-        //    }
-        //    else
-        //    {
-        //        MessageBoxAdv.Show(this, "Date values is null!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        btnEnabled();
-        //    }
-        //}
-
         private async void sfBtnOutc_Click(object sender, EventArgs e)
         {
             btnDisabled();
@@ -154,7 +128,7 @@ namespace TMS_Gate.Forms
                 {
                     var p = this.Parent as Panel;
                     // Initialize controls
-                    var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
+                    var ctl = new CtlTruckOut() { Dock = DockStyle.Fill };
 
                     // Get selected data
                     ICD_OutBoundCheck outData = (ICD_OutBoundCheck)sfDataGrid1.SelectedItem;

@@ -1,5 +1,6 @@
 ﻿using Syncfusion.Windows.Forms;
 using Syncfusion.WinForms.DataGrid;
+using Syncfusion.WinForms.DataGrid.Events;
 using Syncfusion.WinForms.DataGrid.Styles;
 using Syncfusion.WinForms.DataGridConverter;
 using Syncfusion.WinForms.DataPager;
@@ -8,9 +9,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
+using TMS_Gate.Models;
 
 namespace TMS_Gate.Forms
 {
@@ -140,19 +144,6 @@ namespace TMS_Gate.Forms
                 MappingName = "OutRegNo",
                 HeaderText = "Out Check No",
             });
-            ////Change the record cell back color for product name column.
-            //this.sfDataGrid1.Columns["InCheckDateTime"].CellStyle.BackColor = Color.SlateGray;
-
-            ////Change the record cell text color for product name column.
-            //this.sfDataGrid1.Columns["InCheckDateTime"].CellStyle.TextColor = Color.White;
-
-            ////Change the header cell back color for product name column.
-            //this.sfDataGrid1.Columns["InCheckDateTime"].HeaderStyle.BackColor = Color.MediumSlateBlue;
-
-            ////Change the header cell text color for product name column.
-            //this.sfDataGrid1.Columns["InCheckDateTime"].HeaderStyle.TextColor = Color.White;
-            //this.sfDataGrid1.Style.AddNewRowStyle.BackColor = Color.DarkCyan;
-            //this.sfDataGrid1.Style.AddNewRowStyle.TextColor = Color.White;
             this.sfDataGrid1.Style.HeaderStyle.BackColor = Color.SteelBlue;
             this.sfDataGrid1.Style.HeaderStyle.TextColor = Color.White;
             this.sfDataGrid1.Style.HeaderStyle.Font.Size = 12;
@@ -164,7 +155,6 @@ namespace TMS_Gate.Forms
             this.sfDataGrid1.Style.TableSummaryRowStyle.Font = new GridFontInfo(new Font("Arial", 13f, FontStyle.Bold));
             this.sfComboBoxStatus.DataSource = CommonData.truckStatuslist;
         }
-
         private void sfBtnTruckView_Click(object sender, EventArgs e)
         {
             this.btnDisabled();
@@ -182,6 +172,7 @@ namespace TMS_Gate.Forms
                 // Format the selected statuses for use
                 string formattedStatuses = FormatParams(selectedStatuses);
                 LoadData(fromDate, toDate, formattedStatuses);
+                sfDataGrid1.DrawCell += SfDataGrid1_DrawCell;
             }
             else
             {
@@ -192,6 +183,126 @@ namespace TMS_Gate.Forms
             this.btnEnabled();
         }
 
+        private void SfDataGrid1_DrawCell(object sender, DrawCellEventArgs e)
+        {
+            // Ensure we are working with the "TruckVehicleRegNo" column
+            if (e.Column.MappingName == "TruckVehicleRegNo" && e.DataRow.RowData is ICD_TruckProcess rowData)
+            {
+                switch (rowData.Status)
+                {
+                    case "In(Check)":
+                        e.Style.TextColor = Color.Orange;
+                        break;
+                    case "In":
+                        e.Style.TextColor = Color.Purple;
+                        break;
+                    case "In(Weight)":
+                        e.Style.TextColor = Color.Orchid;
+                        break;
+                    case "Operation":
+                        e.Style.TextColor = Color.LightSkyBlue;
+                        break;
+                    case "Out(Weight)":
+                        e.Style.TextColor = Color.Blue;
+                        break;
+                    case "Out(Check)":
+                        e.Style.TextColor = Color.MediumSeaGreen;
+                        break;
+                    default:
+                        e.Style.TextColor = Color.Green;
+                        break;
+                }           
+            }
+        }
+
+        //private void SfDataGrid1_DrawCell(object sender, DrawCellEventArgs e)
+        //{
+        //    // Ensure we are working with the "TruckVehicleRegNo" column
+        //    if (e.Column.MappingName == "TruckVehicleRegNo" && e.DataRow.RowData is ICD_TruckProcess rowData)
+        //    {
+        //        // Clear the default background
+        //        e.Graphics.FillRectangle(new SolidBrush(e.Style.BackColor), e.Bounds);
+
+        //        // Determine badge color based on status
+        //        Color badgeColor;
+        //        switch (rowData.Status)
+        //        {
+        //            case "In(Check)":
+        //                badgeColor = Color.Orange;
+        //                break;
+        //            case "In":
+        //                badgeColor = Color.Purple;
+        //                break;
+        //            case "In(Weight)":
+        //                badgeColor = Color.Orchid;
+        //                break;
+        //            case "Operation":
+        //                badgeColor = Color.LightSkyBlue;
+        //                break;
+        //            case "Out(Weight)":
+        //                badgeColor = Color.Blue;
+        //                break;
+        //            case "Out(Check)":
+        //                badgeColor = Color.MediumSeaGreen;
+        //                break;
+        //            default:
+        //                badgeColor = Color.Green;
+        //                break;
+        //        }
+
+        //        // Measure text size
+        //        var font = e.Style.Font.GetFont() ?? new Font("Arial", 10, FontStyle.Bold);
+        //        var textSize = e.Graphics.MeasureString(rowData.TruckVehicleRegNo, font);
+
+        //        // Define padding and badge dimensions
+        //        var padding = 10; // Space around the text
+        //        var badgeWidth = (int)(textSize.Width + 2 * padding);
+        //        var badgeHeight = (int)(textSize.Height + padding);
+        //        var badgeBounds = new Rectangle(
+        //            e.Bounds.X + 5, // Slight margin from the left
+        //            e.Bounds.Y + (e.Bounds.Height - badgeHeight) / 2, // Center vertically
+        //            badgeWidth,
+        //            badgeHeight
+        //        );
+
+        //        // Draw the badge rectangle with rounded corners
+        //        using (GraphicsPath path = new GraphicsPath())
+        //        {
+        //            float cornerRadius = 5f;
+        //            path.AddArc(badgeBounds.X, badgeBounds.Y, cornerRadius, cornerRadius, 180, 90);
+        //            path.AddArc(badgeBounds.X + badgeBounds.Width - cornerRadius, badgeBounds.Y, cornerRadius, cornerRadius, 270, 90);
+        //            path.AddArc(badgeBounds.X + badgeBounds.Width - cornerRadius, badgeBounds.Y + badgeBounds.Height - cornerRadius, cornerRadius, cornerRadius, 0, 90);
+        //            path.AddArc(badgeBounds.X, badgeBounds.Y + badgeBounds.Height - cornerRadius, cornerRadius, cornerRadius, 90, 90);
+        //            path.CloseFigure();
+
+        //            using (Brush badgeBrush = new SolidBrush(badgeColor))
+        //            {
+        //                e.Graphics.FillPath(badgeBrush, path);
+        //            }
+        //        }
+
+        //        // Draw the truck number inside the badge
+        //        var textBrush = new SolidBrush(Color.White);
+        //        var textBounds = new RectangleF(
+        //            badgeBounds.X + padding / 2,
+        //            badgeBounds.Y + (badgeHeight - textSize.Height) / 2,
+        //            textSize.Width,
+        //            textSize.Height
+        //        );
+        //        var stringFormat = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+        //        e.Graphics.DrawString(rowData.TruckVehicleRegNo, font, textBrush, textBounds, stringFormat);
+
+        //        // Redraw the cell border
+        //        using (Pen borderPen = new Pen(Color.Gray, 1)) // Adjust the border color and thickness as needed
+        //        {
+        //            e.Graphics.DrawRectangle(borderPen, e.Bounds.X, e.Bounds.Y, e.Bounds.Width - 1, e.Bounds.Height - 1);
+        //        }
+
+        //        // Mark the event as handled
+        //        e.Handled = true;
+        //    }
+        //}
+      
         public static string FormatParams(List<string> paramArray)
         {
             return string.Join(",", paramArray.Select(item => $"'{item}'"));

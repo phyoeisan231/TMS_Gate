@@ -86,19 +86,6 @@ namespace TMS_Gate.Forms
                 HeaderText = "In Check No",
             });
 
-            ////Change the record cell back color for product name column.
-            //this.sfDataGrid1.Columns["InCheckDateTime"].CellStyle.BackColor = Color.SlateGray;
-
-            ////Change the record cell text color for product name column.
-            //this.sfDataGrid1.Columns["InCheckDateTime"].CellStyle.TextColor = Color.White;
-
-            ////Change the header cell back color for product name column.
-            //this.sfDataGrid1.Columns["InCheckDateTime"].HeaderStyle.BackColor = Color.MediumSlateBlue;
-
-            ////Change the header cell text color for product name column.
-            //this.sfDataGrid1.Columns["InCheckDateTime"].HeaderStyle.TextColor = Color.White;
-            //this.sfDataGrid1.Style.AddNewRowStyle.BackColor = Color.DarkCyan;
-            //this.sfDataGrid1.Style.AddNewRowStyle.TextColor = Color.White;
             this.sfDataGrid1.Style.HeaderStyle.BackColor = Color.SteelBlue;
             this.sfDataGrid1.Style.HeaderStyle.TextColor = Color.White;
             this.sfDataGrid1.Style.HeaderStyle.Font.Size = 12;
@@ -169,7 +156,7 @@ namespace TMS_Gate.Forms
                 {
                     var p = this.Parent as Panel;                   
                     // Initialize controls
-                    var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
+                    var ctl = new CtlTruckIn() { Dock = DockStyle.Fill };
 
                     // Get selected data
                     ICD_InBoundCheck inData = (ICD_InBoundCheck)sfDataGrid1.SelectedItem;

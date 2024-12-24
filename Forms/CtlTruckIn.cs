@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
-using Syncfusion.Windows.Forms;
+﻿using Syncfusion.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,8 +9,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using TMS_Gate.Models;
 
 namespace TMS_Gate.Forms
@@ -24,10 +22,9 @@ namespace TMS_Gate.Forms
         private bool m_bInitSDK = false;
         private Int32 m_lRealHandle = -1;
         private string str;
-        private IFormFile fileUpload;
+        private HttpPostedFileBase fileUpload;
         CHCNetSDK.REALDATACALLBACK RealData = null;
         public CHCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
-
         public CtlTruckIn()
         {
             InitializeComponent();
@@ -59,7 +56,7 @@ namespace TMS_Gate.Forms
                 MessageBoxAdv.Show(this, str, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-        }    
+        }
         public void RealDataCallBack(Int32 lRealHandle, UInt32 dwDataType, IntPtr pBuffer, UInt32 dwBufSize, IntPtr pUser)
         {
             if (dwBufSize > 0)
@@ -74,15 +71,12 @@ namespace TMS_Gate.Forms
                 fs.Close();
             }
         }
-        private IFormFile ConvertFileToFormFile(string filePath, string contentType)
+        private HttpPostedFileBase ConvertFileToPostedFileBase(string filePath, string contentType)
         {
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            return new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(filePath))
-            {
-                Headers = new HeaderDictionary(),
-                ContentType = contentType
-            };
+            return new CustomPostedFile(fileStream, Path.GetFileName(filePath), contentType);
         }
+
         private void BtnDisable()
         {
             btnSave.Enabled = false;
@@ -100,7 +94,7 @@ namespace TMS_Gate.Forms
             btnDetail.Enabled = true;
             btnPreview.Enabled = true;
             btnCapture.Enabled = true;
-        }   
+        }
 
         private void btnDetail_Click(object sender, EventArgs e)
         {
@@ -160,6 +154,7 @@ namespace TMS_Gate.Forms
                     msg = await SaveGateInData();
                     if (msg.Status)
                     {
+                        sfComboBoxCard.SelectedItem = null;
                         MessageBoxAdv.Show(this, "Successfuly Saved!", "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         BtnEnable();
                     }
@@ -203,7 +198,7 @@ namespace TMS_Gate.Forms
             var p = this.Parent as Panel;
             if (p != null)
             {
-                FrmMain1 main = new FrmMain1();
+                FrmMain main = new FrmMain();
                 p.Controls.Remove(this);
                 p.Controls.Add(main.pictureHome);
 
@@ -307,19 +302,19 @@ namespace TMS_Gate.Forms
             RealPlayWnd.Image = Image.FromFile(sJpegPicFileName);
             RealPlayWnd.SizeMode = PictureBoxSizeMode.StretchImage;
             // Convert the JPEG file to IFormFile
-            fileUpload = ConvertFileToFormFile(sJpegPicFileName, "image/jpeg");
+            fileUpload = ConvertFileToPostedFileBase(sJpegPicFileName, "image/jpeg");
             BtnEnable();
             return;
         }
 
         private void sfComboBoxCard_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             if (sfComboBoxCard.SelectedIndex != -1)
             {
                 string cardNo = sfComboBoxCard.SelectedItem.ToString();
                 FillInCheckData(cardNo);
             }
         }
-
     }
 }

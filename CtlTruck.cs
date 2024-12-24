@@ -14,11 +14,10 @@ using System.Configuration;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static TMS_Gate.CHCNetSDK;
 using TMS_Gate.Model;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
 using TMS_Gate.Forms;
 using Syncfusion.Windows.Forms;
 using TMS_Gate.Models;
+using System.Web;
 
 namespace TMS_Gate
 {
@@ -29,7 +28,7 @@ namespace TMS_Gate
 		private bool m_bInitSDK = false;
 		private Int32 m_lRealHandle = -1;
         private string str;
-		private IFormFile fileUpload;
+		private HttpPostedFileBase fileUpload;
         CHCNetSDK.REALDATACALLBACK RealData = null;
 		public CHCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
 
@@ -210,19 +209,15 @@ namespace TMS_Gate
 			RealPlayWnd.Image = Image.FromFile(sJpegPicFileName);
 			RealPlayWnd.SizeMode = PictureBoxSizeMode.StretchImage;
             // Convert the JPEG file to IFormFile
-            fileUpload = ConvertFileToFormFile(sJpegPicFileName, "image/jpeg");
+            fileUpload = ConvertFileToPostedFileBase(sJpegPicFileName, "image/jpeg");
 			BtnEnable();
             return;
 		}
 
-        private IFormFile ConvertFileToFormFile(string filePath, string contentType)
+        private HttpPostedFileBase ConvertFileToPostedFileBase(string filePath, string contentType)
         {
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            return new FormFile(fileStream, 0, fileStream.Length, "file", Path.GetFileName(filePath))
-            {
-                Headers = new HeaderDictionary(),
-                ContentType = contentType
-            };
+            return new CustomPostedFile(fileStream, Path.GetFileName(filePath), contentType);
         }
 
 

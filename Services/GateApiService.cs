@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using TMS_Gate.Model;
 using TMS_Gate.Models;
@@ -10,7 +12,7 @@ namespace TMS_Gate.Services
 {
     public class GateApiService
     {
-        public static readonly string _baseAddress = CommonData.ApiUrl;
+        public static readonly string _baseAddress = Properties.Settings.Default.ApiUrl;
 
         #region Gate In Dec_9_2024
         public async Task<List<ICD_InBoundCheck>> GetInBoundCheckCardList(string yard, string gate)
@@ -51,10 +53,17 @@ namespace TMS_Gate.Services
                     // Add the file
                     if (inGate.UploadPhoto != null) // Assuming `UploadPhoto` is the property for IFormFile
                     {
-                         var stream = inGate.UploadPhoto.OpenReadStream();
+                        var stream = inGate.UploadPhoto.InputStream;
                         var fileContent = new StreamContent(stream);
-                        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(inGate.UploadPhoto.ContentType);
+                        fileContent.Headers.ContentType = new MediaTypeHeaderValue(inGate.UploadPhoto.ContentType);
+
+                        // Add the file content to the form data
                         formData.Add(fileContent, "UploadPhoto", inGate.UploadPhoto.FileName);
+                    }
+                    else
+                    {
+                        msg.MessageContent = "Please take a photo!";
+                        return msg;
                     }
                     // Add other properties as form fields
                     formData.Add(new StringContent(inGate.InRegNo.ToString()?? string.Empty), "InRegNo");
@@ -124,12 +133,18 @@ namespace TMS_Gate.Services
                     // Add the file
                     if (inGate.UploadPhoto != null) // Assuming `UploadPhoto` is the property for IFormFile
                     {
-                        var stream = inGate.UploadPhoto.OpenReadStream();
+                        var stream = inGate.UploadPhoto.InputStream;
                         var fileContent = new StreamContent(stream);
-                        fileContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(inGate.UploadPhoto.ContentType);
+                        fileContent.Headers.ContentType = new MediaTypeHeaderValue(inGate.UploadPhoto.ContentType);
+
+                        // Add the file content to the form data
                         formData.Add(fileContent, "UploadPhoto", inGate.UploadPhoto.FileName);
                     }
-
+                    else
+                    {
+                        msg.MessageContent = "Please take a photo!";
+                        return msg;
+                    }
                     // Add other properties as form fields
                     formData.Add(new StringContent(inGate.InRegNo.ToString() ?? string.Empty), "InRegNo");
                     formData.Add(new StringContent(inGate.OutRegNo.ToString() ?? string.Empty), "OutRegNo");

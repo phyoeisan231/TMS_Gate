@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace TMS_Gate.Models
 {
@@ -30,7 +30,7 @@ namespace TMS_Gate.Models
         public string Customer { get; set; }
         public string InWeightBridgeID { get; set; }
         public string OutWeightBridgeID { get; set; }
-        public IFormFile UploadPhoto { get; set; }
+        public HttpPostedFileBase UploadPhoto { get; set; }
         public int InRegNo { get; set; }//mandatory
     }
 }

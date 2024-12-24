@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Syncfusion.Windows.Forms;
+﻿using Syncfusion.Windows.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,21 +7,22 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 
 namespace TMS_Gate.Forms
 {
-    public partial class FrmMain1 : Form
+    public partial class FrmMain : Form
     {
         private uint iLastErr = 0;
         private Int32 m_lUserID = -1;
         private bool m_bInitSDK = false;
         private Int32 m_lRealHandle = -1;
         private string str;
-        private IFormFile fileUpload;
+        private HttpPostedFile fileUpload;
         CHCNetSDK.REALDATACALLBACK RealData = null;
         public CHCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
-        public FrmMain1()
+        public FrmMain()
         {
             InitializeComponent();
         }
@@ -49,7 +49,7 @@ namespace TMS_Gate.Forms
         private void toolBtnTruckIn_Click(object sender, EventArgs e)
         {
             panelMain.Controls.Clear();
-            var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
+            var ctl = new CtlTruckIn() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
         }
@@ -62,7 +62,7 @@ namespace TMS_Gate.Forms
         private void truckInToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panelMain.Controls.Clear();
-            var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
+            var ctl = new CtlTruckIn() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
         }
@@ -70,7 +70,7 @@ namespace TMS_Gate.Forms
         private void toolBtnTruckOut_Click(object sender, EventArgs e)
         {
             panelMain.Controls.Clear();
-            var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
+            var ctl = new CtlTruckOut() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
         }
@@ -118,7 +118,7 @@ namespace TMS_Gate.Forms
         private void truckOutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panelMain.Controls.Clear();
-            var ctl = new CtlTruckOut2() { Dock = DockStyle.Fill };
+            var ctl = new CtlTruckOut() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
         }
