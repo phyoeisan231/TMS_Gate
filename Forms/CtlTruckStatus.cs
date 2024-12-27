@@ -136,6 +136,11 @@ namespace TMS_Gate.Forms
             });
             this.sfDataGrid1.Columns.Add(new GridTextColumn()
             {
+                MappingName = "Status",
+                HeaderText = "Status",
+            });
+            this.sfDataGrid1.Columns.Add(new GridTextColumn()
+            {
                 MappingName = "InRegNo",
                 HeaderText = "In Check No",
             });
@@ -192,24 +197,35 @@ namespace TMS_Gate.Forms
                 {
                     case "In(Check)":
                         e.Style.TextColor = Color.Orange;
+                        e.Style.Font.Bold = true;
                         break;
                     case "In":
-                        e.Style.TextColor = Color.Purple;
+                        e.Style.TextColor = Color.Orchid;
+                        e.Style.Font.Bold = true;
                         break;
                     case "In(Weight)":
-                        e.Style.TextColor = Color.Orchid;
+                        e.Style.TextColor = Color.MediumSlateBlue;
+                        e.Style.Font.Bold = true;
                         break;
-                    case "Operation":
-                        e.Style.TextColor = Color.LightSkyBlue;
+                    case "Opt Start":
+                        e.Style.TextColor = Color.DeepSkyBlue;
+                        e.Style.Font.Bold = true;
+                        break;
+                    case "Opt End":
+                        e.Style.TextColor = Color.DodgerBlue;
+                        e.Style.Font.Bold = true;
                         break;
                     case "Out(Weight)":
                         e.Style.TextColor = Color.Blue;
+                        e.Style.Font.Bold = true;
                         break;
                     case "Out(Check)":
                         e.Style.TextColor = Color.MediumSeaGreen;
+                        e.Style.Font.Bold = true;
                         break;
                     default:
                         e.Style.TextColor = Color.Green;
+                        e.Style.Font.Bold = true;
                         break;
                 }           
             }
@@ -372,6 +388,5 @@ namespace TMS_Gate.Forms
             btnEnabled();
         }
 
-        
     }
 }

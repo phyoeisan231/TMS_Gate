@@ -131,7 +131,7 @@ namespace TMS_Gate.Forms
         private async void LoadData()
         {
             _apiService = new GateApiService();
-            List<ICD_OutBoundCheck> inCheckList = new List<ICD_OutBoundCheck>();
+            List<ICD_TruckProcess> inCheckList = new List<ICD_TruckProcess>();
             string yard = Properties.Settings.Default.Yard;
             string gate = Properties.Settings.Default.Gate;
             this.sfDataGrid1.DataSource = null;

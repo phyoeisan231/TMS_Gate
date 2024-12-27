@@ -193,27 +193,27 @@ namespace TMS_Gate.Services
         #endregion
 
         #region Daily Report Dec_12_2024
-        public async Task<List<ICD_InBoundCheck>> GetDailyInReport(string yard, string gate, string fDate, string tDate)
+        public async Task<List<ICD_TruckProcess>> GetDailyInReport(string yard, string gate, string fDate, string tDate)
         {
-            List<ICD_InBoundCheck> inList = new List<ICD_InBoundCheck>();
+            List<ICD_TruckProcess> inList = new List<ICD_TruckProcess>();
             HttpClient client = new HttpClient();
             var response = await client.GetAsync($"{_baseAddress}/api/GateSupport/GetDailyInReport/?yard={yard}&gate={gate}&fDate={fDate}&tDate={tDate}");
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                inList = JsonConvert.DeserializeObject<List<ICD_InBoundCheck>>(content);
+                inList = JsonConvert.DeserializeObject<List<ICD_TruckProcess>>(content);
             }
             return inList;
         }
-        public async Task<List<ICD_OutBoundCheck>> GetDailyOutReport(string yard, string gate, string fDate, string tDate)
+        public async Task<List<ICD_TruckProcess>> GetDailyOutReport(string yard, string gate, string fDate, string tDate)
         {
-            List<ICD_OutBoundCheck> outList = new List<ICD_OutBoundCheck>();
+            List<ICD_TruckProcess> outList = new List<ICD_TruckProcess>();
             HttpClient client = new HttpClient();
             var response = await client.GetAsync($"{_baseAddress}/api/GateSupport/GetDailyOutReport/?yard={yard}&gate={gate}&fDate={fDate}&tDate={tDate}");
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
-                outList = JsonConvert.DeserializeObject<List<ICD_OutBoundCheck>>(content);
+                outList = JsonConvert.DeserializeObject<List<ICD_TruckProcess>>(content);
             }
             return outList;
         }

@@ -27,6 +27,8 @@
         public string OutCargoInfo { get; set; }
         public string GroupName { get; set; }
         public string OutCheckDateTime { get; set; }
+        public string OutGatePassTime { get; set; }
+        public string InGatePassTime { get; set; }     
         public string InWeightDateTime { get; set; }
         public string OutWeightDateTime { get; set; }
         public string JobDept { get; set; }
