@@ -462,7 +462,7 @@ namespace TMS_Gate.Forms
             sfComboBoxCard.SelectedItem = null;
             if (m_lRealHandle >= 0)
             {
-                CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
+                HCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
                 m_lRealHandle = -1;
             }
 

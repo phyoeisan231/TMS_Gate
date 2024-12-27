@@ -1,7 +1,5 @@
-﻿using System;
-using System.Web;
-
-namespace TMS_Gate.Model
+﻿using System.Web;
+namespace TMS_Gate.Models
 {
     public class ICD_InBoundCheck
     {

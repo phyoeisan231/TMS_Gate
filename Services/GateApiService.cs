@@ -5,7 +5,6 @@ using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
-using TMS_Gate.Model;
 using TMS_Gate.Models;
 
 namespace TMS_Gate.Services

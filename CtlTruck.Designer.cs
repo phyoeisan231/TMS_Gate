@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TMS_Gate.Model;
 using TMS_Gate.Models;
 using TMS_Gate.Services;
 
@@ -72,13 +71,14 @@ namespace TMS_Gate
             this.lblgate = new System.Windows.Forms.Label();
             this.cmbcard = new System.Windows.Forms.ComboBox();
             this.RealPlayWnd = new System.Windows.Forms.PictureBox();
+            this.btnSnap = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.RealPlayWnd)).BeginInit();
             this.SuspendLayout();
             // 
             // btnClose
             // 
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.Location = new System.Drawing.Point(871, 645);
+            this.btnClose.Location = new System.Drawing.Point(871, 522);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 36);
@@ -90,7 +90,7 @@ namespace TMS_Gate
             // btnPreview
             // 
             this.btnPreview.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPreview.Location = new System.Drawing.Point(346, 645);
+            this.btnPreview.Location = new System.Drawing.Point(346, 522);
             this.btnPreview.Name = "btnPreview";
             this.btnPreview.Size = new System.Drawing.Size(100, 36);
             this.btnPreview.TabIndex = 2;
@@ -101,7 +101,7 @@ namespace TMS_Gate
             // btnCapture
             // 
             this.btnCapture.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCapture.Location = new System.Drawing.Point(451, 645);
+            this.btnCapture.Location = new System.Drawing.Point(451, 522);
             this.btnCapture.Name = "btnCapture";
             this.btnCapture.Size = new System.Drawing.Size(100, 36);
             this.btnCapture.TabIndex = 3;
@@ -113,144 +113,131 @@ namespace TMS_Gate
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(556, 162);
+            this.label1.Location = new System.Drawing.Point(556, 94);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(82, 22);
             this.label1.TabIndex = 4;
             this.label1.Text = "Card No:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(556, 215);
+            this.label2.Location = new System.Drawing.Point(556, 147);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 22);
             this.label2.TabIndex = 6;
             this.label2.Text = "Truck No:";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // txtTruckNo
             // 
             this.txtTruckNo.Enabled = false;
             this.txtTruckNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTruckNo.Location = new System.Drawing.Point(667, 213);
+            this.txtTruckNo.Location = new System.Drawing.Point(667, 145);
             this.txtTruckNo.Name = "txtTruckNo";
             this.txtTruckNo.Size = new System.Drawing.Size(301, 28);
             this.txtTruckNo.TabIndex = 7;
-            this.txtTruckNo.TextChanged += new System.EventHandler(this.txtTruckNo_TextChanged);
             // 
             // txtTrailerNo
             // 
             this.txtTrailerNo.Enabled = false;
             this.txtTrailerNo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTrailerNo.Location = new System.Drawing.Point(666, 268);
+            this.txtTrailerNo.Location = new System.Drawing.Point(666, 200);
             this.txtTrailerNo.Name = "txtTrailerNo";
             this.txtTrailerNo.Size = new System.Drawing.Size(301, 28);
             this.txtTrailerNo.TabIndex = 9;
-            this.txtTrailerNo.TextChanged += new System.EventHandler(this.txtTrailerNo_TextChanged);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(556, 266);
+            this.label3.Location = new System.Drawing.Point(556, 198);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(95, 22);
             this.label3.TabIndex = 8;
             this.label3.Text = "Trailer No:";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // txtDriver
             // 
             this.txtDriver.Enabled = false;
             this.txtDriver.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDriver.Location = new System.Drawing.Point(666, 320);
+            this.txtDriver.Location = new System.Drawing.Point(666, 252);
             this.txtDriver.Name = "txtDriver";
             this.txtDriver.Size = new System.Drawing.Size(301, 28);
             this.txtDriver.TabIndex = 11;
-            this.txtDriver.TextChanged += new System.EventHandler(this.txtDriver_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(556, 318);
+            this.label4.Location = new System.Drawing.Point(556, 250);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 22);
             this.label4.TabIndex = 10;
             this.label4.Text = "Driver:";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // txtCategory
             // 
             this.txtCategory.Enabled = false;
             this.txtCategory.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCategory.Location = new System.Drawing.Point(666, 380);
+            this.txtCategory.Location = new System.Drawing.Point(666, 312);
             this.txtCategory.Name = "txtCategory";
             this.txtCategory.Size = new System.Drawing.Size(301, 28);
             this.txtCategory.TabIndex = 13;
-            this.txtCategory.TextChanged += new System.EventHandler(this.txtCategory_TextChanged);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(556, 382);
+            this.label5.Location = new System.Drawing.Point(556, 314);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 22);
             this.label5.TabIndex = 12;
             this.label5.Text = "Category:";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // txtCargoInfo
             // 
             this.txtCargoInfo.Enabled = false;
             this.txtCargoInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCargoInfo.Location = new System.Drawing.Point(666, 425);
+            this.txtCargoInfo.Location = new System.Drawing.Point(666, 357);
             this.txtCargoInfo.Multiline = true;
             this.txtCargoInfo.Name = "txtCargoInfo";
             this.txtCargoInfo.Size = new System.Drawing.Size(301, 114);
             this.txtCargoInfo.TabIndex = 15;
-            this.txtCargoInfo.TextChanged += new System.EventHandler(this.txtCargoInfo_TextChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(556, 430);
+            this.label6.Location = new System.Drawing.Point(556, 362);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(64, 22);
             this.label6.TabIndex = 14;
             this.label6.Text = "Cargo:";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // txtArea
             // 
             this.txtArea.Enabled = false;
             this.txtArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtArea.Location = new System.Drawing.Point(668, 556);
+            this.txtArea.Location = new System.Drawing.Point(668, 488);
             this.txtArea.Name = "txtArea";
             this.txtArea.Size = new System.Drawing.Size(301, 28);
             this.txtArea.TabIndex = 17;
-            this.txtArea.TextChanged += new System.EventHandler(this.txtArea_TextChanged);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(556, 558);
+            this.label7.Location = new System.Drawing.Point(556, 490);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 22);
             this.label7.TabIndex = 16;
             this.label7.Text = "Area:";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // btnDetail
             // 
             this.btnDetail.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDetail.Location = new System.Drawing.Point(556, 645);
+            this.btnDetail.Location = new System.Drawing.Point(556, 522);
             this.btnDetail.Margin = new System.Windows.Forms.Padding(4);
             this.btnDetail.Name = "btnDetail";
             this.btnDetail.Size = new System.Drawing.Size(100, 36);
@@ -262,7 +249,7 @@ namespace TMS_Gate
             // btnSave
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(661, 645);
+            this.btnSave.Location = new System.Drawing.Point(661, 522);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 36);
@@ -274,7 +261,7 @@ namespace TMS_Gate
             // btnClear
             // 
             this.btnClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClear.Location = new System.Drawing.Point(766, 645);
+            this.btnClear.Location = new System.Drawing.Point(766, 522);
             this.btnClear.Margin = new System.Windows.Forms.Padding(4);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(100, 36);
@@ -289,7 +276,7 @@ namespace TMS_Gate
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(288, 23);
+            this.label8.Location = new System.Drawing.Point(288, 3);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(351, 31);
             this.label8.TabIndex = 21;
@@ -299,23 +286,21 @@ namespace TMS_Gate
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(802, 109);
+            this.label9.Location = new System.Drawing.Point(802, 41);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(59, 22);
             this.label9.TabIndex = 23;
             this.label9.Text = "Gate :";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(571, 109);
+            this.label10.Location = new System.Drawing.Point(571, 41);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(58, 22);
             this.label10.TabIndex = 24;
             this.label10.Text = "Yard :";
-            this.label10.Click += new System.EventHandler(this.label10_Click);
             // 
             // labelyard
             // 
@@ -329,30 +314,28 @@ namespace TMS_Gate
             // 
             this.lblyard.AutoSize = true;
             this.lblyard.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblyard.Location = new System.Drawing.Point(660, 111);
+            this.lblyard.Location = new System.Drawing.Point(660, 43);
             this.lblyard.Name = "lblyard";
             this.lblyard.Size = new System.Drawing.Size(45, 20);
             this.lblyard.TabIndex = 26;
             this.lblyard.Text = global::TMS_Gate.Properties.Settings.Default.Yard;
             this.lblyard.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblyard.Click += new System.EventHandler(this.lblyard_Click);
             // 
             // lblgate
             // 
             this.lblgate.AutoSize = true;
             this.lblgate.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblgate.Location = new System.Drawing.Point(883, 109);
+            this.lblgate.Location = new System.Drawing.Point(883, 41);
             this.lblgate.Name = "lblgate";
             this.lblgate.Size = new System.Drawing.Size(94, 20);
             this.lblgate.TabIndex = 27;
             this.lblgate.Text = global::TMS_Gate.Properties.Settings.Default.Gate;
-            this.lblgate.Click += new System.EventHandler(this.lblgate_Click);
             // 
             // cmbcard
             // 
             this.cmbcard.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbcard.FormattingEnabled = true;
-            this.cmbcard.Location = new System.Drawing.Point(668, 166);
+            this.cmbcard.Location = new System.Drawing.Point(668, 98);
             this.cmbcard.Name = "cmbcard";
             this.cmbcard.Size = new System.Drawing.Size(298, 30);
             this.cmbcard.TabIndex = 28;
@@ -361,17 +344,29 @@ namespace TMS_Gate
             // RealPlayWnd
             // 
             this.RealPlayWnd.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.RealPlayWnd.Location = new System.Drawing.Point(17, 98);
+            this.RealPlayWnd.Location = new System.Drawing.Point(17, 45);
             this.RealPlayWnd.Name = "RealPlayWnd";
-            this.RealPlayWnd.Size = new System.Drawing.Size(534, 541);
+            this.RealPlayWnd.Size = new System.Drawing.Size(534, 464);
             this.RealPlayWnd.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.RealPlayWnd.TabIndex = 1;
             this.RealPlayWnd.TabStop = false;
+            // 
+            // btnSnap
+            // 
+            this.btnSnap.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSnap.Location = new System.Drawing.Point(249, 522);
+            this.btnSnap.Name = "btnSnap";
+            this.btnSnap.Size = new System.Drawing.Size(91, 36);
+            this.btnSnap.TabIndex = 30;
+            this.btnSnap.Text = "&Snap";
+            this.btnSnap.UseVisualStyleBackColor = true;
+            this.btnSnap.Click += new System.EventHandler(this.btnSnap_Click);
             // 
             // CtlTruck
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnSnap);
             this.Controls.Add(this.cmbcard);
             this.Controls.Add(this.lblgate);
             this.Controls.Add(this.lblyard);
@@ -402,7 +397,6 @@ namespace TMS_Gate
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CtlTruck";
             this.Size = new System.Drawing.Size(1093, 750);
-            this.Load += new System.EventHandler(this.CtlTruck_Load);
             ((System.ComponentModel.ISupportInitialize)(this.RealPlayWnd)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -424,6 +418,134 @@ namespace TMS_Gate
                 pCardList = inCheckList.Select(x=>x.CardNo).ToList();
                 this.cmbcard.DataSource = pCardList;
             }
+        }
+
+        public bool SDK_Login(bool bStatus)
+        {
+            LoginCallBackFlag = false;
+            m_struDeviceInfo = new CHCNetSDK.NET_DVR_DEVICEINFO_V30();
+
+            CHCNetSDK.NET_DVR_DEVICEINFO_V30 struDeviceInfo = new CHCNetSDK.NET_DVR_DEVICEINFO_V30();
+            struDeviceInfo.sSerialNumber = new byte[CHCNetSDK.SERIALNO_LEN];
+
+            CHCNetSDK.NET_DVR_NETCFG_V30 struNetCfg = new CHCNetSDK.NET_DVR_NETCFG_V30();
+            struNetCfg.init();
+            CHCNetSDK.NET_DVR_DEVICECFG_V40 struDevCfg = new CHCNetSDK.NET_DVR_DEVICECFG_V40();
+            struDevCfg.sDVRName = new byte[CHCNetSDK.NAME_LEN];
+            struDevCfg.sSerialNumber = new byte[CHCNetSDK.SERIALNO_LEN];
+            struDevCfg.byDevTypeName = new byte[CHCNetSDK.DEV_TYPE_NAME_LEN];
+            CHCNetSDK.NET_DVR_USER_LOGIN_INFO struLoginInfo = new CHCNetSDK.NET_DVR_USER_LOGIN_INFO();
+            CHCNetSDK.NET_DVR_DEVICEINFO_V40 struDeviceInfoV40 = new CHCNetSDK.NET_DVR_DEVICEINFO_V40();
+            struDeviceInfoV40.struDeviceV30.sSerialNumber = new byte[CHCNetSDK.SERIALNO_LEN];
+            uint dwReturned = 0;
+            int lUserID = -1;
+
+            if (bStatus)
+            {
+                struLoginInfo.sDeviceAddress = Properties.Settings.Default.device_ip;
+                struLoginInfo.sUserName = Properties.Settings.Default.device_admin;
+                struLoginInfo.sPassword = Properties.Settings.Default.device_pwd;
+                struLoginInfo.wPort = (ushort)Properties.Settings.Default.device_port;
+            }
+           
+
+            lUserID = CHCNetSDK.NET_DVR_Login_V40(ref struLoginInfo, ref struDeviceInfoV40);
+            if (struLoginInfo.bUseAsynLogin)
+            {
+                for (int i = 0; i < 1000; i++)
+                {
+                    if (!LoginCallBackFlag)
+                    {
+                        Thread.Sleep(5);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                if (!LoginCallBackFlag)
+                {
+                    MessageBox.Show("Asynchronous login callback time out!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (m_AysnLoginResult == 1)
+                {
+                    lUserID = m_iUserID;
+                    struDeviceInfoV40.struDeviceV30 = m_struDeviceInfo;
+                }
+                else
+                {
+                    MessageBox.Show("Asynchronous login failed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
+                }
+
+            }
+
+            if (lUserID < 0)
+            {
+                uint nErr = CHCNetSDK.NET_DVR_GetLastError();
+                string strTemp = string.Format("NET_DVR_Login_V40 [{0}]", struLoginInfo.sDeviceAddress);
+                CHCNetSDK.AddLog(-1, CHCNetSDK.OPERATION_FAIL_T, strTemp);
+                if (nErr == CHCNetSDK.NET_DVR_PASSWORD_ERROR)
+                {
+                    MessageBox.Show("user name or password error!");
+                    if (1 == struDeviceInfoV40.bySupportLock)
+                    {
+                        string strTemp1 = string.Format("Left {0} try opportunity", struDeviceInfoV40.byRetryLoginTime);
+                        MessageBox.Show(strTemp1);
+                    }
+                }
+                else if (nErr == CHCNetSDK.NET_DVR_USER_LOCKED)
+                {
+                    if (1 == struDeviceInfoV40.bySupportLock)
+                    {
+                        string strTemp1 = string.Format("IP is locked, the remaining lock time is {0}", struDeviceInfoV40.dwSurplusLockTime);
+                        MessageBox.Show(strTemp1);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("net error or dvr is busy!");
+                }
+                return false;
+            }
+            else
+            {
+                if (1 == struDeviceInfoV40.byPasswordLevel)
+                {
+                    MessageBox.Show("default password, please change the password");
+                }
+                else if (3 == struDeviceInfoV40.byPasswordLevel)
+                {
+                    MessageBox.Show("risk password, please change the password");
+                }
+                struDeviceInfo = struDeviceInfoV40.struDeviceV30;
+            }
+     
+            uint dwSize2 = (uint)Marshal.SizeOf(struDevCfg);
+            IntPtr ptrDevCfg = Marshal.AllocHGlobal((int)dwSize2);
+            Marshal.StructureToPtr(struDevCfg, ptrDevCfg, false);
+
+            if (!CHCNetSDK.NET_DVR_GetDVRConfig(lUserID, CHCNetSDK.NET_DVR_GET_DEVICECFG_V40, 0, ptrDevCfg, dwSize2, ref dwReturned))
+            {
+                CHCNetSDK.AddLog(lUserID, CHCNetSDK.OPERATION_FAIL_T, "NET_DVR_GET_DEVICECFG_V40");
+            }
+            else
+            {
+                struDevCfg = (CHCNetSDK.NET_DVR_DEVICECFG_V40)Marshal.PtrToStructure(ptrDevCfg, typeof(CHCNetSDK.NET_DVR_DEVICECFG_V40));
+                   //g_deviceTree.g_struDeviceInfo[m_iDeviceIndex].chDeviceMultiIP = struNetCfg.struMulticastIpAddr.sIpV4.ToString();
+            }
+            Marshal.FreeHGlobal(ptrDevCfg);
+            return true;
+        }
+
+        public static bool SDK_CloseAlarmChan(int lAlarmHandle)
+        {
+            return CHCNetSDK.NET_DVR_CloseAlarmChan_V30(lAlarmHandle);
+        }
+
+        public static bool SDK_Logout(Int32 lUserID)
+        {
+            return CHCNetSDK.NET_DVR_Logout_V30(lUserID);
         }
 
         private void ComboBoxCard_TextChanged(object sender, EventArgs e)
@@ -462,7 +584,7 @@ namespace TMS_Gate
             cmbcard.SelectedItem = null;
             if (m_lRealHandle >= 0)
             {
-                CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
+                HCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
                 m_lRealHandle = -1;
             }
 
@@ -481,10 +603,13 @@ namespace TMS_Gate
                 txtDriver.Text = inboundCheck.DriverName;
                 txtTrailerNo.Text = inboundCheck.TrailerVehicleRegNo;
                 txtArea.Text = inboundCheck.AreaID;
+                if(truckNo!= inboundCheck.TrailerVehicleRegNo)
+                {
+                    MessageBox.Show("Truck No didn't match!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             
         }
-
         private async Task<ResponseMessage> SaveGateInData()
         {
             ResponseMessage msg = new ResponseMessage();
@@ -532,23 +657,11 @@ namespace TMS_Gate
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
 
-        //public async Task<List<ICD_InBoundCheck>> GetInBoundCheckCardList(string yard,string gate)
-        //{
-        //    List<ICD_InBoundCheck> inboundList = new List<ICD_InBoundCheck>();
-        //    HttpClient client = new HttpClient();
-        //    var response = await client.GetAsync($"{_baseAddress}/api/GateSupport/GetInBoundCheckCardList/?yard={yard}&gate={gate}");
-        //    if (response.IsSuccessStatusCode)
-        //    {
-        //        string content = await response.Content.ReadAsStringAsync();
-        //        inboundList = JsonConvert.DeserializeObject<List<ICD_InBoundCheck>>(content);
-        //    }
-        //    return inboundList;
-        //}
-
         private System.Windows.Forms.Label labelyard;
         private System.Windows.Forms.Label lblyard;
         private System.Windows.Forms.Label lblgate;
         private System.Windows.Forms.ComboBox cmbcard;
+        private Button btnSnap;
     }
     
   }

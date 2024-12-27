@@ -5,9 +5,9 @@ namespace TMS_Gate
 	/// <summary>
 	/// CHCNetSDK 的摘要说明。
 	/// </summary>
-    public class CHCNetSDK
+    public class HCNetSDK
     {
-        public CHCNetSDK()
+        public HCNetSDK()
         {
             //
             // TODO: 在此处添加构造函数逻辑

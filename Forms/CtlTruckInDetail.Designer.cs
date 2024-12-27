@@ -1,4 +1,4 @@
-﻿using TMS_Gate.Model;
+﻿using TMS_Gate.Models;
 using static System.Windows.Forms.MonthCalendar;
 
 namespace TMS_Gate.Forms

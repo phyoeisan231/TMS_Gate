@@ -1,23 +1,14 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Configuration;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static TMS_Gate.CHCNetSDK;
-using TMS_Gate.Model;
 using TMS_Gate.Forms;
 using Syncfusion.Windows.Forms;
 using TMS_Gate.Models;
 using System.Web;
+using System.Threading;
 
 namespace TMS_Gate
 {
@@ -28,74 +19,228 @@ namespace TMS_Gate
 		private bool m_bInitSDK = false;
 		private Int32 m_lRealHandle = -1;
         private string str;
+        private string truckNo;
 		private HttpPostedFileBase fileUpload;
-        CHCNetSDK.REALDATACALLBACK RealData = null;
-		public CHCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
-
+        HCNetSDK.REALDATACALLBACK RealData = null;
+		public HCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
+        private bool LoginCallBackFlag = false;
+        CHCNetSDK.NET_DVR_DEVICEINFO_V30 m_struDeviceInfo;
+        private uint m_AysnLoginResult = 0;
+        private int m_iUserID = -1;
+        public int m_iDeviceIndex = -1;
+        Random rd = new Random();
+        public int m_index = 0;
+        //
         public CtlTruck()
 		{
-			InitializeComponent();
-			LoadData();
             MessageBoxAdv.MessageBoxStyle = MessageBoxAdv.Style.Metro;
+            InitializeComponent();
+            LoadData();
+        }
+        private void InitializeSDK()
+        {
+            MessageBoxAdv.MessageBoxStyle = MessageBoxAdv.Style.Metro;
+
             m_bInitSDK = CHCNetSDK.NET_DVR_Init();
-			if (m_bInitSDK == false)
-			{
+            if (!m_bInitSDK)
+            {
+                MessageBox.Show("SDK initialization failed. Please check the setup.");
+                return;
+            }
+
+            // Set log file path
+            CHCNetSDK.NET_DVR_SetLogToFile(3, "C:\\SdkLog\\", true);
+            TryLoginToDevice();
+        }
+        private void InitializeCHCNetSDK()
+        {
+            m_bInitSDK = HCNetSDK.NET_DVR_Init();
+            if (m_bInitSDK == false)
+            {
                 MessageBoxAdv.Show(this, "NET_DVR_Init error!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 return;
-			}
-			else
-			{
-				
-				CHCNetSDK.NET_DVR_SetLogToFile(3, "D:\\SdkLog\\", true);
-			}
+            }
+            else
+            {
 
-			CHCNetSDK.NET_DVR_DEVICEINFO_V30 DeviceInfo = new CHCNetSDK.NET_DVR_DEVICEINFO_V30();
+                HCNetSDK.NET_DVR_SetLogToFile(3, "D:\\SdkLog\\", true);
+            }
 
-			//string ip=ConfigurationManager.AppSettings.Get("device_ip");
-			
-			
-			m_lUserID = CHCNetSDK.NET_DVR_Login_V30(Properties.Settings.Default.device_ip, Properties.Settings.Default.device_port, Properties.Settings.Default.device_admin, Properties.Settings.Default.device_pwd, ref DeviceInfo);
-			if (m_lUserID < 0)
-			{
-				iLastErr = CHCNetSDK.NET_DVR_GetLastError();
-				str = "NET_DVR_Login_V30 failed, error code= " + iLastErr; //µÇÂ¼Ê§°Ü£¬Êä³ö´íÎóºÅ
+            HCNetSDK.NET_DVR_DEVICEINFO_V30 DeviceInfo = new HCNetSDK.NET_DVR_DEVICEINFO_V30();
+
+            m_lUserID = HCNetSDK.NET_DVR_Login_V30(Properties.Settings.Default.device_ip, Properties.Settings.Default.device_port, Properties.Settings.Default.device_admin, Properties.Settings.Default.device_pwd, ref DeviceInfo);
+            if (m_lUserID < 0)
+            {
+                iLastErr = HCNetSDK.NET_DVR_GetLastError();
+                str = "NET_DVR_Login_V30 failed, error code= " + iLastErr; //µÇÂ¼Ê§°Ü£¬Êä³ö´íÎóºÅ
                 MessageBoxAdv.Show(this, str, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
-			}
-			//else
-			//{
-   //             MessageBoxAdv.Show(this, "Login Success!", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			//}
-		}
+            }
+        }
+        private void TryLoginToDevice()
+        {
+            // Initialize device structures
+            CHCNetSDK.NET_DVR_DEVICEINFO_V40 deviceInfoV40 = InitializeDeviceInfo();
+            CHCNetSDK.NET_DVR_USER_LOGIN_INFO loginInfo = InitializeLoginInfo();
 
-		private void btnClose_Click(object sender, EventArgs e)
+            // Attempt to login
+            int userID = CHCNetSDK.NET_DVR_Login_V40(ref loginInfo, ref deviceInfoV40);
+
+            if (loginInfo.bUseAsynLogin)
+            {
+                HandleAsynchronousLogin(ref userID, deviceInfoV40);
+            }
+
+            if (userID < 0)
+            {
+                HandleLoginFailure(loginInfo, deviceInfoV40);
+            }
+            else
+            {
+                HandleLoginSuccess(ref userID, deviceInfoV40);
+            }
+
+            m_lUserID = userID;
+        }
+        private CHCNetSDK.NET_DVR_USER_LOGIN_INFO InitializeLoginInfo()
+        {
+            return new CHCNetSDK.NET_DVR_USER_LOGIN_INFO
+            {
+                sDeviceAddress = Properties.Settings.Default.device_ip,
+                sUserName = Properties.Settings.Default.device_admin,
+                sPassword = Properties.Settings.Default.device_pwd,
+                wPort = (ushort)Properties.Settings.Default.device_port,
+                bUseAsynLogin = false // Set this to true if async login is required
+            };
+        }
+        private CHCNetSDK.NET_DVR_DEVICEINFO_V40 InitializeDeviceInfo()
+        {
+            var deviceInfo = new CHCNetSDK.NET_DVR_DEVICEINFO_V40
+            {
+                struDeviceV30 = new CHCNetSDK.NET_DVR_DEVICEINFO_V30
+                {
+                    sSerialNumber = new byte[CHCNetSDK.SERIALNO_LEN]
+                }
+            };
+
+            return deviceInfo;
+        }
+        private void HandleAsynchronousLogin(ref int userID, CHCNetSDK.NET_DVR_DEVICEINFO_V40 deviceInfoV40)
+        {
+            for (int i = 0; i < 1000; i++)
+            {
+                if (!LoginCallBackFlag)
+                {
+                    Thread.Sleep(5);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            if (!LoginCallBackFlag)
+            {
+                MessageBox.Show("Asynchronous login callback timeout!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (m_AysnLoginResult == 1)
+            {
+                userID = m_iUserID;
+                deviceInfoV40.struDeviceV30 = m_struDeviceInfo;
+            }
+            else
+            {
+                MessageBox.Show("Asynchronous login failed!", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        private void HandleLoginFailure(CHCNetSDK.NET_DVR_USER_LOGIN_INFO loginInfo, CHCNetSDK.NET_DVR_DEVICEINFO_V40 deviceInfoV40)
+        {
+            uint errorCode = CHCNetSDK.NET_DVR_GetLastError();
+            string errorMsg = $"Login failed for device [{loginInfo.sDeviceAddress}]. Error Code: {errorCode}";
+            CHCNetSDK.AddLog(-1, CHCNetSDK.OPERATION_FAIL_T, errorMsg);
+
+            if (errorCode == CHCNetSDK.NET_DVR_PASSWORD_ERROR && deviceInfoV40.bySupportLock == 1)
+            {
+                MessageBox.Show($"Username or password error! Remaining attempts: {deviceInfoV40.byRetryLoginTime}");
+            }
+            else if (errorCode == CHCNetSDK.NET_DVR_USER_LOCKED)
+            {
+                MessageBox.Show($"IP is locked. Remaining lock time: {deviceInfoV40.dwSurplusLockTime} seconds");
+            }
+            else
+            {
+                MessageBox.Show("Network error or DVR is busy!");
+            }
+        }
+        private void HandleLoginSuccess(ref int userID, CHCNetSDK.NET_DVR_DEVICEINFO_V40 deviceInfoV40)
+        {
+            if (deviceInfoV40.byPasswordLevel == 1)
+            {
+                MessageBox.Show("Default password detected. Please change it immediately.");
+            }
+            else if (deviceInfoV40.byPasswordLevel == 3)
+            {
+                MessageBox.Show("Weak password detected. Please use a stronger password.");
+            }
+
+            m_struDeviceInfo = deviceInfoV40.struDeviceV30;
+
+            // Load device configuration
+            LoadDeviceConfiguration(userID);
+        }
+        private void LoadDeviceConfiguration(int userID)
+        {
+            var deviceConfig = new CHCNetSDK.NET_DVR_DEVICECFG_V40
+            {
+                sDVRName = new byte[CHCNetSDK.NAME_LEN],
+                sSerialNumber = new byte[CHCNetSDK.SERIALNO_LEN],
+                byDevTypeName = new byte[CHCNetSDK.DEV_TYPE_NAME_LEN]
+            };
+
+            uint configSize = (uint)Marshal.SizeOf(deviceConfig);
+            IntPtr configPtr = Marshal.AllocHGlobal((int)configSize);
+            try
+            {
+                Marshal.StructureToPtr(deviceConfig, configPtr, false);
+
+                if (!CHCNetSDK.NET_DVR_GetDVRConfig(userID, CHCNetSDK.NET_DVR_GET_DEVICECFG_V40, 0, configPtr, configSize, ref configSize))
+                {
+                    CHCNetSDK.AddLog(userID, CHCNetSDK.OPERATION_FAIL_T, "Failed to retrieve device configuration.");
+                }
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(configPtr);
+            }
+        }
+        private void btnClose_Click(object sender, EventArgs e)
 		{
 			if (m_lRealHandle >= 0)
 			{
-				CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
+				HCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
 				m_lRealHandle = -1;
-			}
-
-			
+			}			
 			if (m_lUserID >= 0)
 			{
-				CHCNetSDK.NET_DVR_Logout(m_lUserID);
+				HCNetSDK.NET_DVR_Logout(m_lUserID);
 				m_lUserID = -1;
 			}
+			HCNetSDK.NET_DVR_Cleanup();
+            var p = this.Parent as Panel;
+            if (p != null)
+            {
+                FrmMain main = new FrmMain();
+                p.Controls.Remove(this);
+                p.Controls.Add(main.pictureHome);
 
-			CHCNetSDK.NET_DVR_Cleanup();
-
-		
-			var p = this.Parent as Panel;
-			if (p != null)
-			{
-				p.Controls.Remove(this);
-			}
-		}
-
+            }
+        }
 		private void btnPreview_Click(object sender, EventArgs e)
-		{          
+		{
+            InitializeCHCNetSDK();
             if (m_lUserID < 0)
 			{
                 MessageBoxAdv.Show(this, "Please login the device firstly", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -104,28 +249,28 @@ namespace TMS_Gate
 
 			if (m_lRealHandle < 0)
 			{
-				CHCNetSDK.NET_DVR_PREVIEWINFO lpPreviewInfo = new CHCNetSDK.NET_DVR_PREVIEWINFO();
-				lpPreviewInfo.hPlayWnd = RealPlayWnd.Handle;//Ô¤ÀÀ´°¿Ú
-				lpPreviewInfo.lChannel = 1;//Ô¤teÀÀµÄÉè±¸Í¨µÀ
-				lpPreviewInfo.dwStreamType = 0;//ÂëÁ÷ÀàÐÍ£º0-Ö÷ÂëÁ÷£¬1-×ÓÂëÁ÷£¬2-ÂëÁ÷3£¬3-ÂëÁ÷4£¬ÒÔ´ËÀàÍÆ
-				lpPreviewInfo.dwLinkMode = 0;//Á¬½Ó·½Ê½£º0- TCP·½Ê½£¬1- UDP·½Ê½£¬2- ¶à²¥·½Ê½£¬3- RTP·½Ê½£¬4-RTP/RTSP£¬5-RSTP/HTTP 
-				lpPreviewInfo.bBlocked = true; //0- ·Ç×èÈûÈ¡Á÷£¬1- ×èÈûÈ¡Á÷
-				lpPreviewInfo.dwDisplayBufNum = 1; //²¥·Å¿â²¥·Å»º³åÇø×î´ó»º³åÖ¡Êý
+				HCNetSDK.NET_DVR_PREVIEWINFO lpPreviewInfo = new HCNetSDK.NET_DVR_PREVIEWINFO();
+				lpPreviewInfo.hPlayWnd = RealPlayWnd.Handle;
+				lpPreviewInfo.lChannel = 1;
+				lpPreviewInfo.dwStreamType = 0;
+				lpPreviewInfo.dwLinkMode = 0;
+				lpPreviewInfo.bBlocked = true; 
+				lpPreviewInfo.dwDisplayBufNum = 1;
 				lpPreviewInfo.byProtoType = 0;
 				lpPreviewInfo.byPreviewMode = 0;	
 				if (RealData == null)
 				{
-					RealData = new CHCNetSDK.REALDATACALLBACK(RealDataCallBack);//Ô¤ÀÀÊµÊ±Á÷»Øµ÷º¯Êý
+					RealData = new HCNetSDK.REALDATACALLBACK(RealDataCallBack);
 				}
 
-				IntPtr pUser = new IntPtr();//ÓÃ»§Êý¾Ý
+				IntPtr pUser = new IntPtr();
 
 				//´ò¿ªÔ¤ÀÀ Start live view 
-				m_lRealHandle = CHCNetSDK.NET_DVR_RealPlay_V40(m_lUserID, ref lpPreviewInfo, null/*RealData*/, pUser);
+				m_lRealHandle = HCNetSDK.NET_DVR_RealPlay_V40(m_lUserID, ref lpPreviewInfo, null/*RealData*/, pUser);
 				if (m_lRealHandle < 0)
 				{
-					iLastErr = CHCNetSDK.NET_DVR_GetLastError();
-					str = "NET_DVR_RealPlay_V40 failed, error code= " + iLastErr; //Ô¤ÀÀÊ§°Ü£¬Êä³ö´íÎóºÅ
+					iLastErr = HCNetSDK.NET_DVR_GetLastError();
+					str = "NET_DVR_RealPlay_V40 failed, error code= " + iLastErr;
                     MessageBoxAdv.Show(this, str, "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
 				}
@@ -138,9 +283,9 @@ namespace TMS_Gate
 			else
 			{
 				//Í£Ö¹Ô¤ÀÀ Stop live view 
-				if (!CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
+				if (!HCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
 				{
-					iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+					iLastErr = HCNetSDK.NET_DVR_GetLastError();
 					str = "NET_DVR_StopRealPlay failed, error code= " + iLastErr;
                     MessageBoxAdv.Show(this, str, "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -151,8 +296,6 @@ namespace TMS_Gate
 			}
 			return;
 		}
-
-
 		public void RealDataCallBack(Int32 lRealHandle, UInt32 dwDataType, IntPtr pBuffer, UInt32 dwBufSize, IntPtr pUser)
 		{
 			if (dwBufSize > 0)
@@ -167,24 +310,22 @@ namespace TMS_Gate
 				fs.Close();
 			}
 		}
-
 		private void btnCapture_Click(object sender, EventArgs e)
 		{
-			BtnDisable();
+            InitializeCHCNetSDK();
+            BtnDisable();
 			string sJpegPicFileName;
-			//Í¼Æ¬±£´æÂ·¾¶ºÍÎÄ¼þÃû the path and file name to save
 			sJpegPicFileName = "JPEG_test"+count+".jpg";
 
-           int lChannel = 1; //Í¨µÀºÅ Channel number
+           int lChannel = 1;
 
-			CHCNetSDK.NET_DVR_JPEGPARA lpJpegPara = new CHCNetSDK.NET_DVR_JPEGPARA();
-			lpJpegPara.wPicQuality = 2; //Í¼ÏñÖÊÁ¿ Image quality
-			lpJpegPara.wPicSize = 2; //×¥Í¼·Ö±æÂÊ Picture size: 2- 4CIF£¬0xff- Auto(Ê¹ÓÃµ±Ç°ÂëÁ÷·Ö±æÂÊ)£¬×¥Í¼·Ö±æÂÊÐèÒªÉè±¸Ö§³Ö£¬¸ü¶àÈ¡ÖµÇë²Î¿¼SDKÎÄµµ
+			HCNetSDK.NET_DVR_JPEGPARA lpJpegPara = new HCNetSDK.NET_DVR_JPEGPARA();
+			lpJpegPara.wPicQuality = 2; 
+			lpJpegPara.wPicSize = 2; 
 
-			////JPEG×¥Í¼ Capture a JPEG picture
-			if (!CHCNetSDK.NET_DVR_CaptureJPEGPicture(m_lUserID, lChannel, ref lpJpegPara, sJpegPicFileName))
+			if (!HCNetSDK.NET_DVR_CaptureJPEGPicture(m_lUserID, lChannel, ref lpJpegPara, sJpegPicFileName))
 			{
-				iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+				iLastErr = HCNetSDK.NET_DVR_GetLastError();
 				str = "NET_DVR_CaptureJPEGPicture failed, error code= " + iLastErr;
                 MessageBoxAdv.Show(this, str, "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -197,9 +338,9 @@ namespace TMS_Gate
             }
 
 
-            if (!CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
+            if (!HCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
 			{
-				iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+				iLastErr = HCNetSDK.NET_DVR_GetLastError();
 				str = "NET_DVR_StopRealPlay failed, error code= " + iLastErr;
                 MessageBoxAdv.Show(this, str, "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -213,14 +354,11 @@ namespace TMS_Gate
 			BtnEnable();
             return;
 		}
-
         private HttpPostedFileBase ConvertFileToPostedFileBase(string filePath, string contentType)
         {
             var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
             return new CustomPostedFile(fileStream, Path.GetFileName(filePath), contentType);
         }
-
-
         private void cmbcard_SelectedIndexChanged(object sender, EventArgs e)
         {
 			if (cmbcard.SelectedIndex != -1)
@@ -229,7 +367,6 @@ namespace TMS_Gate
                 FillInCheckData(cardNo);
             }			
         }
-
 		private void BtnDisable()
 		{
             btnSave.Enabled = false;
@@ -239,7 +376,6 @@ namespace TMS_Gate
             btnPreview.Enabled = false;
             btnCapture.Enabled = false;
         }
-
         private void BtnEnable()
         {
             btnSave.Enabled = true;
@@ -272,7 +408,6 @@ namespace TMS_Gate
                 }
             }
         }
-
         private void btnClear_Click(object sender, EventArgs e)
         {
             BtnDisable();
@@ -280,7 +415,6 @@ namespace TMS_Gate
 			btnPreview.Text = "Live View";
             BtnEnable();
         }
-     
         private void btnDetail_Click(object sender, EventArgs e)
         {
             if (cmbcard.SelectedItem != null)
@@ -322,95 +456,68 @@ namespace TMS_Gate
                 MessageBoxAdv.Show(this, "Please choose card No.", "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
-
-        private void CtlTruck_Load(object sender, EventArgs e)
+        private void btnSnap_Click(object sender, EventArgs e)
         {
+            InitializeSDK();
+            TMS_Gate.CHCNetSDK.NET_DVR_MANUALSNAP struManualSnap = new TMS_Gate.CHCNetSDK.NET_DVR_MANUALSNAP();
+            TMS_Gate.CHCNetSDK.NET_DVR_PLATE_RESULT struPlateResult = new TMS_Gate.CHCNetSDK.NET_DVR_PLATE_RESULT();
+            struManualSnap.byLaneNo = 1;
+            //struPlateResult.pBuffer1 = Marshal.AllocHGlobal(2 * 1024 * 1024);
 
-        }
+            struPlateResult.pBuffer2 = Marshal.AllocHGlobal(2 * 1024 * 1024);
+            //if (!CHCNetSDK.NET_DVR_ManualSnap((int)deviceInfo.lLoginID, ref struManualSnap, ref struPlateResult))
 
-        private void lblyard_Click(object sender, EventArgs e)
-        {
+            if (!CHCNetSDK.NET_DVR_ManualSnap(m_lUserID, ref struManualSnap, ref struPlateResult))
+            {
+                uint iLastErr = HCNetSDK.NET_DVR_GetLastError();
+                string strErr = "NET_DVR_ManualSnap fail, Err：" + iLastErr;
+                MessageBox.Show(strErr);
+            }
+            else
+            {
+                m_index++;
+                truckNo= System.Text.Encoding.Default.GetString(struPlateResult.struPlateInfo.sLicense);
+                if (truckNo != txtTruckNo.Text)
+                {
+                    MessageBox.Show("Truck No didn't match!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                string strFileSavePath = Application.StartupPath + "\\ANPRManualSnap\\" + DateTime.Now.ToString("yyyy-MM-dd");
+                if (!Directory.Exists(strFileSavePath))
+                    Directory.CreateDirectory(strFileSavePath);
 
-        }
-
-        private void label9_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblgate_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtTruckNo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtTrailerNo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label10_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDriver_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCategory_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtCargoInfo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtArea_TextChanged(object sender, EventArgs e)
-        {
-
+                //if (struPlateResult.pBuffer1 != IntPtr.Zero && struPlateResult.dwPicLen != 0)
+                //{
+                //    string strCloseUpPicPath = strFileSavePath + "\\CloseUpPic_" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + "_" + rd.Next().ToString() + ".jpg";
+                //    FileStream fs = new FileStream(strCloseUpPicPath, FileMode.Create);
+                //    int iLen = (int)struPlateResult.dwPicLen;
+                //    byte[] by = new byte[iLen];
+                //    Marshal.Copy(struPlateResult.pBuffer1, by, 0, iLen);
+                //    fs.Write(by, 0, iLen);
+                //    fs.Close();
+                //    RealPlayWnd.Image = Image.FromFile(strCloseUpPicPath);
+                //    // picPath
+                //    //lvi.SubItems.Add(strCloseUpPicPath);
+                //}
+                if (struPlateResult.pBuffer2 != IntPtr.Zero && struPlateResult.dwPicPlateLen != 0)
+                {
+                    string strPlatePicPath = strFileSavePath + "\\PlatePic_" + DateTime.Now.ToString("yyyyMMddhhmmssfff") + "_" + rd.Next().ToString() + ".jpg"; ;
+                    FileStream fs = new FileStream(strPlatePicPath, FileMode.Create);
+                    int iLen = (int)struPlateResult.dwPicPlateLen;
+                    byte[] by = new byte[iLen];
+                    Marshal.Copy(struPlateResult.pBuffer2, by, 0, iLen);
+                    fs.Write(by, 0, iLen);
+                    fs.Close();
+                    RealPlayWnd.Image = Image.FromFile(strPlatePicPath);
+                    m_lRealHandle = -1;
+                    btnPreview.Text = "Live View";
+                    RealPlayWnd.SizeMode = PictureBoxSizeMode.StretchImage;
+                    // Convert the JPEG file to IFormFile
+                    fileUpload = ConvertFileToPostedFileBase(strPlatePicPath, "image/jpeg");
+                    BtnEnable();
+                }
+                //Marshal.FreeHGlobal(struPlateResult.pBuffer1);
+                Marshal.FreeHGlobal(struPlateResult.pBuffer2);
+            }
         }
     }
 }

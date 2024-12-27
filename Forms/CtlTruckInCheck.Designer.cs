@@ -3,7 +3,7 @@ using Syncfusion.WinForms.DataGrid;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TMS_Gate.Model;
+using TMS_Gate.Models;
 using TMS_Gate.Services;
 using Syncfusion.Data;
 

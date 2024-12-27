@@ -9,7 +9,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using TMS_Gate.Model;
+using TMS_Gate.Models;
 
 namespace TMS_Gate.Forms
 {
@@ -116,36 +116,7 @@ namespace TMS_Gate.Forms
         }
 
 
-        //private async void sfBtnIn_Click(object sender, EventArgs e)
-        //{
-        //    btnDisabled();
-        //    if (sfDataGrid1.SelectedItem != null)
-        //    {
-        //        var p = this.Parent as Panel;
-        //        if (p != null)
-        //        {
-        //            p.Controls.Remove(this);
-        //        }
-        //        // Initialize controls
-        //        var ctl = new CtlTruckIn1() { Dock = DockStyle.Fill };
-        //        // Add main panel and show the form
-        //        ICD_InBoundCheck inData = (ICD_InBoundCheck)sfDataGrid1.SelectedItem;
-        //        await ctl.LoadData();
-        //        if (ctl.inboundList!=null && ctl.inboundList.Count > 0)
-        //        {
-        //            ctl.FillInCheckData(inData.CardNo);
-        //            p.Controls.Add(ctl);
-        //            btnEnabled();
-        //        }
-
-        //    }
-        //    else
-        //    {
-        //        MessageBoxAdv.Show(this, "Please select row!", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        btnEnabled();
-        //    }
-        //}
-
+  
         private async void sfBtnIn_Click(object sender, EventArgs e)
         {
             btnDisabled();

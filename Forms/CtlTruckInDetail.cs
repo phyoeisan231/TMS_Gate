@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using TMS_Gate.Model;
+using TMS_Gate.Models;
 
 namespace TMS_Gate.Forms
 {

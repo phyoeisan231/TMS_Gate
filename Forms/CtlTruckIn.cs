@@ -23,14 +23,14 @@ namespace TMS_Gate.Forms
         private Int32 m_lRealHandle = -1;
         private string str;
         private HttpPostedFileBase fileUpload;
-        CHCNetSDK.REALDATACALLBACK RealData = null;
-        public CHCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
+        HCNetSDK.REALDATACALLBACK RealData = null;
+        public HCNetSDK.NET_DVR_PTZPOS m_struPtzCfg;
         public CtlTruckIn()
         {
             InitializeComponent();
             LoadData();
             MessageBoxAdv.MessageBoxStyle = MessageBoxAdv.Style.Metro;
-            m_bInitSDK = CHCNetSDK.NET_DVR_Init();
+            m_bInitSDK = HCNetSDK.NET_DVR_Init();
             if (m_bInitSDK == false)
             {
                 MessageBoxAdv.Show(this, "NET_DVR_Init error!", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -40,18 +40,18 @@ namespace TMS_Gate.Forms
             else
             {
 
-                CHCNetSDK.NET_DVR_SetLogToFile(3, "D:\\SdkLog\\", true);
+                HCNetSDK.NET_DVR_SetLogToFile(3, "D:\\SdkLog\\", true);
             }
 
-            CHCNetSDK.NET_DVR_DEVICEINFO_V30 DeviceInfo = new CHCNetSDK.NET_DVR_DEVICEINFO_V30();
+            HCNetSDK.NET_DVR_DEVICEINFO_V30 DeviceInfo = new HCNetSDK.NET_DVR_DEVICEINFO_V30();
 
             //string ip=ConfigurationManager.AppSettings.Get("device_ip");
 
 
-            m_lUserID = CHCNetSDK.NET_DVR_Login_V30(Properties.Settings.Default.device_ip, Properties.Settings.Default.device_port, Properties.Settings.Default.device_admin, Properties.Settings.Default.device_pwd, ref DeviceInfo);
+            m_lUserID = HCNetSDK.NET_DVR_Login_V30(Properties.Settings.Default.device_ip, Properties.Settings.Default.device_port, Properties.Settings.Default.device_admin, Properties.Settings.Default.device_pwd, ref DeviceInfo);
             if (m_lUserID < 0)
             {
-                iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+                iLastErr = HCNetSDK.NET_DVR_GetLastError();
                 str = "NET_DVR_Login_V30 failed, error code= " + iLastErr; //µÇÂ¼Ê§°Ü£¬Êä³ö´íÎóºÅ
                 MessageBoxAdv.Show(this, str, "", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -181,18 +181,18 @@ namespace TMS_Gate.Forms
         {
             if (m_lRealHandle >= 0)
             {
-                CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
+                HCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle);
                 m_lRealHandle = -1;
             }
 
 
             if (m_lUserID >= 0)
             {
-                CHCNetSDK.NET_DVR_Logout(m_lUserID);
+                HCNetSDK.NET_DVR_Logout(m_lUserID);
                 m_lUserID = -1;
             }
 
-            CHCNetSDK.NET_DVR_Cleanup();
+            HCNetSDK.NET_DVR_Cleanup();
 
 
             var p = this.Parent as Panel;
@@ -214,43 +214,40 @@ namespace TMS_Gate.Forms
 
             if (m_lRealHandle < 0)
             {
-                CHCNetSDK.NET_DVR_PREVIEWINFO lpPreviewInfo = new CHCNetSDK.NET_DVR_PREVIEWINFO();
-                lpPreviewInfo.hPlayWnd = RealPlayWnd.Handle;//Ô¤ÀÀ´°¿Ú
-                lpPreviewInfo.lChannel = 1;//Ô¤teÀÀµÄÉè±¸Í¨µÀ
-                lpPreviewInfo.dwStreamType = 0;//ÂëÁ÷ÀàÐÍ£º0-Ö÷ÂëÁ÷£¬1-×ÓÂëÁ÷£¬2-ÂëÁ÷3£¬3-ÂëÁ÷4£¬ÒÔ´ËÀàÍÆ
-                lpPreviewInfo.dwLinkMode = 0;//Á¬½Ó·½Ê½£º0- TCP·½Ê½£¬1- UDP·½Ê½£¬2- ¶à²¥·½Ê½£¬3- RTP·½Ê½£¬4-RTP/RTSP£¬5-RSTP/HTTP 
-                lpPreviewInfo.bBlocked = true; //0- ·Ç×èÈûÈ¡Á÷£¬1- ×èÈûÈ¡Á÷
-                lpPreviewInfo.dwDisplayBufNum = 1; //²¥·Å¿â²¥·Å»º³åÇø×î´ó»º³åÖ¡Êý
+                HCNetSDK.NET_DVR_PREVIEWINFO lpPreviewInfo = new HCNetSDK.NET_DVR_PREVIEWINFO();
+                lpPreviewInfo.hPlayWnd = RealPlayWnd.Handle;
+                lpPreviewInfo.lChannel = 1;
+                lpPreviewInfo.dwStreamType = 0;
+                lpPreviewInfo.dwLinkMode = 0;
+                lpPreviewInfo.bBlocked = true;
+                lpPreviewInfo.dwDisplayBufNum = 1;
                 lpPreviewInfo.byProtoType = 0;
                 lpPreviewInfo.byPreviewMode = 0;
                 if (RealData == null)
                 {
-                    RealData = new CHCNetSDK.REALDATACALLBACK(RealDataCallBack);//Ô¤ÀÀÊµÊ±Á÷»Øµ÷º¯Êý
+                    RealData = new HCNetSDK.REALDATACALLBACK(RealDataCallBack);
                 }
 
-                IntPtr pUser = new IntPtr();//ÓÃ»§Êý¾Ý
+                IntPtr pUser = new IntPtr();
 
-                //´ò¿ªÔ¤ÀÀ Start live view 
-                m_lRealHandle = CHCNetSDK.NET_DVR_RealPlay_V40(m_lUserID, ref lpPreviewInfo, null/*RealData*/, pUser);
+                m_lRealHandle = HCNetSDK.NET_DVR_RealPlay_V40(m_lUserID, ref lpPreviewInfo, null/*RealData*/, pUser);
                 if (m_lRealHandle < 0)
                 {
-                    iLastErr = CHCNetSDK.NET_DVR_GetLastError();
-                    str = "NET_DVR_RealPlay_V40 failed, error code= " + iLastErr; //Ô¤ÀÀÊ§°Ü£¬Êä³ö´íÎóºÅ
+                    iLastErr = HCNetSDK.NET_DVR_GetLastError();
+                    str = "NET_DVR_RealPlay_V40 failed, error code= " + iLastErr;
                     MessageBoxAdv.Show(this, str, "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
                 else
                 {
-                    //Ô¤ÀÀ³É¹¦
                     btnPreview.Text = "Stop View";
                 }
             }
             else
             {
-                //Í£Ö¹Ô¤ÀÀ Stop live view 
-                if (!CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
+                if (!HCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
                 {
-                    iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+                    iLastErr = HCNetSDK.NET_DVR_GetLastError();
                     str = "NET_DVR_StopRealPlay failed, error code= " + iLastErr;
                     MessageBoxAdv.Show(this, str, "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
@@ -265,19 +262,17 @@ namespace TMS_Gate.Forms
         {
             BtnDisable();
             string sJpegPicFileName;
-            //Í¼Æ¬±£´æÂ·¾¶ºÍÎÄ¼þÃû the path and file name to save
             sJpegPicFileName = "JPEG_test" + count + ".jpg";
 
-            int lChannel = 1; //Í¨µÀºÅ Channel number
+            int lChannel = 1;
 
-            CHCNetSDK.NET_DVR_JPEGPARA lpJpegPara = new CHCNetSDK.NET_DVR_JPEGPARA();
-            lpJpegPara.wPicQuality = 2; //Í¼ÏñÖÊÁ¿ Image quality
-            lpJpegPara.wPicSize = 2; //×¥Í¼·Ö±æÂÊ Picture size: 2- 4CIF£¬0xff- Auto(Ê¹ÓÃµ±Ç°ÂëÁ÷·Ö±æÂÊ)£¬×¥Í¼·Ö±æÂÊÐèÒªÉè±¸Ö§³Ö£¬¸ü¶àÈ¡ÖµÇë²Î¿¼SDKÎÄµµ
+            HCNetSDK.NET_DVR_JPEGPARA lpJpegPara = new HCNetSDK.NET_DVR_JPEGPARA();
+            lpJpegPara.wPicQuality = 2;
+            lpJpegPara.wPicSize = 2;
 
-            ////JPEG×¥Í¼ Capture a JPEG picture
-            if (!CHCNetSDK.NET_DVR_CaptureJPEGPicture(m_lUserID, lChannel, ref lpJpegPara, sJpegPicFileName))
+            if (!HCNetSDK.NET_DVR_CaptureJPEGPicture(m_lUserID, lChannel, ref lpJpegPara, sJpegPicFileName))
             {
-                iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+                iLastErr = HCNetSDK.NET_DVR_GetLastError();
                 str = "NET_DVR_CaptureJPEGPicture failed, error code= " + iLastErr;
                 MessageBoxAdv.Show(this, str, "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -285,14 +280,13 @@ namespace TMS_Gate.Forms
             else
             {
                 count++;
-                //str = "Successful to capture the JPEG file and the saved file is " + sJpegPicFileName;
                 MessageBoxAdv.Show(this, "Successful to capture the JPEG file!", "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
 
-            if (!CHCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
+            if (!HCNetSDK.NET_DVR_StopRealPlay(m_lRealHandle))
             {
-                iLastErr = CHCNetSDK.NET_DVR_GetLastError();
+                iLastErr = HCNetSDK.NET_DVR_GetLastError();
                 str = "NET_DVR_StopRealPlay failed, error code= " + iLastErr;
                 MessageBoxAdv.Show(this, str, "Gate In", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;

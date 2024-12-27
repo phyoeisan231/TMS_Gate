@@ -288,6 +288,7 @@
       <DependentUpon>FrmMain.cs</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
+    <Compile Include="HCNetSDK.cs" />
     <Compile Include="Models\CustomPostedFile.cs" />
     <Compile Include="Models\ICD_InBoundCheck.cs" />
     <Compile Include="Models\ICD_OutBoundCheck.cs" />

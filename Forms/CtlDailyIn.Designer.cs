@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System;
-using TMS_Gate.Model;
+using TMS_Gate.Models;
 using TMS_Gate.Services;
 using Syncfusion.WinForms.DataGrid;
 using Syncfusion.Data;
