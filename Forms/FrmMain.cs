@@ -59,8 +59,8 @@ namespace TMS_Gate.Forms
         private void truckInToolStripMenuItem_Click(object sender, EventArgs e)
         {
             panelMain.Controls.Clear();
-            var ctl = new CtlTruck() { Dock = DockStyle.Fill };
-            //var ctl = new CtlTruckIn() { Dock = DockStyle.Fill };
+            //var ctl = new CtlTruck() { Dock = DockStyle.Fill };
+            var ctl = new CtlTruckIn() { Dock = DockStyle.Fill };
 
             panelMain.Controls.Add(ctl);
         }
