@@ -48,8 +48,14 @@ namespace TMS_Gate.Services
                 {
                     // Create the multipart content
                     var formData = new MultipartFormDataContent();
-
-                    // Add the file
+                    if (inGate.TruckType != "RGL")
+                    {
+                        if (inGate.UploadPhoto == null) // Assuming `UploadPhoto` is the property for IFormFile
+                        {
+                            msg.MessageContent = "Please take a photo!";
+                            return msg;
+                        }
+                    }
                     if (inGate.UploadPhoto != null) // Assuming `UploadPhoto` is the property for IFormFile
                     {
                         var stream = inGate.UploadPhoto.InputStream;
@@ -58,11 +64,6 @@ namespace TMS_Gate.Services
 
                         // Add the file content to the form data
                         formData.Add(fileContent, "UploadPhoto", inGate.UploadPhoto.FileName);
-                    }
-                    else
-                    {
-                        msg.MessageContent = "Please take a photo!";
-                        return msg;
                     }
                     // Add other properties as form fields
                     formData.Add(new StringContent(inGate.InRegNo.ToString()?? string.Empty), "InRegNo");
@@ -128,8 +129,14 @@ namespace TMS_Gate.Services
                 {
                     // Create the multipart content
                     var formData = new MultipartFormDataContent();
-
-                    // Add the file
+                    if (inGate.TruckType != "RGL")
+                    {
+                        if (inGate.UploadPhoto == null) // Assuming `UploadPhoto` is the property for IFormFile
+                        {
+                            msg.MessageContent = "Please take a photo!";
+                            return msg;
+                        }
+                    }
                     if (inGate.UploadPhoto != null) // Assuming `UploadPhoto` is the property for IFormFile
                     {
                         var stream = inGate.UploadPhoto.InputStream;
@@ -138,11 +145,6 @@ namespace TMS_Gate.Services
 
                         // Add the file content to the form data
                         formData.Add(fileContent, "UploadPhoto", inGate.UploadPhoto.FileName);
-                    }
-                    else
-                    {
-                        msg.MessageContent = "Please take a photo!";
-                        return msg;
                     }
                     // Add other properties as form fields
                     formData.Add(new StringContent(inGate.InRegNo.ToString() ?? string.Empty), "InRegNo");
